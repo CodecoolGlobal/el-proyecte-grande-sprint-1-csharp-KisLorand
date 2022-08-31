@@ -16,5 +16,12 @@ namespace Badcamp.Services
             _users.Add(user);
         }
 
+        public IReadOnlyList<User> GetUsers()
+        {
+            return _users.AsReadOnly();
+        }
+
+        
+
     }
 }
