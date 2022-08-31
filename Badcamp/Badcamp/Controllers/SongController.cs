@@ -30,5 +30,21 @@ namespace Badcamp.Controllers
             List<Song>? response = _storage.GetAllSongs();
             return Ok(response);
         }
+
+        [HttpDelete]
+        [Route("{songID}/delete")]
+        public ActionResult DeleteSong([FromRoute] Guid songID)
+        {
+            _storage.DeleteSong(songID);
+            return Ok();
+        }
+
+        [HttpPut]
+        [Route("{songID}/update")]
+        public ActionResult UpdateSong([FromRoute] Guid songID, [FromBody] Song song)
+        {
+            _storage.UpdateSong(song);
+            return Ok();
+        }
     }
 }

@@ -18,5 +18,17 @@
             _title = "1234";
             _source = "ghfdvjzck";
         }
+
+        public void UpdateSong(Song song)
+        {
+            if (_title != song.Title)
+            {
+                _title = song.Title;
+            }
+            if (_source != song.Source)
+            {
+                _source = song.Source;
+            }
+        }
     }
 }

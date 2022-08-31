@@ -37,5 +37,27 @@ namespace Badcamp.Services
             }
             return null;
         }
+
+        public void DeleteSong(Guid songID)
+        {
+            foreach (var song in _storage)
+            {
+                if (song.SongID == songID)
+                {
+                    _storage.Remove(song);
+                    break;
+                }
+            }
+        }
+        public void UpdateSong(Song song)
+        {
+            foreach (var currentSong in _storage)
+            {
+                if (currentSong.SongID == song.SongID)
+                {
+                    song.UpdateSong(song);
+                }
+            }
+        }
     }
 }
