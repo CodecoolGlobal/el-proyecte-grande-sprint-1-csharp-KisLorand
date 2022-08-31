@@ -22,7 +22,8 @@ namespace Badcamp
                     Id = i,
                     Name = i.ToString() + "zoli",
                     ProfilePicture = i.ToString() + "imageRoute",
-                    UserId = i + 2
+                    UserId = i + 2,
+                    ArtistGenre = Genre.Rap
                 };
                 _artists.Add(artist);
             }
@@ -50,14 +51,14 @@ namespace Badcamp
             _artists.Remove(artist);
         }
 
-        public IList<ArtistModel> GetAllArtists()
+        public IList<ArtistModel> GetArtists()
         {
             return new List<ArtistModel>(_artists);
         }
 
         public ArtistModel GetArtist(int id)
         {
-            return _artists.Where(x => x.Id == id).FirstOrDefault();
+            return _artists.FirstOrDefault(a => a.Id == id);
         }
 
     }
