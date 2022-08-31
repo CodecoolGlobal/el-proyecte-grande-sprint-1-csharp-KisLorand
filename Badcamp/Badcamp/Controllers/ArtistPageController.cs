@@ -23,16 +23,17 @@ namespace Badcamp.Controllers
 		}
 
 		[HttpGet("{id}")]
-		public ActionResult<ArtistModel> GetOneArtist(int id)
+		public ActionResult<ArtistModel> GetOneArtist([FromRoute] int id)
 		{
 			ArtistModel artist = _artistPageService.GetOne(id);
 			return Ok(artist);
 		}
 
 		[HttpPost]
-		public ActionResult<ArtistModel> Add()
+		public ActionResult<ArtistModel> AddArtist([FromBody] ArtistModel newArtist)
 		{
-			return Ok("Echo");
+			ArtistModel addedArtist = _artistPageService.Add(newArtist);
+			return Ok(addedArtist);
 		}
 	}
 }

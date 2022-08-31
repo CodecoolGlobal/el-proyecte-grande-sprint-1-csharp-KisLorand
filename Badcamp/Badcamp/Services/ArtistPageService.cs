@@ -12,7 +12,7 @@ namespace Badcamp.Services
 			_artistStorage = storage;
 		}
 
-		public ArtistModel GetOne([FromRoute] int id)
+		public ArtistModel GetOne(int id)
 		{ 
 			return _artistStorage.GetArtist(id);
 		}
@@ -22,7 +22,7 @@ namespace Badcamp.Services
 			return _artistStorage.GetArtists();
 		}
 
-		public ArtistModel Add(ArtistModel artist)
+		public ArtistModel Add([FromBody] ArtistModel artist)
 		{
 			throw new NotImplementedException();
 		}
