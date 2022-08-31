@@ -1,3 +1,4 @@
+using Badcamp;
 using Badcamp.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,6 +10,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<EventService>();
+builder.Services.AddSingleton<ArtistStorage>();
 
 var app = builder.Build();
 
