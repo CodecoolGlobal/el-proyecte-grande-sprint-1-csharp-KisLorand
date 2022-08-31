@@ -9,6 +9,7 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+// change to scoped when no longer inmemory
 builder.Services.AddSingleton<ISongStorage, SongStorage>();
 
 var app = builder.Build();
