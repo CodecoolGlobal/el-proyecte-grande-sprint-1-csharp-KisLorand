@@ -12,7 +12,7 @@ namespace Badcamp.Services
 			_artistStorage = storage;
 		}
 
-		public ActionResult<ArtistModel> GetOne()
+		public ActionResult<ArtistModel> GetOne(int id)
 		{ 
 			throw new NotImplementedException();
 		}
@@ -21,6 +21,7 @@ namespace Badcamp.Services
 		{
 			throw new NotImplementedException();
 		}
+
 		public void Add(ArtistModel artist)
 		{
 			throw new NotImplementedException();
