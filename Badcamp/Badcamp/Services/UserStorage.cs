@@ -9,6 +9,7 @@ namespace Badcamp.Services
         public UserStorage()
         {
             _users = new List<User>();
+            _users.Add(new User(1, "testName", "testPassword"));
         }
 
         public void AddUser(User user)
