@@ -1,8 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
+using Badcamp.Models;
 
 namespace Badcamp.Controllers
 {
-	[ApiController]
+    [ApiController]
 	[Route("[controller]")]
 	public class WeatherForecastController : ControllerBase
 	{
@@ -30,4 +31,5 @@ namespace Badcamp.Controllers
 			.ToArray();
 		}
 	}
+
 }
