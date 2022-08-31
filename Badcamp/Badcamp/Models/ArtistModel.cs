@@ -7,5 +7,7 @@
 		public int UserId { get; set; }
 		public string Description { get; set; }
 		public string ProfilePicture { get; set; }
+
+		public Genre ArtistGenre { get; set; }
 	}
 }
