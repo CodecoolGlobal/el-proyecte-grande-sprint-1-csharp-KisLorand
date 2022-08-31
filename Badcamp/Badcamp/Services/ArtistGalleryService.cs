@@ -1,4 +1,6 @@
-﻿namespace Badcamp.Services
+﻿using Badcamp.Models;
+
+namespace Badcamp.Services
 {
     public class ArtistGalleryService
     {
@@ -7,6 +9,11 @@
         public ArtistGalleryService(ArtistStorage artistStorage)
         {
             _artistStorage = artistStorage;
+        }
+
+        public IList<ArtistModel> FilterArtistsByGenre(Genre genre)
+        {
+            return _artistStorage.GetAllArtists().Where(a => a.ArtistGenre == genre).ToList();
         }
     }
 }
