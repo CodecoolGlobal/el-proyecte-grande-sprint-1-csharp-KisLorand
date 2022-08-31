@@ -23,5 +23,21 @@ namespace Badcamp.Controllers
             Event createdEvent = _eventService.CreateEvent(artistId, newEvent);
             return Ok(createdEvent);
         }
+
+        [Route("{artistId}/GetEventsByArtist")]
+        [HttpGet]
+        public ActionResult<List<Event>> GetEventsByArtist(int artistId)
+        {
+            List<Event> eventList = _eventService.GetEventByArtist(artistId);
+            return Ok(eventList);
+        }
+
+        [Route("GetEvents")]
+        [HttpGet]
+        public ActionResult<List<Event>> GetEvents(int artistId)
+        {
+            List<Event> eventList = _eventService.Storage;
+            return Ok(eventList);
+        }
     }
 }
