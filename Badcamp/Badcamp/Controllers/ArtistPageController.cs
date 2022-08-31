@@ -30,10 +30,10 @@ namespace Badcamp.Controllers
 		}
 
 		[HttpPost]
-		public ActionResult<ArtistModel> AddArtist([FromBody] ArtistModel newArtist)
+		public ActionResult<IList<ArtistModel>> AddArtist([FromBody] ArtistModel newArtist)
 		{
 			ArtistModel addedArtist = _artistPageService.Add(newArtist);
-			return Ok(addedArtist);
+			return Ok(_artistPageService.GetAll());
 		}
 	}
 }

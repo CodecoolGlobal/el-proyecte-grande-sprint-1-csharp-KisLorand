@@ -24,7 +24,8 @@ namespace Badcamp.Services
 
 		public ArtistModel Add([FromBody] ArtistModel artist)
 		{
-			throw new NotImplementedException();
+			_artistStorage.AddArtist(artist);
+			return artist;
 		}
 	}
 }
