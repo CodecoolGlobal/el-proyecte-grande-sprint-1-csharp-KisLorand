@@ -1,4 +1,5 @@
-﻿using Badcamp.Services;
+﻿using Badcamp.Models;
+using Badcamp.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,20 +10,20 @@ namespace Badcamp.Controllers
 	public class ArtistPageController : ControllerBase
 	{
 		[HttpGet]
-		public ActionResult<string> GetAllArtists()
+		public ActionResult<IList<ArtistModel>> GetAllArtists()
 		{
 			//var artists = ArtistPageService.GetAll();
 			return Ok("Echo");
 		}
 
 		[HttpGet("{id}")]
-		public ActionResult<string> GetOne(int id)
+		public ActionResult<ArtistModel> GetOne(int id)
 		{
 			return Ok("Echo");
 		}
 
 		[HttpPost]
-		public ActionResult<string> Add()
+		public ActionResult<ArtistModel> Add()
 		{
 			return Ok("Echo");
 		}
