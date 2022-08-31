@@ -23,7 +23,7 @@ namespace Badcamp.Controllers
 		}
 
 		[HttpGet("{id}")]
-		public ActionResult<ArtistModel> GetOne(int id)
+		public ActionResult<ArtistModel> GetOneArtist(int id)
 		{
 			ArtistModel artist = _artistPageService.GetOne(id);
 			return Ok(artist);
