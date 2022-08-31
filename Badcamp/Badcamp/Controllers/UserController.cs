@@ -22,6 +22,12 @@ namespace Badcamp.Controllers
             return _userStorage.GetUsers();
         }
 
+        [HttpGet("/GetUser/{userName}")]
+        public User GetUser([FromRoute] string userName)
+        {
+            return _userStorage.GetUser(userName);
+        }
+
         [HttpPost("/RegisterUser")]
         public void RegisterUser([FromBody] User newUser)
         {
