@@ -10,17 +10,17 @@ namespace Badcamp.Controllers
     [ApiController]
     public class EventController : ControllerBase
     {
-        private EventStorage eventStorage;
-        public EventController(EventStorage storage)
+        private EventService _eventService;
+        public EventController(EventService service)
         {
-            eventStorage = storage;
+            _eventService = service;
         }
 
         [Route("{artistId}/Create")]
         [HttpPost]
         public ActionResult<Event> CreateNewEvent([FromRoute]int artistId, [FromBody] Event newEvent)
         {
-            Event createdEvent = eventStorage.CreateEvent(artistId, newEvent);
+            Event createdEvent = _eventService.CreateEvent(artistId, newEvent);
             return Ok(createdEvent);
         }
     }
