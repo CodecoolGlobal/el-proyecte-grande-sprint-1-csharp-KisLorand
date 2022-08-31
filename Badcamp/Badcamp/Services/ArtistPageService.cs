@@ -17,9 +17,9 @@ namespace Badcamp.Services
 			throw new NotImplementedException();
 		}
 
-		public ActionResult<IEnumerable<ArtistModel>> GetAll()
+		public IList<ArtistModel> GetAll()
 		{
-			throw new NotImplementedException();
+			return _artistStorage.GetAllArtists();
 		}
 
 		public void Add(ArtistModel artist)

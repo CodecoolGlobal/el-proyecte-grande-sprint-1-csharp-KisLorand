@@ -1,3 +1,4 @@
+using Badcamp;
 using Badcamp.Services;
 
 var builder = WebApplication.CreateBuilder(args);

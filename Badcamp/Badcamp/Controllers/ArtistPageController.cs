@@ -11,11 +11,11 @@ namespace Badcamp.Controllers
 		[HttpGet]
 		public ActionResult<string> GetAllArtists()
 		{
-			var artists = ArtistPageService.GetAll();
+			//var artists = ArtistPageService.GetAll();
 			return Ok("Echo");
 		}
 
-		[HttpGet]
+		[HttpGet("{id}")]
 		public ActionResult<string> GetOne(int id)
 		{
 			return Ok("Echo");
