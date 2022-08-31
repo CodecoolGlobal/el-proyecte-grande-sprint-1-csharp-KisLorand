@@ -20,8 +20,8 @@ namespace Badcamp.Controllers
         [HttpPost]
         public ActionResult<Event> CreateNewEvent([FromRoute]int artistId, [FromBody] Event newEvent)
         {
-            var createdEvent = eventStorage.CreateEvent(artistId, newEvent);
-            return Ok("Echo");
+            Event createdEvent = eventStorage.CreateEvent(artistId, newEvent);
+            return Ok(createdEvent);
         }
     }
 }
