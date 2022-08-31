@@ -9,7 +9,7 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddSingleton<EventStorage>();
+builder.Services.AddSingleton<EventService>();
 builder.Services.AddSingleton<ArtistStorage>();
 
 var app = builder.Build();
