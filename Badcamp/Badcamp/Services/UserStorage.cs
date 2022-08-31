@@ -22,6 +22,17 @@ namespace Badcamp.Services
             return _users.AsReadOnly();
         }
 
+        public User GetUser(string userName)
+        {
+            foreach (var user in _users)
+            {
+                if (user.Username == userName)
+                    return user;
+            }
+
+            throw new Exception("No such user");
+        }
+
         public void UpdateUserPassword(string userName, string newPassword)
         {
             foreach (var user in _users)
