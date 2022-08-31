@@ -28,5 +28,18 @@ namespace Badcamp.Services
             Storage.Add(newEvent);
             return newEvent;
         }
+
+        public List<Event> GetEventByArtist(int artistId)
+        {
+            List<Event> eventsByArtist = new List<Event>();
+            foreach (Event @event in Storage)
+            {
+                if (@event.ArtistId == artistId)
+                {
+                    eventsByArtist.Add(@event);
+                }
+            }
+            return eventsByArtist;
+        }
     }
 }
