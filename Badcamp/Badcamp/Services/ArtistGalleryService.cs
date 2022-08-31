@@ -15,5 +15,16 @@ namespace Badcamp.Services
         {
             return _artistStorage.GetAllArtists().Where(a => a.ArtistGenre == genre).ToList();
         }
+
+        public ArtistModel GetArtistById(int id)
+        {
+            return _artistStorage.GetArtist(id);
+        }
+
+        public IList<ArtistModel> GetAllArtists()
+        {
+            return _artistStorage.GetArtists();
+        }
+
     }
 }

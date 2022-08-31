@@ -51,7 +51,7 @@ namespace Badcamp
             _artists.Remove(artist);
         }
 
-        public IList<ArtistModel> GetAllArtists()
+        public IList<ArtistModel> GetArtists()
         {
             return new List<ArtistModel>(_artists);
         }
