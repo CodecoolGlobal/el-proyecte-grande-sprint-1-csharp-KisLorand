@@ -9,11 +9,17 @@ namespace Badcamp.Controllers
 	[ApiController]
 	public class ArtistPageController : ControllerBase
 	{
+		private ArtistPageService _artistPageService;
+		public ArtistPageController(ArtistPageService artistPageservice)
+		{
+			_artistPageService = artistPageservice;
+		}
+
 		[HttpGet]
 		public ActionResult<IList<ArtistModel>> GetAllArtists()
 		{
-			//var artists = ArtistPageService.GetAll();
-			return Ok("Echo");
+			var artists = _artistPageService.GetAll();
+			return Ok(artists);
 		}
 
 		[HttpGet("{id}")]
