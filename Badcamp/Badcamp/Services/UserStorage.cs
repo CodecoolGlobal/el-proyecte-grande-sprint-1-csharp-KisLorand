@@ -21,6 +21,17 @@ namespace Badcamp.Services
             return _users.AsReadOnly();
         }
 
+        public void UpdateUserPassword(string userName, string newPassword)
+        {
+            foreach (var user in _users)
+            {
+                if (user.Username == userName)
+                {
+                    user.Password = newPassword;
+                }
+            }
+        }
+
         
 
     }
