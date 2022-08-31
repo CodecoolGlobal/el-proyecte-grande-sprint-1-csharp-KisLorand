@@ -3,11 +3,11 @@ using Badcamp.Models;
 
 namespace Badcamp.Services
 {
-    public class EventStorage
+    public class EventService
     {
         public List<Event> Storage;
 
-        public EventStorage()
+        public EventService()
         {
             Storage = new List<Event>();
             Event newEvent = new Event(0, 0, "Concert", "Let's meet there!!");
@@ -27,6 +27,19 @@ namespace Badcamp.Services
             
             Storage.Add(newEvent);
             return newEvent;
+        }
+
+        public List<Event> GetEventByArtist(int artistId)
+        {
+            List<Event> eventsByArtist = new List<Event>();
+            foreach (Event @event in Storage)
+            {
+                if (@event.ArtistId == artistId)
+                {
+                    eventsByArtist.Add(@event);
+                }
+            }
+            return eventsByArtist;
         }
     }
 }
