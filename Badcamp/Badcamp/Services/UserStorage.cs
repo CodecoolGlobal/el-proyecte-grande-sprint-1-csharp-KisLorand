@@ -11,5 +11,10 @@ namespace Badcamp.Services
             _users = new List<User>();
         }
 
+        public void AddUser(User user)
+        {
+            _users.Add(user);
+        }
+
     }
 }
