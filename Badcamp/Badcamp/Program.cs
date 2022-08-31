@@ -1,5 +1,6 @@
 using Badcamp;
 using Badcamp.Services;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +12,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<EventService>();
 builder.Services.AddSingleton<ArtistStorage>();
+builder.Services.AddScoped<ArtistPageService>();
 
 var app = builder.Build();
 
