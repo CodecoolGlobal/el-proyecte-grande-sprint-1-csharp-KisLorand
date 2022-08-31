@@ -22,7 +22,8 @@ namespace Badcamp
                     Id = i,
                     Name = i.ToString() + "zoli",
                     ProfilePicture = i.ToString() + "imageRoute",
-                    UserId = i + 2
+                    UserId = i + 2,
+                    ArtistGenre = Genre.Rap
                 };
                 _artists.Add(artist);
             }
