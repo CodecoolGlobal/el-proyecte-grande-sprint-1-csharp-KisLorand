@@ -58,7 +58,7 @@ namespace Badcamp
 
         public ArtistModel GetArtist(int id)
         {
-            return _artists.Where(x => x.Id == id).FirstOrDefault();
+            return _artists.FirstOrDefault(a => a.Id == id);
         }
 
     }
