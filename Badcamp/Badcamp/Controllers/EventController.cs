@@ -18,7 +18,7 @@ namespace Badcamp.Controllers
 
         [Route("{artistId}/Create")]
         [HttpPost]
-        public ActionResult<Event> CreateNewEvent([FromRoute]int artistId, [FromBody] Event newEvent)
+        public ActionResult<Event> CreateNewEvent(int artistId, [FromBody] Event newEvent)
         {
             Event createdEvent = _eventService.CreateEvent(artistId, newEvent);
             return Ok(createdEvent);
@@ -41,14 +41,14 @@ namespace Badcamp.Controllers
         }
 
         [Route("{artistId}/DeleteEvent/{eventId}")]
-        [HttpPut]
+        [HttpDelete]
         public ActionResult<List<Event>> DeleteEvent(int artistId, int eventId)
         {
             List<Event> events = _eventService.DeleteEvent(artistId, eventId);
             return Ok(events);
         }
         [Route("{artistId}/UpdateEvent/{eventId}")]
-        [HttpDelete]
+        [HttpPut]
         public ActionResult<List<Event>> UpdateEvent(int artistId, int eventId, [FromBody] Event eventUpdate)
         {
             List<Event> events = _eventService.UpdateEvent(artistId, eventId, eventUpdate);
