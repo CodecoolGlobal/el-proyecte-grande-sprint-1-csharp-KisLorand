@@ -56,5 +56,18 @@ namespace Badcamp.Services
 
             return GetEventByArtist(artistId);
         }
+
+        internal List<Event> UpdateEvent(int artistId, int eventId, Event eventUpdate)
+        {
+            foreach(Event @event in Storage)
+            {
+                if(@event.Id == eventId)
+                {
+                    @event.Title = eventUpdate.Title;
+                    @event.Description = eventUpdate.Description;
+                }
+            }
+            return GetEventByArtist(artistId);
+        }
     }
 }
