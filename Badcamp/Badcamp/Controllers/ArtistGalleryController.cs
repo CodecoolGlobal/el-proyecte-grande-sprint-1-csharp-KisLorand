@@ -22,10 +22,10 @@ namespace Badcamp.Controllers
         }
 
         [HttpGet()]
-        [Route("SearchArtist/{id}")]
-        public ArtistModel SearchArtist([FromRoute] int id)
+        [Route("SearchArtistByName/{name}")]
+        public ArtistModel SearchArtist([FromRoute] string name)
         {
-            return _artistGalleryService.GetArtistById(id);
+            return _artistGalleryService.GetArtistByName(name);
         }
 
         [HttpGet]
