@@ -19,13 +19,13 @@ namespace Badcamp.Controllers
         [HttpGet("/GetUsers")]
         public IEnumerable<User> GetAllUsers()
         {
-            return _userStorage.GetUsers();
+            return _userStorage.GetAllUsers();
         }
 
         [HttpGet("/GetUser/{userName}")]
         public User GetUser([FromRoute] string userName)
         {
-            return _userStorage.GetUser(userName);
+            return _userStorage.GetUserByName(userName);
         }
 
         [HttpPost("/RegisterUser")]
@@ -34,17 +34,11 @@ namespace Badcamp.Controllers
             _userStorage.AddUser(newUser);
         }
 
-        [HttpPut("/UpdatePassword/{userName}")]
-        public void UpdateUser([FromRoute] string userName, [FromBody] User user)
+        [HttpPut("/UpdateUser/{userName}")]
+        public void UpdateUser([FromRoute] string userName, [FromBody] User updatedUser)
         {
-            _userStorage.UpdateUserPassword(userName, user.Password);
+            _userStorage.UpdateUserData(userName, updatedUser);
         }
-
-
-
-
-
-
 
     }
 }
