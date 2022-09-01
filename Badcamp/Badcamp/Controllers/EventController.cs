@@ -18,7 +18,7 @@ namespace Badcamp.Controllers
 
         [Route("{artistId}/Create")]
         [HttpPost]
-        public ActionResult<Event> CreateNewEvent([FromRoute]int artistId, [FromBody] Event newEvent)
+        public ActionResult<Event> CreateNewEvent(int artistId, [FromBody] Event newEvent)
         {
             Event createdEvent = _eventService.CreateEvent(artistId, newEvent);
             return Ok(createdEvent);
@@ -34,10 +34,25 @@ namespace Badcamp.Controllers
 
         [Route("GetEvents")]
         [HttpGet]
-        public ActionResult<List<Event>> GetEvents(int artistId)
+        public ActionResult<List<Event>> GetEvents()
         {
             List<Event> eventList = _eventService.Storage;
             return Ok(eventList);
+        }
+
+        [Route("{artistId}/DeleteEvent/{eventId}")]
+        [HttpDelete]
+        public ActionResult<List<Event>> DeleteEvent(int artistId, int eventId)
+        {
+            List<Event> events = _eventService.DeleteEvent(artistId, eventId);
+            return Ok(events);
+        }
+        [Route("{artistId}/UpdateEvent/{eventId}")]
+        [HttpPut]
+        public ActionResult<List<Event>> UpdateEvent(int artistId, int eventId, [FromBody] Event eventUpdate)
+        {
+            List<Event> events = _eventService.UpdateEvent(artistId, eventId, eventUpdate);
+            return Ok(events);
         }
     }
 }
