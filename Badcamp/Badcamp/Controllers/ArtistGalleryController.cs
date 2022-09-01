@@ -21,14 +21,16 @@ namespace Badcamp.Controllers
             return _artistGalleryService.GetAllArtists();
         }
 
-        [HttpGet("{id}")]
-        public ArtistModel SearchArtist([FromQuery] int id)
+        [HttpGet()]
+        [Route("SearchArtist/{id}")]
+        public ArtistModel SearchArtist([FromRoute] int id)
         {
             return _artistGalleryService.GetArtistById(id);
         }
 
-        [HttpGet("{genre}")]
-        public IList<ArtistModel> FilterArtistByGenre([FromQuery] Genre genre)
+        [HttpGet]
+        [Route("FilterArtistByGenre/{genre}")]
+        public IList<ArtistModel> FilterArtistByGenre([FromRoute] Genre genre)
         {
             return _artistGalleryService.FilterArtistsByGenre(genre);
         }
