@@ -41,5 +41,20 @@ namespace Badcamp.Services
             }
             return eventsByArtist;
         }
+
+        public List<Event> DeleteEvent(int eventId)
+        {
+            int artistId = 0;
+            foreach (Event @event in Storage)
+            {
+                if (@event.Id == eventId)
+                {
+                    artistId = @event.ArtistId;
+                    Storage.Remove(@event);
+                }
+            }
+
+            return GetEventByArtist(artistId);
+        }
     }
 }
