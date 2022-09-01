@@ -35,5 +35,12 @@ namespace Badcamp.Controllers
 			ArtistModel addedArtist = _artistPageService.Add(newArtist);
 			return Ok(_artistPageService.GetAll());
 		}
+
+		[HttpPut("{id}")]
+		public ActionResult<ArtistModel> UpdateArtist([FromRoute] int id, [FromBody] ArtistModel newArtistData)
+		{
+			ArtistModel updatedArtist = _artistPageService.Update(id, newArtistData);
+			return Ok(updatedArtist);
+		}
 	}
 }
