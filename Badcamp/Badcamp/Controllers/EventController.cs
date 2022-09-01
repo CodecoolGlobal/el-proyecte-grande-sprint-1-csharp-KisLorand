@@ -34,10 +34,18 @@ namespace Badcamp.Controllers
 
         [Route("GetEvents")]
         [HttpGet]
-        public ActionResult<List<Event>> GetEvents(int artistId)
+        public ActionResult<List<Event>> GetEvents()
         {
             List<Event> eventList = _eventService.Storage;
             return Ok(eventList);
+        }
+
+        [Route("{artistId}/DeleteEvent/{eventId}")]
+        [HttpDelete]
+        public ActionResult<List<Event>> DeleteEvent(int artistId, int eventId)
+        {
+            List<Event> events = _eventService.DeleteEvent(artistId, eventId);
+            return Ok(events);
         }
     }
 }
