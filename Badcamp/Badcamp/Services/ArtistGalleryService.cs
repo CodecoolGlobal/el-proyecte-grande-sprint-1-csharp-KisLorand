@@ -26,5 +26,11 @@ namespace Badcamp.Services
             return _artistStorage.GetArtists();
         }
 
+        public ArtistModel GetArtistByName(string name)
+        {
+            return _artistStorage.GetArtists().SingleOrDefault(a => a.Name == name);
+
+        }
+
     }
 }
