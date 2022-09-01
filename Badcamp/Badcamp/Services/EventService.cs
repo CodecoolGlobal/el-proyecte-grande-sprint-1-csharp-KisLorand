@@ -44,13 +44,13 @@ namespace Badcamp.Services
 
         public List<Event> DeleteEvent(int artistId, int eventId)
         {
-           
-            foreach (Event @event in Storage)
+            
+            for (int i=0; i<=Storage.Count; i++)
             {
-                if (@event.Id == eventId)
+                if (Storage[i].Id == eventId)
                 {
-  
-                    Storage.Remove(@event);
+                Storage.Remove(Storage[i]);
+                    break;
                 }
             }
 
