@@ -49,9 +49,9 @@ namespace Badcamp.Controllers
         }
         [Route("{artistId}/UpdateEvent/{eventId}")]
         [HttpDelete]
-        public ActionResult<List<Event>> UpdateEvent(int artistId, int eventId)
+        public ActionResult<List<Event>> UpdateEvent(int artistId, int eventId, [FromBody] Event eventUpdate)
         {
-            List<Event> events = _eventService.UpdateEvent(artistId, eventId);
+            List<Event> events = _eventService.UpdateEvent(artistId, eventId, eventUpdate);
             return Ok(events);
         }
     }
