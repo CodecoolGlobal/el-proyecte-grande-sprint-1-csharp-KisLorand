@@ -27,6 +27,12 @@ namespace Badcamp.Controllers
             return _artistGalleryService.GetArtistById(id);
         }
 
+        [HttpGet("/FilterArtistByGenre/{genre}")]
+        public IList<ArtistModel> FilterArtistByGenre([FromQuery] Genre genre)
+        {
+            return _artistGalleryService.FilterArtistsByGenre(genre);
+        }
+
  
     }
 }
