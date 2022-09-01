@@ -1,4 +1,5 @@
-﻿using Badcamp.Models;
+﻿using System.Reflection.Metadata.Ecma335;
+using Badcamp.Models;
 
 namespace Badcamp.Services
 {
@@ -9,20 +10,21 @@ namespace Badcamp.Services
         public UserStorage()
         {
             _users = new List<User>();
-            _users.Add(new User(1, "testName", "testPassword"));
+            _users.Add(new User("testName", "testPassword", new DateTime(1999,12,11), "Damn Son"));
         }
 
         public void AddUser(User user)
         {
+            user.Id = _users.Count;
             _users.Add(user);
         }
 
-        public IReadOnlyList<User> GetUsers()
+        public IReadOnlyList<User> GetAllUsers()
         {
             return _users.AsReadOnly();
         }
 
-        public User GetUser(string userName)
+        public User GetUserByName(string userName)
         {
             foreach (var user in _users)
             {
@@ -30,21 +32,19 @@ namespace Badcamp.Services
                     return user;
             }
 
-            throw new Exception("No such user");
+            throw new Exception("Given user does not exist!");
         }
 
-        public void UpdateUserPassword(string userName, string newPassword)
+        public void UpdateUserData(string userName, User updatedUser)
         {
             foreach (var user in _users)
             {
-                if (user.Username == userName)
-                {
-                    user.Password = newPassword;
-                }
+                if (user.Username != userName) continue;
+                user.Username = updatedUser.Username;
+                user.FullName = updatedUser.FullName;
+                user.Password = updatedUser.Password;
             }
         }
-
-        
 
     }
 }
