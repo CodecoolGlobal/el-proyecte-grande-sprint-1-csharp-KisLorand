@@ -6,7 +6,8 @@ namespace Badcamp.Services.Interfaces
     {
         public Song GetSong(Guid songID);
         public List<Song> GetAllSongs();
-        public void DeleteSong(Guid songID);
-        public void UpdateSong(Song song);
+        public List<Song> DeleteSong(Song song);
+        public Song UpdateSong(Song song);
+        public Song CreateSong(string title);
     }
 }
