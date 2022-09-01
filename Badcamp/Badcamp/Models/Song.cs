@@ -5,18 +5,18 @@
         private Guid _songID;
         private Guid _artistID;
         private string _title;
-        private string _source;
+        private Guid _source;
 
         public Guid SongID => _songID;
         public Guid ArtistID => _artistID;
         public string Title => _title;
-        public string Source => _source;
-        public Song()
+        public Guid Source => _source;
+        public Song(string title)
         {
             _songID = Guid.NewGuid();
             _artistID = Guid.NewGuid();
-            _title = "1234";
-            _source = "ghfdvjzck";
+            _title = title;
+            _source = Guid.NewGuid();
         }
 
         public void UpdateSong(Song song)
