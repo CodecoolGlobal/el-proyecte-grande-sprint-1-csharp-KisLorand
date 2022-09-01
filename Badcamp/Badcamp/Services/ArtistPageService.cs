@@ -12,19 +12,20 @@ namespace Badcamp.Services
 			_artistStorage = storage;
 		}
 
-		public ActionResult<ArtistModel> GetOne(int id)
+		public ArtistModel GetOne(int id)
 		{ 
-			throw new NotImplementedException();
+			return _artistStorage.GetArtist(id);
 		}
 
 		public IList<ArtistModel> GetAll()
 		{
-			return _artistStorage.GetAllArtists();
+			return _artistStorage.GetArtists();
 		}
 
-		public void Add(ArtistModel artist)
+		public ArtistModel Add([FromBody] ArtistModel artist)
 		{
-			throw new NotImplementedException();
+			_artistStorage.AddArtist(artist);
+			return artist;
 		}
 	}
 }
