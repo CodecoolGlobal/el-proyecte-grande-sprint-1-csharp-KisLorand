@@ -28,14 +28,19 @@ namespace Badcamp.Services
 			return artist;
 		}
 
-		public ArtistModel Update(int id, [FromBody] ArtistModel artist)
+		public ArtistModel Update([FromRoute] int id, [FromBody] ArtistModel newArtistData)
 		{
 			ArtistModel updatedArtist = _artistStorage.GetArtist(id);
-			updatedArtist.Name = artist.Name;
-			updatedArtist.Description = artist.Description;
-			updatedArtist.ArtistGenre = artist.ArtistGenre;
-			updatedArtist.ProfilePicture = artist.ProfilePicture;
+			UpdateArtistData(newArtistData, updatedArtist);
 			return updatedArtist;
+		}
+
+		private void UpdateArtistData(ArtistModel newArtistData, ArtistModel updatedArtist)
+		{
+			updatedArtist.Name = newArtistData.Name;
+			updatedArtist.Description = newArtistData.Description;
+			updatedArtist.ArtistGenre = newArtistData.ArtistGenre;
+			updatedArtist.ProfilePicture = newArtistData.ProfilePicture;
 		}
 	}
 }
