@@ -18,6 +18,7 @@ builder.Services.AddSingleton<UserStorage>();
 builder.Services.AddSingleton<EventService>();
 builder.Services.AddSingleton<ArtistStorage>();
 builder.Services.AddScoped<ArtistPageService>();
+builder.Services.AddScoped<ArtistGalleryService>();
 
 var app = builder.Build();
 
