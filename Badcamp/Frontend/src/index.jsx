@@ -15,10 +15,10 @@ root.render(
           <Route index element={<Home />}></Route>
           <Route path='ArtistListing' element={<ArtistListing />}></Route>
 
-        </Route>
-      </Routes>
-    </BrowserRouter>
-  </React.StrictMode>
+                </Route>
+            </Routes>
+        </BrowserRouter>
+    </React.StrictMode>
 );
 
 
