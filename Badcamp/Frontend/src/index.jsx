@@ -5,6 +5,7 @@ import './index.css';
 import App from './App';
 import Home from './components/Home';
 import EventPage from './components/eventComponents/EventPage';
+import SongListing from './components/songComponents/SongListing';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -14,6 +15,7 @@ root.render(
         <Route path='/' element={<App />}>
           <Route index element={<Home />}></Route>
           <Route exact path='/events' element={<EventPage />}></Route>
+          <Route exact path='/songs' element={<SongListing />}></Route>
         </Route>
       </Routes>
     </BrowserRouter>
