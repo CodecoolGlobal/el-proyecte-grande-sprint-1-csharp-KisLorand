@@ -23,14 +23,25 @@ body {
     font-size: 1rem;
     border-color: #000000;
     border-radius: 5px;
+    box-shadow: 2px 2px 5px #000;
+    outline: none;
 }
 
 button {
-    width: 100%;
-    min-height: 48px;
+    width: 10%;
+    min-height: 30px;
     margin-top: 0.5rem;
     font-size: 1rem;
     border-radius: 0.25rem;
     box-shadow: 2px 2px 5px #000;
     padding: 0.25rem;
 }
+
+    button:hover {
+        background-color: lightgrey;
+    }
+
+    button:active {
+        background-color: lightgrey;
+        transform: translateY(4px);
+    }
