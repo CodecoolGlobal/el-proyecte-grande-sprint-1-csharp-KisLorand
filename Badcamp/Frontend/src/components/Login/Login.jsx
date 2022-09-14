@@ -1,7 +1,7 @@
 import './Login.css';
 import LoginForm from './LoginForm';
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 
@@ -11,29 +11,32 @@ const Login = () => {
     const [error, setError] = useState(null);
     const redirect = useNavigate();
 
-    const userDatabase = [
-        {
-            id: 1,
-            username: "test",
-            password: "test"
-        },
-        {
-            id: 2,
-            username: "someone",
-            password: "pw"
-        },
-        {
-            id: 3,
-            username: "someone else",
-            password: "123"
+    const apiUrl = "http://localhost:3500/users";
+    const [users, setUsers] = useState([]);
+
+    useEffect(() => {
+        const fetchItems = async () => {
+            try {
+                const response = await fetch(apiUrl);
+                if (!response.ok) throw Error('Did not receive expected data!');
+                const listUsers = await response.json();
+                setUsers(listUsers);
+            } catch (err) {
+                console.log(err.message);
+            } 
         }
-    ];
+
+        fetchItems();
+        
+
+    }, []);
+
 
 const handleSubmit = (e) => {
     e.preventDefault();
 
     var { username, password } = document.forms[0];
-    var userData = userDatabase.find((user) => user.username === username.value);
+    var userData = users.find((user) => user.username === username.value);
 
     if (userData) {
         if (userData.password !== password.value) {
@@ -54,7 +57,6 @@ const handleSubmit = (e) => {
             <LoginForm
                 handleSubmit={handleSubmit}
                 errorMessage={error}
-
             />
         </div>
     );
