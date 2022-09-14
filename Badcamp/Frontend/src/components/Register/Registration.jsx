@@ -1,37 +1,55 @@
 import './Register.css';
 import RegistrationForm from './RegistrationForm';
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import apiRequest from './apiRequest';
+
 
 const Registration = () => {
 
     const [error, setError] = useState(null);
     const redirect = useNavigate();
 
-    const userData = [
-        {
-            id: 1,
-            username: "test",
-            password: "test"
-        },
-        {
-            id: 2,
-            username: "someone",
-            password: "pw"
-        },
-        {
-            id: 3,
-            username: "someone else",
-            password: "123"
-        }
-    ];
+    const apiUrl = "http://localhost:3500/users";
+    const [users, setUsers] = useState([]);
+    const [fetchError, setFetchError] = useState(null);
 
-    const addUser = (username, password) => {
-        const id = userData.length ? userData[userData.length - 1].id + 1 : 1;
+    useEffect(() => {
+        const fetchItems = async () => {
+            try {
+                const response = await fetch(apiUrl);
+                if (!response.ok) throw Error('Did not receive expected data!');
+                const listUsers = await response.json();
+                setUsers(listUsers);
+            } catch (err) {
+                setFetchError(err.message);
+            }
+        }
+
+        fetchItems();
+
+
+    }, []);
+
+
+    const addUser = async (username, password) => {
+        const id = users.length ? users[users.length - 1].id + 1 : 1;
         const newUser = { id, username, password };
-        userData.push(newUser);
-        console.log(userData);
+        const userList = [...users, newUser];
+        setUsers(userList);
+
+        const postOptions = {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify(newUser)
+        }
+
+        const result = await apiRequest(apiUrl, postOptions);
+        if (result) setFetchError(result);
+
         redirect('/');
     }
 
