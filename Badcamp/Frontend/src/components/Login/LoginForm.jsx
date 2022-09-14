@@ -4,7 +4,6 @@ const LoginForm = ({ handleSubmit, errorMessage }) => {
         <form onSubmit={handleSubmit}>
             <label htmlFor="username">Username</label><br />
             <input
-                className="input"
                 id="username"
                 placeholder="Enter username"
                 type="text"
@@ -17,7 +16,6 @@ const LoginForm = ({ handleSubmit, errorMessage }) => {
 
             <label htmlFor="password">Password</label><br />
             <input
-                className="input"
                 id="password"
                 placeholder="Enter password"
                 type="password"
@@ -26,7 +24,7 @@ const LoginForm = ({ handleSubmit, errorMessage }) => {
             /><br /><br />
 
             <button type="submit">Submit</button><br /><br />
-            {errorMessage ? <p style={{color: "red"}}>{errorMessage}</p> : null}
+            {errorMessage ? <p style={{ color: "red" }}>{errorMessage}</p> : null}
         </form>
     );
 }
