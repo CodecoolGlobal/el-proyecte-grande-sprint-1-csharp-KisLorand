@@ -12,20 +12,20 @@ body {
 }
 
 .Login {
-    margin-left: 45%;
-    margin-top: 10%;
+    margin-left: 700px;
+    margin-top: 200px;
 }
 
-.input {
-    margin-top: 0.5rem;
-    padding: 0.25rem;
-    width: 15%;
-    font-size: 1rem;
-    border-color: #000000;
-    border-radius: 5px;
-    box-shadow: 2px 2px 5px #000;
-    outline: none;
-}
+    .Login input {
+        margin-top: 0.5rem;
+        padding: 0.25rem;
+        width: 200px;
+        font-size: 1rem;
+        border-color: #000000;
+        border-radius: 5px;
+        box-shadow: 2px 2px 5px #000;
+        outline: none;
+    }
 
 button {
     width: 10%;
