@@ -8,8 +8,8 @@ import apiRequest from '../../requests/apiRequest';
 const EventPage = (props) => {
     const [events, setEvents] = useState(null)
     const [artist, setArtist] = useState(null); 
-    const url1 = "http://localhost:3500/event";
-    const url2 = "http://localhost:3500/artist";
+    const url1 = "http://localhost:3000/events";
+    const url2 = "http://localhost:3000/artists";
     useEffect(() => {
         apiRequest(url1, [events, setEvents]);
         apiRequest(url2, [artist, setArtist]);
