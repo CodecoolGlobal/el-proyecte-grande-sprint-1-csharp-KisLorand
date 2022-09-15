@@ -7,7 +7,6 @@ const ArtistCard = ({ artist, descLength }) => {
   const cardStyle = { width: "16rem", margin: "2rem 1rem", display: "inline-block" }
   const cardGrow = () =>{
     const cards = document.querySelectorAll('.card')
-    console.log(cards)
   }
   return (
     <Card
