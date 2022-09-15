@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './index.css';
 import App from './App';
 import Home from './components/Home';
+import ArtistPage from './components/artistPage/ArtistPage';
 import EventPage from './components/eventComponents/EventPage';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
