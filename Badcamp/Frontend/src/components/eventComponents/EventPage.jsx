@@ -13,7 +13,10 @@ const EventPage = (props) => {
     useEffect(() => {
         apiRequest(url1, [events, setEvents]);
         apiRequest(url2, [artist, setArtist]);
-      }, [props.eventId, props.artistId]);
+      }, []);
+      
+      console.log(artist)
+      console.log(events)
   return (
     (events === null || artist === null) ? 
     <p>"Loading..."</p> : 
@@ -23,7 +26,7 @@ const EventPage = (props) => {
                     <Event 
                         key={item.id}
                         item={item}
-                        artistName ={artist.map((artist) => {return(artist.artistId === item.artistId ? artist.artistName : "")})}
+                        artistName ={artist.map((artist) => {return(artist.id === item.artistId ? artist.name : "")})}
 
                         />
                         

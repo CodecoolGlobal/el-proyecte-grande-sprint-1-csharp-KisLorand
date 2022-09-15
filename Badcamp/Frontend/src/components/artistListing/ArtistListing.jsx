@@ -4,7 +4,7 @@ import apiRequest from "../../requests/apiRequest";
 import ALContainer from "./ALContainer";
 
 const ArtistListing = () => {
-  const API_URL = "http://localhost:3500/artists";
+  const API_URL = "http://localhost:3000/artists";
   const [searchValue, setSearchValue] = useState("");
   const [filterValue, setFilterValue] = useState("");
   const [artists, setArtist] = useState([]);
