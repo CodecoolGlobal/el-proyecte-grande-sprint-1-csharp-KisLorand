@@ -19,23 +19,24 @@ const ArtistListing = () => {
       } else {
         const data = await response.json();
         setArtist(data);
+        SetFilteredGenres(data)
         setIsLoading(false);
         console.log(data)
-        setGenres(() => SetFilteredGenres());
         console.log(genres)
       }
     };
     getData();
   }, []);
 
-  const SetFilteredGenres = () => {
+  const SetFilteredGenres = (artists) => {
     const singleGenres = [];
+    console.log(artists)
     artists.map((artist) =>
       artist.genres.forEach((genre) => {
         if (!singleGenres.includes(genre)) singleGenres.push(genre);
       })
     );
-    return singleGenres;
+    setGenres(singleGenres);
   };
 
   return isLoading ? (

@@ -17,18 +17,18 @@ body {
     margin-top: 200px;
 }
 
-    .Register input {
-        margin-top: 0.5rem;
-        padding: 0.25rem;
-        width: 200px;
-        font-size: 1rem;
-        border-color: #000000;
-        border-radius: 5px;
-        box-shadow: 2px 2px 5px #000;
-        outline: none;
-    }
+.Register input {
+    margin-top: 0.5rem;
+    padding: 0.25rem;
+    width: 200px;
+    font-size: 1rem;
+    border-color: #000000;
+    border-radius: 5px;
+    box-shadow: 2px 2px 5px #000;
+    outline: none;
+}
 
-button {
+.custom-btn {
     width: 80px;
     min-height: 30px;
     margin-top: 0.5rem;
@@ -38,11 +38,11 @@ button {
     padding: 0.25rem;
 }
 
-    button:hover {
-        background-color: lightgrey;
-    }
+.custom-btn:hover {
+    background-color: lightgrey;
+}
 
-    button:active {
-        background-color: lightgrey;
-        transform: translateY(4px);
-    }
+.custom-btn:active {
+    background-color: lightgrey;
+    transform: translateY(4px);
+}
