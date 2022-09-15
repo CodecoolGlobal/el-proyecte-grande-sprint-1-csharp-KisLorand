@@ -3,12 +3,14 @@
 /data
 
 # dependencies
+/data
 /node_modules
 /.pnp
 .pnp.js
 
 # testing
 /coverage
+/data
 
 # production
 /build
