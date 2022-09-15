@@ -16,7 +16,10 @@ root.render(
                 <Route path='/' element={<App />}>
                     <Route index element={<Home />}></Route>
                     <Route exact path='/events' element={<EventPage />}></Route>
-                    <Route path="user" element={<UserPage />} />
+                    <Route path="user">
+                        <Route path=":id" element={<UserPage
+                        />} />
+                    </Route>
                 </Route>
             </Routes>
         </BrowserRouter>
