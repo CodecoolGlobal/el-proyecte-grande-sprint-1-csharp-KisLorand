@@ -1,13 +1,12 @@
 import React from 'react';
 
 const ArtistPicture = (props) => {
-    return (
-    <div></div>
-    //<img src={
-    //    require("./public/favicon.ico").default
-    //} alt="profile picture"
-    //    height={props.height}>
-    //</img>
+  return (
+    <img src={
+        props.artistProfilePicture
+    } alt="profile picture"
+        height={props.height}>
+    </img>
   )
 };
 
