@@ -19,10 +19,10 @@ const ArtistListing = () => {
       } else {
         const data = await response.json();
         setArtist(data);
-        SetFilteredGenres(data)
+        SetFilteredGenres(data);
         setIsLoading(false);
-        console.log(data)
-        console.log(genres)
+        console.log(data);
+        console.log(genres);
       }
     };
     getData();
@@ -30,7 +30,7 @@ const ArtistListing = () => {
 
   const SetFilteredGenres = (artists) => {
     const singleGenres = [];
-    console.log(artists)
+    console.log(artists);
     artists.map((artist) =>
       artist.genres.forEach((genre) => {
         if (!singleGenres.includes(genre)) singleGenres.push(genre);
@@ -44,13 +44,17 @@ const ArtistListing = () => {
   ) : (
     <div>
       <ALContainer
-        artists={artists.filter(
-          (artist) =>
-            artist.name
-              .toLowerCase()
-              .includes(searchValue.toLocaleLowerCase()) &&
-            artist.genres.includes(filterValue)
-        )}
+        artists={
+          filterValue !== ""
+            ? artists.filter(
+                (artist) =>
+                  artist.name
+                    .toLowerCase()
+                    .includes(searchValue.toLocaleLowerCase()) &&
+                  artist.genres.includes(filterValue)
+              )
+            : artists
+        }
         setArtists={setArtist}
         searchValue={searchValue}
         setSearchValue={setSearchValue}
