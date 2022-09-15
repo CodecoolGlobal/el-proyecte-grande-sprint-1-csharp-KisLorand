@@ -9,9 +9,11 @@ import ArtistPicture from './ArtistPicture';
 const ArtistPage = (props) => {
   const [artist, setArtist] = useState(null); 
   const url = "http://localhost:3000/artist";
+
   useEffect(() => {
     apiRequest(url, [artist, setArtist]);
   }, [props.artistId]);
+  
   //const {asd, setAsd} = useContext(RequestContext);
   return (
     artist === null ? 
