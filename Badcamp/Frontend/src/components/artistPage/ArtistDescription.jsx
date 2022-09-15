@@ -1,9 +1,9 @@
 import React from 'react';
 
-const ArtistDescription = () => {
+const ArtistDescription = (props) => {
   return (
     <div>
-      
+      {props.artistDesc}
     </div>
   )
 };
