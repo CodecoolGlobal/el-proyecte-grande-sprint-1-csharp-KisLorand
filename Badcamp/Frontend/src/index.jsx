@@ -7,6 +7,7 @@ import Home from './components/Home';
 import ArtistListing from './components/artistListing/ArtistListing';
 import ArtistPage from './components/artistPage/ArtistPage';
 import EventPage from './components/eventComponents/EventPage';
+import SongListing from './components/songComponents/SongListing';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -14,9 +15,10 @@ root.render(
     <BrowserRouter>
       <Routes>
         <Route path='/' element={<App />}>
-          <Route index element={<Home />}></Route>
-          <Route exact path='/events' element={<EventPage />}></Route>
-          <Route exact path='/artistpage' element={<ArtistPage artistId={1}/>}></Route>
+          <Route index element={<Home />} element={<SongListing />}></Route>
+          <Route path='SongListing' element={<SongListing />}></Route>
+          <Route exact path='events' element={<EventPage />}></Route>
+          <Route exact path='artistpage' element={<ArtistPage artistId={1}/>}></Route>
           <Route path='ArtistListing' element={<ArtistListing />}></Route>
         </Route>
       </Routes>
