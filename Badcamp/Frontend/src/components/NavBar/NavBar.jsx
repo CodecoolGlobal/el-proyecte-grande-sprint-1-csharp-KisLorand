@@ -10,10 +10,10 @@ const NavBar = () => {
                 <li><Link to="/">Home</Link></li>
                 <li><Link to="login">Login</Link></li>
                 <li><Link to="/">Artists</Link></li>
-                <li><Link to="user">Users</Link></li>
+                <li><Link to="user/1">Users</Link></li>
                 <li><Link to="/">Register</Link></li>
-                <li><Link to="/">Logout</Link></li>
-                <li><Link to="/events">Events</Link></li>
+                <li><Link to="register">Logout</Link></li>
+                <li><Link to="events">Events</Link></li>
             </ul>
         </nav>
     );
