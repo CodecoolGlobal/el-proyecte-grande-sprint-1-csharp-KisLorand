@@ -4,7 +4,7 @@ import SongSearch from "./SongSearch.jsx";
 
 
 
-const SongContainer = ({ songs, setSongs, searchValue, setSearchValue }) => {
+const SongContainer = ({ songs, setSongs, artists, searchValue, setSearchValue }) => {
 
     return (
         <main className="container">

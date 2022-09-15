@@ -1,41 +1,27 @@
 import React from 'react'
-import { useState } from 'react'
+import { useState, useEffect, useContext } from 'react';
 import SongContainer from './SongContainer';
 import apiRequest from '../../requests/apiRequest';
 
-const SongListing = () => {
+const SongListing = (props) => {
     const [searchValue, setSearchValue] = useState("");
-    const [songs, setSongs] = useState([
-        {
-            id: 0,
-            artistId: 0,
-            albumId: 0,
-            albumName: "Walking with Strangers",
-            artistName: "Birthday Massacre",
-            title: "Red Stars",
-            releaseDate: "2007",
-            description: "Red Stars by Birthday Massacre",
-            lyrics: "It's my red star (steal it) It's my red star (cant let go) It's my red star (conceal it) It's my red star Oh, no"
-        },
-        {
-            id: 1,
-            artistId: 0,
-            albumId: 0,
-            albumName: "Walking with Strangers",
-            artistName: "Birthday Massacre",
-            title: "Looking Glass",
-            releaseDate: "2007",
-            description: "Looking Glass by Birthday Massacre",
-            lyrics: "It's a glass cage so I can't pretend You hide beneath the physical I see it coming but I can't defend You cut so deep, my belief is gone My belief is gone, my belief is"
-        }
-    ]);
+    const [songs, setSongs] = useState(null)
+    const [artist, setArtists] = useState(null);
+    const url1 = "http://localhost:3001/songs";
+    const url2 = "http://localhost:3001/artist";
+    useEffect(() => {
+        apiRequest(url1, [songs, setSongs]);
+        apiRequest(url2, [artist, setArtists]);
+    },[props.songId]);
 
     return (
+        (songs === null) ? <p> Loading... </p> :
         <div>
             <SongContainer
                 songs={songs.filter((song) =>
                     song.title.toLowerCase().includes(searchValue.toLocaleLowerCase())
                 )}
+                artists={setArtists}
                 setSongs={setSongs}
                 searchValue={searchValue}
                 setSearchValue={setSearchValue}
