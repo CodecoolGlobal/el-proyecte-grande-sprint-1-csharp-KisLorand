@@ -11,19 +11,18 @@ body {
     -moz-osx-font-smoothing: grayscale;
 }
 
+.logo {
+    width: 100px;
+    margin-right: 100px;
+    margin-left: 60px;
+}
+
 .Nav {
     width: 100%;
     background-color: #333;
     display: flex;
     justify-content: flex-start;
     align-items: flex-start;
-}
-
-.logo {
-    font-size: 50px;
-    background-color: orangered;
-    margin-right: 100px;
-    margin-left: 60px;
 }
 
 .Nav ul {
@@ -36,7 +35,7 @@ body {
 
 .Nav li {
     font-size: 20px;
-    padding: 1rem;
+    padding:1rem;
 }
 
 .Nav li:hover,

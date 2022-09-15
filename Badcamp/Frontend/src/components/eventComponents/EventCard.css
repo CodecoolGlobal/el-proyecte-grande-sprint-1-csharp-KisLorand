@@ -1,0 +1,11 @@
+.eventCard{
+    margin-left: auto;
+    margin-right: auto;
+    border: 2px;
+}
+.upVote{
+    text-align: right;
+}
+.upVote-img{
+    height: 2rem;
+}
