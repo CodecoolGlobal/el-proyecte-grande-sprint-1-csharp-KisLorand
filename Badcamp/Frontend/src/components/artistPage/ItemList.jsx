@@ -1,9 +1,9 @@
 import React from 'react'
 
-const ItemList = (listProps) => {
+const ItemList = ({listData}) => {
   return (
     <ul>
-        {listProps.items.map((item) => <li>{item}</li>)}
+        {listData.map((item, index) => <li key={index}>{item.id}</li>)}
     </ul>
   )
 }

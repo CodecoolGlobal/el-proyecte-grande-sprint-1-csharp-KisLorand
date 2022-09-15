@@ -27,7 +27,7 @@ const ArtistPage = (props) => {
     const url = (selectSong ? urlSongs : urlEvents)
     apiRequest(url, [listData, setListData]);
   }, [selectSong]);
-
+  console.log(listData)
   if (artist === null || listData == null) {
     return (
       <p>"Loading..."</p>
@@ -39,9 +39,11 @@ const ArtistPage = (props) => {
         <ArtistPicture artistProfilePicture={artist[0].profilePicture} height={250} />
         <ArtistDescription artistDesc={artist[0].description}/>
         <ToggleButton toggle={[selectSong, setSelectSong]}/>
-        <ItemList items={
-          selectSong ? listData : (listData.map((data) => (<Event item={data} />)))
-          } />
+        <ItemList 
+        listData={listData}
+          // selectSong ? listData : (listData.map((data) => (<Event key={data.id} item={data} />)))
+          // } 
+          />
     </div>
     );
   };
