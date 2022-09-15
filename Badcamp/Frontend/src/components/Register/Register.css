@@ -14,7 +14,7 @@ body {
 
 .Register {
     margin-left: 700px;
-    margin-top: 200px;
+    margin-top: 50px;
 }
 
 .Register input {
@@ -45,4 +45,8 @@ body {
 .custom-btn:active {
     background-color: lightgrey;
     transform: translateY(4px);
+}
+
+.Register input::placeholder {
+    color: red;
 }
