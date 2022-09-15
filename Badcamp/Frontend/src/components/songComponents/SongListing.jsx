@@ -7,8 +7,8 @@ const SongListing = (props) => {
     const [searchValue, setSearchValue] = useState("");
     const [songs, setSongs] = useState(null)
     const [artist, setArtists] = useState(null);
-    const url1 = "http://localhost:3001/songs";
-    const url2 = "http://localhost:3001/artist";
+    const url1 = "http://localhost:3000/songs";
+    const url2 = "http://localhost:3000/artists";
     useEffect(() => {
         apiRequest(url1, [songs, setSongs]);
         apiRequest(url2, [artist, setArtists]);

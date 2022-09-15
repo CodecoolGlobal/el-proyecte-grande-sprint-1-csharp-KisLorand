@@ -4,7 +4,7 @@ import apiRequest from "../../requests/apiRequest";
 import ALContainer from "./ALContainer";
 
 const ArtistListing = () => {
-  const API_URL = "http://localhost:3500/artists";
+  const API_URL = "http://localhost:3000/artists";
   const [searchValue, setSearchValue] = useState("");
   const [filterValue, setFilterValue] = useState("");
   const [artists, setArtist] = useState([]);
@@ -19,23 +19,24 @@ const ArtistListing = () => {
       } else {
         const data = await response.json();
         setArtist(data);
+        SetFilteredGenres(data)
         setIsLoading(false);
         console.log(data)
-        setGenres(() => SetFilteredGenres());
         console.log(genres)
       }
     };
     getData();
   }, []);
 
-  const SetFilteredGenres = () => {
+  const SetFilteredGenres = (artists) => {
     const singleGenres = [];
+    console.log(artists)
     artists.map((artist) =>
       artist.genres.forEach((genre) => {
         if (!singleGenres.includes(genre)) singleGenres.push(genre);
       })
     );
-    return singleGenres;
+    setGenres(singleGenres);
   };
 
   return isLoading ? (

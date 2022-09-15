@@ -23,7 +23,7 @@ const RegistrationForm = ( { handleSubmit }) => {
                 required
             /><br /><br />
 
-            <button type="submit">Register</button><br /><br />
+            <button className="custom-btn" type="submit">Register</button><br /><br />
 {/*            {errorMessage ? <p style={{ color: "red" }}>{errorMessage}</p> : null}*/}
         </form>
     );

@@ -23,7 +23,7 @@ const LoginForm = ({ handleSubmit, errorMessage }) => {
                 required
             /><br /><br />
 
-            <button type="submit">Submit</button><br /><br />
+            <button className="custom-btn" type="submit">Submit</button><br /><br />
             {errorMessage ? <p style={{ color: "red" }}>{errorMessage}</p> : null}
         </form>
     );

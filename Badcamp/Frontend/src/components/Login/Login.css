@@ -27,7 +27,7 @@ body {
         outline: none;
     }
 
-button {
+    .custom-btn {
     width: 10%;
     min-height: 30px;
     margin-top: 0.5rem;
@@ -37,11 +37,11 @@ button {
     padding: 0.25rem;
 }
 
-    button:hover {
+.custom-btn:hover {
         background-color: lightgrey;
     }
 
-    button:active {
+.custom-btn:active {
         background-color: lightgrey;
         transform: translateY(4px);
     }
