@@ -10,7 +10,7 @@ import { RequestContext } from '../../requests/requestContext';
 
 const ArtistPage = (props) => {
   const [artist, setArtist] = useState(null); 
-  const [songs, setSongs] = useState(null); 
+  const [listData, setListData] = useState(null); 
   const [selectSong, setSelectSong] = useState(true);
 
   const urlArtists = "http://localhost:3000/artist";
@@ -19,15 +19,15 @@ const ArtistPage = (props) => {
   
   useEffect(() => {
     apiRequest(urlArtists, [artist, setArtist]);
-    apiRequest(urlSongs, [songs, setSongs])
+    apiRequest(urlSongs, [listData, setListData])
   }, [props.artistId]);
 
   useEffect(() => {
     const url = (selectSong ? urlSongs : urlEvents)
-    apiRequest(url, [songs, setSongs]);
+    apiRequest(url, [listData, setListData]);
   }, [selectSong]);
 
-  if (artist === null || songs == null) {
+  if (artist === null || listData == null) {
     return (
       <p>"Loading..."</p>
     );
@@ -38,7 +38,7 @@ const ArtistPage = (props) => {
         <ArtistPicture artistProfilePicture={artist[0].profilePicture} height={250} />
         <ArtistDescription artistDesc={artist[0].description}/>
         <ToggleButton toggle={[selectSong, setSelectSong]}/>
-        <ItemList items={songs} />
+        <ItemList items={listData} />
     </div>
     );
   };
