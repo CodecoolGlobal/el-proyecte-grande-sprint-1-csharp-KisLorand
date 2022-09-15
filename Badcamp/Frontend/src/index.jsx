@@ -5,6 +5,8 @@ import './index.css';
 import App from './App';
 import Home from './components/Home';
 import ArtistListing from './components/artistListing/ArtistListing';
+import ArtistPage from './components/artistPage/ArtistPage';
+import EventPage from './components/eventComponents/EventPage';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -13,12 +15,13 @@ root.render(
       <Routes>
         <Route path='/' element={<App />}>
           <Route index element={<Home />}></Route>
+          <Route exact path='/events' element={<EventPage />}></Route>
+          <Route exact path='/artistpage' element={<ArtistPage artistId={1}/>}></Route>
           <Route path='ArtistListing' element={<ArtistListing />}></Route>
-
-                </Route>
-            </Routes>
-        </BrowserRouter>
-    </React.StrictMode>
+        </Route>
+      </Routes>
+    </BrowserRouter>
+  </React.StrictMode>
 );
 
 
