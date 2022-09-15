@@ -3,6 +3,7 @@ import Card from 'react-bootstrap/Card';
 
 
 
+
 const Event = ({item}) => {
   return (
     <Card style={{ width: '18rem' }}>
