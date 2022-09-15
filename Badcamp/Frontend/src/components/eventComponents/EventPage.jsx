@@ -12,23 +12,22 @@ const EventPage = (props) => {
     const url2 = "http://localhost:3500/artist";
     useEffect(() => {
         apiRequest(url1, [events, setEvents]);
-      }, [props.artistId]);
-      useEffect(() => {
         apiRequest(url2, [artist, setArtist]);
-      }, [props.artistId]);
-
+      }, [props.eventId, props.artistId]);
   return (
-    events === null ? 
+    (events === null || artist === null) ? 
     <p>"Loading..."</p> : 
     <div>
-      
         {events.map((item) => {
-            return(
-                <Event 
-                    key={item.id}
-                    item={item}/>
-            )
-        })}
+                return(
+                    <Event 
+                        key={item.id}
+                        item={item}
+                        artistName ={artist.map((artist) => {return(artist.artistId === item.artistId ? artist.artistName : "")})}
+
+                        />
+        )})}
+            
       
     </div>
   )
