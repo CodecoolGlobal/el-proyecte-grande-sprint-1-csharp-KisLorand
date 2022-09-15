@@ -6,7 +6,7 @@ import { useParams } from 'react-router-dom';
 const UserPage = () => {
 
     const { id } = useParams();
-    const apiUrl = "http://localhost:3500/users";
+    const apiUrl = "http://localhost:3000/users";
     const [items, setItems] = useState([]);
     const [fetchError, setFetchError] = useState(null);
 
