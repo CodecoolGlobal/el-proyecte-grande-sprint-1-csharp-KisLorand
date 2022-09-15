@@ -14,7 +14,7 @@ const ArtistPage = (props) => {
   const [listData, setListData] = useState(null); 
   const [selectSong, setSelectSong] = useState(true);
 
-  const urlArtists = "http://localhost:3000/artist";
+  const urlArtists = "http://localhost:3000/artists";
   const urlSongs = "http://localhost:3000/songs";
   const urlEvents = "http://localhost:3000/events";
   
