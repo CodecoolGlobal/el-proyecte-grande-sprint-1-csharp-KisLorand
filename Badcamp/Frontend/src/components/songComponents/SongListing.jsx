@@ -1,6 +1,8 @@
 import React from 'react'
 import { useState } from 'react'
 import SongCard from './SongCard'
+import Container from 'react-bootstrap/Container';
+
 
 
 
@@ -29,16 +31,16 @@ const SongListing = () => {
             "lyrics": "It's a glass cage so I can't pretend You hide beneath the physical I see it coming but I can't defend You cut so deep, my belief is gone My belief is gone, my belief is"        }
     ])
     return (
-        <div class="song-listing">
+        <Container fluid>
             {songs.map((song) => {
                 return (
                     <SongCard
                         key={song.id}
-                        song={song} />
+                        song={song}/>
                 )
             })}
-        </div>
-    )
+        </Container>
+    );
 }
 
 export default SongListing

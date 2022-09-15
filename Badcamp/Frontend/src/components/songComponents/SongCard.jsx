@@ -1,15 +1,17 @@
 import React from 'react'
+import Card from 'react-bootstrap/Card';
 
 
 const SongCard = ({ song }) => {
     return (
-        <div className="card-div">
-            <h2 className="song-title">{song.title}</h2>
-            <p className='song-artist'>{song.artistName}</p>
-            <p className='song-album'>{song.albumName}</p>
-            <p className='song-releaseDate'>{song.releaseDate}</p>
-        </div>
-    )
+        <Card style={{ width: '18rem' }}>
+            <Card.Body>
+                <Card.Header>{song.artistName}</Card.Header>
+                <Card.Title>{song.title}</Card.Title>
+                <Card.Subtitle className="mb-2 text-muted">{song.albumName}</Card.Subtitle>
+            </Card.Body>
+        </Card>
+    );
 }
 
 export default SongCard
