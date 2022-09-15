@@ -5,6 +5,7 @@ import ArtistDescription from './ArtistDescription';
 import ArtistPicture from './ArtistPicture';
 import ItemList from './ItemList';
 import ToggleButton from './ToggleButton';
+import Event from '../eventComponents/Event';
 import apiRequest from '../../requests/apiRequest';
 import { RequestContext } from '../../requests/requestContext';
 
@@ -38,7 +39,9 @@ const ArtistPage = (props) => {
         <ArtistPicture artistProfilePicture={artist[0].profilePicture} height={250} />
         <ArtistDescription artistDesc={artist[0].description}/>
         <ToggleButton toggle={[selectSong, setSelectSong]}/>
-        <ItemList items={listData} />
+        <ItemList items={
+          selectSong ? listData : (listData.map((data) => (<Event item={data} />)))
+          } />
     </div>
     );
   };
