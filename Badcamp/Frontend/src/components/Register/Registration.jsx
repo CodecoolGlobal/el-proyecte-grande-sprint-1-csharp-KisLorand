@@ -11,7 +11,7 @@ const Registration = () => {
     const [error, setError] = useState(null);
     const redirect = useNavigate();
 
-    const apiUrl = "http://localhost:3500/users";
+    const apiUrl = "http://localhost:3000/users";
     const [users, setUsers] = useState([]);
     const [fetchError, setFetchError] = useState(null);
 
