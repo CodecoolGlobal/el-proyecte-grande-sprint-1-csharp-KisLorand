@@ -1,30 +1,46 @@
-const RegistrationForm = ( { handleSubmit }) => {
+const RegistrationForm = ( { handleSubmit, regError }) => {
 
     return (
         <form onSubmit={handleSubmit}>
-            <label htmlFor="username">New username</label><br />
             <input
-                id="username"
-                placeholder="Enter new username"
+                placeholder="*Username"
                 type="text"
                 name="newUsername"
                 required
                 autoFocus
-            />
+            /><br /><br />
 
-            <br /><br />
-
-            <label htmlFor="password">New password</label><br />
             <input
-                id="password"
-                placeholder="Enter new password"
+                placeholder="*Full name"
+                type="text"
+                name="newFullName"
+                required
+            /><br /><br />
+
+            <label htmlFor="date" style={{ color: "red" }}>*Date of birth</label><br />
+            <input
+                id="date"
+                type="date"
+                name="newDateOfBirth"
+                required
+            /><br /><br />
+
+            <input
+                placeholder="*Password"
                 type="password"
                 name="newPassword"
                 required
             /><br /><br />
 
+            <input
+                placeholder="*Confirm password"
+                type="password"
+                name="newPassword2"
+                required
+            /><br /><br />
+
             <button className="custom-btn" type="submit">Register</button><br /><br />
-{/*            {errorMessage ? <p style={{ color: "red" }}>{errorMessage}</p> : null}*/}
+            {regError ? <p style={{ color: "red" }}>{regError}</p> : null}
         </form>
     );
 }
