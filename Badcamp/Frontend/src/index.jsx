@@ -7,6 +7,7 @@ import Home from './components/Home';
 import ArtistListing from './components/artistListing/ArtistListing';
 import ArtistPage from './components/artistPage/ArtistPage';
 import EventPage from './components/eventComponents/EventPage';
+import UserPage from './components/userPage/UserPage';
 import SongListing from './components/songComponents/SongListing';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -20,6 +21,9 @@ root.render(
           <Route exact path='events' element={<EventPage />}></Route>
           <Route exact path='artistpage' element={<ArtistPage artistId={1}/>}></Route>
           <Route path='ArtistListing' element={<ArtistListing />}></Route>
+           <Route path="user">
+              <Route path=":id" element={<UserPage/>} />
+          </Route>
         </Route>
       </Routes>
     </BrowserRouter>
