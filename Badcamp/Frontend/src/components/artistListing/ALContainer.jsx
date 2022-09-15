@@ -1,24 +1,37 @@
-import React , {useState} from "react";
+import React, { useState , useEffect} from "react";
 import ArtistCard from "./ArtistCard";
-import SearchInput from "./SearchInput";
+import InputContainer from "./input/InputContainer";
+
+const ALContainer = ({
+  artists,
+  searchValue,
+  setSearchValue,
+  filterValue,
+  setFilterValue,
+  genres
+}) => {
 
 
-
-const ALContainer = ({ artists, setArtist, searchValue, setSearchValue }) => {
+  
+ 
 
   return (
-    <main className="conatiner">
-    <SearchInput 
-    searchValue={searchValue}
-    setSearchValue={setSearchValue}
-    />
-    {artists.map((artist) => (
+    <main className="container">
+      <InputContainer
+        searchValue={searchValue}
+        setSearchValue={setSearchValue}
+        filterValue={filterValue}
+        setFilterValue={setFilterValue}
+        genres={genres}
+
+      />
+      {artists.map((artist) => (
         <ArtistCard
-            artist={artist}
-            key={artist.id}
-            descLength={artist.description.length}
+          artist={artist}
+          key={artist.id}
+          descLength={artist.description.length}
         />
-    ))}
+      ))}
     </main>
   );
 };

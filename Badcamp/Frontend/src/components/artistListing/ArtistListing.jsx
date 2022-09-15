@@ -1,53 +1,62 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import apiRequest from "../../requests/apiRequest";
 import ALContainer from "./ALContainer";
 
 const ArtistListing = () => {
+  const API_URL = "http://localhost:3000/artists";
   const [searchValue, setSearchValue] = useState("");
-  const [artists, setArtist] = useState([
-    {
-      id: 0,
-      userId: 0,
-      name: "Zoli",
-      description: "Nagyon ugyes vagyok köszönöm szépen ahh aha hahha...",
-      profilePicture: "/path/placeholder/picture.png",
-      genres: ["alter", "techno"],
-    },
-    {
-      id: 1,
-      userId: 0,
-      name: "Laci",
-      description: "Nagyon ugyes vagyok köszönöm szépen ahh aha hahha...",
-      profilePicture: "/path/placeholder/picture.png",
-      genres: ["pop", "rock", "r&b"],
-    },
-    {
-      id: 2,
-      userId: 0,
-      name: "Zolesz",
-      description: "Nagyon ugyes vagyok köszönöm szépen ahh aha hahha...",
-      profilePicture: "/path/placeholder/picture.png",
-      genres: ["alter", "techno"],
-    },
-    {
-      id: 4,
-      userId: 0,
-      name: "Lacika",
-      description: "Nagyon ugyes vagyok köszönöm szépen ahh aha hahha...",
-      profilePicture: "/path/placeholder/picture.png",
-      genres: ["pop", "rock", "r&b"],
-    },
-  ]);
+  const [filterValue, setFilterValue] = useState("");
+  const [artists, setArtist] = useState([]);
+  const [genres, setGenres] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-  return (
+  useEffect(() => {
+    const getData = async () => {
+      const response = await fetch(API_URL);
+      if (!response.ok) {
+        throw Error("Error occoured. Reload the app");
+      } else {
+        const data = await response.json();
+        setArtist(data);
+        SetFilteredGenres(data)
+        setIsLoading(false);
+        console.log(data)
+        console.log(genres)
+      }
+    };
+    getData();
+  }, []);
+
+  const SetFilteredGenres = (artists) => {
+    const singleGenres = [];
+    console.log(artists)
+    artists.map((artist) =>
+      artist.genres.forEach((genre) => {
+        if (!singleGenres.includes(genre)) singleGenres.push(genre);
+      })
+    );
+    setGenres(singleGenres);
+  };
+
+  return isLoading ? (
+    <p>Loading...</p>
+  ) : (
     <div>
       <ALContainer
-        artists={artists.filter((artist) =>
-          artist.name.toLowerCase().includes(searchValue.toLocaleLowerCase())
+        artists={artists.filter(
+          (artist) =>
+            artist.name
+              .toLowerCase()
+              .includes(searchValue.toLocaleLowerCase()) &&
+            artist.genres.includes(filterValue)
         )}
         setArtists={setArtist}
         searchValue={searchValue}
         setSearchValue={setSearchValue}
+        filterValue={filterValue}
+        setFilterValue={setFilterValue}
+        genres={genres}
       />
     </div>
   );

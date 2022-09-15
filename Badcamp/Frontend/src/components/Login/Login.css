@@ -1,0 +1,47 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    vertical-align: baseline;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.Login {
+    margin-left: 700px;
+    margin-top: 200px;
+}
+
+    .Login input {
+        margin-top: 0.5rem;
+        padding: 0.25rem;
+        width: 200px;
+        font-size: 1rem;
+        border-color: #000000;
+        border-radius: 5px;
+        box-shadow: 2px 2px 5px #000;
+        outline: none;
+    }
+
+    .custom-btn {
+    width: 10%;
+    min-height: 30px;
+    margin-top: 0.5rem;
+    font-size: 1rem;
+    border-radius: 0.25rem;
+    box-shadow: 2px 2px 5px #000;
+    padding: 0.25rem;
+}
+
+.custom-btn:hover {
+        background-color: lightgrey;
+    }
+
+.custom-btn:active {
+        background-color: lightgrey;
+        transform: translateY(4px);
+    }
