@@ -4,11 +4,14 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './index.css';
 import App from './App';
 import Home from './components/Home';
+
 import ArtistListing from './components/artistListing/ArtistListing';
 import ArtistPage from './components/artistPage/ArtistPage';
 import EventPage from './components/eventComponents/EventPage';
 import UserPage from './components/userPage/UserPage';
 import SongListing from './components/songComponents/SongListing';
+import Login from './components/Login/Login';
+import Register from './components/Register/Registration';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -24,6 +27,8 @@ root.render(
            <Route path="user">
               <Route path=":id" element={<UserPage/>} />
           </Route>
+          <Route path="login" element={<Login />} />
+          <Route path="register" element={<Register />} />
         </Route>
       </Routes>
     </BrowserRouter>

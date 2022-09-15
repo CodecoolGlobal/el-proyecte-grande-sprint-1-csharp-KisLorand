@@ -8,7 +8,7 @@ const NavBar = () => {
             <p className="logo">LOGO</p>
             <ul>
                 <li><Link to="/">Home</Link></li>
-                <li><Link to="/">Login</Link></li>
+                <li><Link to="login">Login</Link></li>
                 <li><Link to="/">Artists</Link></li>
                 <li><Link to="user">Users</Link></li>
                 <li><Link to="/">Register</Link></li>
