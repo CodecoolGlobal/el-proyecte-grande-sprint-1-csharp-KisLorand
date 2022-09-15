@@ -26,6 +26,7 @@ const EventPage = (props) => {
                         artistName ={artist.map((artist) => {return(artist.artistId === item.artistId ? artist.artistName : "")})}
 
                         />
+                        
         )})}
             
       
