@@ -13,6 +13,7 @@ const Registration = () => {
 
     const apiUrl = "http://localhost:3000/users";
     const [users, setUsers] = useState([]);
+    const [regError, setRegError] = useState(null);
     const [fetchError, setFetchError] = useState(null);
 
     useEffect(() => {
@@ -33,9 +34,9 @@ const Registration = () => {
     }, []);
 
 
-    const addUser = async (username, password) => {
+    const addUser = async (username, password, dateOfBirth, fullName) => {
         const id = users.length ? users[users.length - 1].id + 1 : 1;
-        const newUser = { id, username, password };
+        const newUser = { id, username, password, dateOfBirth, fullName };
         const userList = [...users, newUser];
         setUsers(userList);
 
@@ -55,15 +56,30 @@ const Registration = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        var { newUsername, newPassword } = document.forms[0];
-        addUser(newUsername.value, newPassword.value);
+        var { newUsername, newPassword, newDateOfBirth, newFullName, newPassword2 } = document.forms[0];
+
+        var existingUsername = users.find((user) => user.username === newUsername.value);
+
+        if (existingUsername) {
+            setRegError("Username already exists, please try again!");
+            return;
+        }
+
+        if (newPassword !== newPassword2) {
+            setRegError("Passwords does not match, please try again!");
+            return;
+        }
+        
+
+        addUser(newUsername.value, newPassword.value, newDateOfBirth.value, newFullName.value);
     }
 
     return (
         <div className="Register">
-            <h1>Registration</h1><br /><br />
+            <h1>Registration</h1><br />
             <RegistrationForm
                 handleSubmit={handleSubmit}
+                regError={regError}
             //{/*errorMessage={error}*/}            />
 
         </div>
