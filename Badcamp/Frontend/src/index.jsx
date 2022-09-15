@@ -18,8 +18,8 @@ root.render(
         <Route path='/' element={<App />}>
           <Route index element={<Home />} element={<SongListing />}></Route>
           <Route path='SongListing' element={<SongListing />}></Route>
-          <Route exact path='events' element={<EventPage />}></Route>
-          <Route exact path='artistpage' element={<ArtistPage artistId={1}/>}></Route>
+          <Route exact path='/events' element={<EventPage />}></Route>
+          <Route exact path='/artistpage' element={<ArtistPage artistId={1}/>}></Route>
           <Route path='ArtistListing' element={<ArtistListing />}></Route>
            <Route path="user">
               <Route path=":id" element={<UserPage/>} />
