@@ -4,6 +4,7 @@ import ArtistName from './ArtistName';
 import ArtistDescription from './ArtistDescription';
 import apiRequest from '../../requests/apiRequest';
 import { RequestContext } from '../../requests/requestContext';
+import ArtistPicture from './ArtistPicture';
 
 const ArtistPage = (props) => {
   const [artist, setArtist] = useState(null); 
