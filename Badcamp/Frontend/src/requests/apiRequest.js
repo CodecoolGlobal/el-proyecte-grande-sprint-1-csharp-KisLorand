@@ -1,17 +1,19 @@
-import { RequestContext } from "./requestContext";
+import React from "react";
 
-const apiRequest = async (url='', optionsObj=null, errMsg=null, context=RequestContext) => {
+
+const apiRequest = async (url='', [artist, setArtist], context, optionsObj=null, errMsg=null) => {
     try {
         const response = await fetch(url, optionsObj);
         if (!response.ok) throw Error('Error occoured. Reload the app');
         if (optionsObj === null) {
-            const data = response.json;
+            const data = await response.json();
+            setArtist(data);
             context(data);
         }
     } catch (error) {
         errMsg = error.message;
     } finally {
-        return errMsg;
+        return  errMsg;
     }
 };
 
