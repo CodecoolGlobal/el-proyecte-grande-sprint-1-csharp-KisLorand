@@ -1,13 +1,19 @@
 import React from 'react'
+import Card from 'react-bootstrap/Card';
+
 
 
 const Event = ({item}) => {
   return (
-        <div className="card-div">
-                <h2 className="event-title">{item.title}</h2>
-                <p className='event-disc'>{item.description}</p>
-        </div>
-  )
+    <Card style={{ width: '18rem' }}>
+    <Card.Body>
+      <Card.Title>{item.title}</Card.Title>
+      <Card.Text>
+        {item.description}
+      </Card.Text>
+    </Card.Body>
+  </Card>
+);
 }
 
 export default Event
