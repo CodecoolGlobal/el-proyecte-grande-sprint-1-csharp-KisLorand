@@ -15,6 +15,7 @@ const Registration = () => {
     const [users, setUsers] = useState([]);
     const [regError, setRegError] = useState(null);
     const [fetchError, setFetchError] = useState(null);
+    const [username, setUsername] = useState(null);
 
     useEffect(() => {
         const fetchItems = async () => {
@@ -63,9 +64,10 @@ const Registration = () => {
         if (existingUsername) {
             setRegError("Username already exists, please try again!");
             return;
+
         }
 
-        if (newPassword !== newPassword2) {
+        if (newPassword.value !== newPassword2.value) {
             setRegError("Passwords does not match, please try again!");
             return;
         }
