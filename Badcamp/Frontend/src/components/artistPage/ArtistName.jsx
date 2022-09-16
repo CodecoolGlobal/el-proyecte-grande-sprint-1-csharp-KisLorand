@@ -6,7 +6,7 @@ const ArtistName = (props) => {
     
   return (
     <div>
-      {props.artistName}
+      <h2>{props.artistName}</h2>
     </div>
   )
 };
