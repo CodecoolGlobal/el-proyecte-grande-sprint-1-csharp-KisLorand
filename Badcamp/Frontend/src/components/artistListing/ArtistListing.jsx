@@ -39,6 +39,12 @@ const ArtistListing = () => {
     setGenres(singleGenres);
   };
 
+  const filterArtist = (artist) => {
+    return artist.name.toLowerCase().includes(searchValue.toLocaleLowerCase())
+      ? true
+      : false;
+  };
+
   return isLoading ? (
     <p>Loading...</p>
   ) : (
@@ -48,12 +54,9 @@ const ArtistListing = () => {
           filterValue !== ""
             ? artists.filter(
                 (artist) =>
-                  artist.name
-                    .toLowerCase()
-                    .includes(searchValue.toLocaleLowerCase()) &&
-                  artist.genres.includes(filterValue)
+                  filterArtist(artist) && artist.genres.includes(filterValue)
               )
-            : artists
+            : artists.filter((artist) => filterArtist(artist))
         }
         setArtists={setArtist}
         searchValue={searchValue}
