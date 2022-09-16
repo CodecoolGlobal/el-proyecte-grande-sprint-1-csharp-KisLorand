@@ -2,7 +2,7 @@ import './Register.css';
 import RegistrationForm from './RegistrationForm';
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Redirect } from 'react-router-dom';
 import apiRequest from './apiRequest';
 
 
@@ -52,7 +52,7 @@ const Registration = () => {
         const result = await apiRequest(apiUrl, postOptions);
         if (result) setFetchError(result);
 
-        redirect('/');
+        redirect('/login');
     }
 
     const handleSubmit = (e) => {
@@ -63,17 +63,18 @@ const Registration = () => {
 
         if (existingUsername) {
             setRegError("Username already exists, please try again!");
-            return;
-
+            e.target.reset();
         }
 
         if (newPassword.value !== newPassword2.value) {
             setRegError("Passwords does not match, please try again!");
-            return;
+            e.target.reset();
         }
         
-
-        addUser(newUsername.value, newPassword.value, newDateOfBirth.value, newFullName.value);
+        if (!existingUsername && (newPassword.value === newPassword2.value)) {
+            addUser(newUsername.value, newPassword.value, newDateOfBirth.value, newFullName.value);
+        }
+        
     }
 
     return (
