@@ -66,12 +66,12 @@ const Registration = () => {
             e.target.reset();
         }
 
-        if (newPassword.value !== newPassword2.value) {
+        else if (newPassword.value !== newPassword2.value) {
             setRegError("Passwords does not match, please try again!");
             e.target.reset();
         }
         
-        if (!existingUsername && (newPassword.value === newPassword2.value)) {
+        else {
             addUser(newUsername.value, newPassword.value, newDateOfBirth.value, newFullName.value);
         }
         
@@ -83,7 +83,8 @@ const Registration = () => {
             <RegistrationForm
                 handleSubmit={handleSubmit}
                 regError={regError}
-            //{/*errorMessage={error}*/}            />
+            //{/*errorMessage={error}*/}
+            />
 
         </div>
     );
