@@ -1,9 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.1.32421.90
+VisualStudioVersion = 17.3.32901.215
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Badcamp", "Badcamp\Badcamp.csproj", "{BE211B34-A71A-4A7F-AB81-23F6C9241377}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Badcamp", "Badcamp\Badcamp.csproj", "{BE211B34-A71A-4A7F-AB81-23F6C9241377}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Badcamp.Domain", "Badcamp.Domain\Badcamp.Domain.csproj", "{4CB6CAE0-468D-450E-8C08-92860E1476EC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Badcamp.Application", "Badcamp.Application\Badcamp.Application.csproj", "{3C4A4E04-4137-496C-8769-DE07039199E1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{BE211B34-A71A-4A7F-AB81-23F6C9241377}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BE211B34-A71A-4A7F-AB81-23F6C9241377}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BE211B34-A71A-4A7F-AB81-23F6C9241377}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4CB6CAE0-468D-450E-8C08-92860E1476EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4CB6CAE0-468D-450E-8C08-92860E1476EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4CB6CAE0-468D-450E-8C08-92860E1476EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4CB6CAE0-468D-450E-8C08-92860E1476EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C4A4E04-4137-496C-8769-DE07039199E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C4A4E04-4137-496C-8769-DE07039199E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C4A4E04-4137-496C-8769-DE07039199E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C4A4E04-4137-496C-8769-DE07039199E1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

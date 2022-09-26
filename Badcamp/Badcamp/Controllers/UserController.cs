@@ -1,4 +1,5 @@
-﻿using Badcamp.Models;
+﻿using Badcamp.Application.UseCases;
+using Badcamp.Models;
 using Badcamp.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -10,10 +11,11 @@ namespace Badcamp.Controllers
     public class UserController : ControllerBase
     {
         private UserStorage _userStorage;
-
-        public UserController(UserStorage userStorage)
+        private ILogger<UserController> _logger;
+        public UserController(UserStorage userStorage , ILogger<UserController> logger)
         {
             _userStorage = userStorage;
+            _logger = logger;
         }
 
         [HttpGet("/GetUsers")]
@@ -23,9 +25,18 @@ namespace Badcamp.Controllers
         }
 
         [HttpGet("/GetUser/{userName}")]
-        public User GetUser([FromRoute] string userName)
+        public ActionResult<User> GetUser([FromRoute] string userName)
         {
-            return _userStorage.GetUserByName(userName);
+            var request = new GetUserByNameRequest { UserName = userName };
+            var handler = new GeUserByNameHandler(_userStorage);
+            var response = handler.Handle(request);
+            if (response.Failure)
+            {
+                _logger.LogError(response.Error);
+                return BadRequest(response.Error);
+            }
+            _logger.LogInformation("user received");
+            return Ok(response.Value);
         }
 
         [HttpPost("/RegisterUser")]
