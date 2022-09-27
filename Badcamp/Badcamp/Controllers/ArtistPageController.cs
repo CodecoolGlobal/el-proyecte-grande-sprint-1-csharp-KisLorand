@@ -1,4 +1,5 @@
 ﻿using Badcamp.Application.UseCases.ArtistPage;
+using Badcamp.Application.UseCases.ArtistPage.GetAllArtists;
 using Badcamp.Models;
 using Badcamp.Services;
 using Microsoft.AspNetCore.Http;
@@ -23,8 +24,16 @@ namespace Badcamp.Controllers
 		[HttpGet]
 		public ActionResult<IList<ArtistModel>> GetAllArtists()
 		{
-			var artists = _artistPageService.GetAll();
-			return Ok(artists);
+			var request = new GetAllArtistsRequest();
+			var handler = new GetAllArtistsHandler(_artistStorage);
+			var response = handler.Handle(request);
+			if (response.Failure)
+			{
+				_logger.LogError(response.Error);
+				return BadRequest(response.Error);
+			}
+			_logger.LogInformation("All Artists recived");
+			return Ok(response.Value);
 		}
 
 		[HttpGet("{id}")]
