@@ -1,6 +1,7 @@
 ﻿using Badcamp.Application.UseCases.ArtistPage;
 using Badcamp.Application.UseCases.ArtistPage.AddArtist;
 using Badcamp.Application.UseCases.ArtistPage.GetAllArtists;
+using Badcamp.Application.UseCases.ArtistPage.UpdateArtist;
 using Badcamp.Models;
 using Badcamp.Services;
 using Microsoft.AspNetCore.Http;
@@ -70,8 +71,16 @@ namespace Badcamp.Controllers
 		[HttpPut("{id}")]
 		public ActionResult<ArtistModel> UpdateArtist([FromRoute] int id, [FromBody] ArtistModel newArtistData)
 		{
-			ArtistModel updatedArtist = _artistPageService.Update(id, newArtistData);
-			return Ok(updatedArtist);
+			var request = new UpdateArtistRequest { Artist = newArtistData };
+			var handler = new UpdateArtistHandler(_artistStorage);
+			var response = handler.Handle(request);
+			if (response.Failure)
+			{
+				_logger.LogError(response.Error);
+				return BadRequest(response.Error);
+			}
+			_logger.LogInformation("Artist updated");
+			return Ok(response.Value);
 		}
 	}
 }
