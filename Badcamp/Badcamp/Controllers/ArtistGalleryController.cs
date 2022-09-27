@@ -1,39 +1,55 @@
-﻿using Badcamp.Models;
+﻿using Badcamp.Application.UseCases.ArtistGalleryCases;
+using Badcamp.Models;
 using Badcamp.Services;
 using Microsoft.AspNetCore.Mvc;
+
+
 
 namespace Badcamp.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ArtistGalleryController
+    public class ArtistGalleryController : ControllerBase
     {
 
-        private ArtistGalleryService _artistGalleryService;
-        public ArtistGalleryController(ArtistGalleryService artistGalleryService)
+        private ArtistStorage _artistStorage;
+
+        private ILogger<ArtistGalleryController> _logger;
+        public ArtistGalleryController(ILogger<ArtistGalleryController> logger, ArtistStorage artistStoreage)
         {
-            _artistGalleryService = artistGalleryService;
+            _artistStorage = artistStoreage;
+            _logger = logger;
         }
 
         [HttpGet]
-        public IList<ArtistModel> GetAllArtist()
+        public ActionResult<IReadOnlyList<ArtistModel>> GetAllArtist()
         {
-            return _artistGalleryService.GetAllArtists();
+            var request = new GetAllArtistsHandlerRequest();
+            var handler = new GetAllArtistsHandler(_artistStorage);
+            var response = handler.Handle(request);
+            if (response.Failure)
+            {
+                _logger.LogError(response.Error);
+                return BadRequest(response.Error);
+            }
+            _logger.LogInformation("user received");
+            return Ok(response.Value);
         }
 
         [HttpGet()]
         [Route("SearchArtistByName/{name}")]
         public ArtistModel SearchArtist([FromRoute] string name)
         {
-            return _artistGalleryService.GetArtistByName(name);
+            throw new NotImplementedException();
+            //return _artistGalleryService.GetArtistByName(name);
         }
 
-        [HttpGet]
-        [Route("FilterArtistByGenre/{genre}")]
-        public IList<ArtistModel> FilterArtistByGenre([FromRoute] Genre genre)
-        {
-            return _artistGalleryService.FilterArtistsByGenre(genre);
-        }
+        //[HttpGet]
+        //[Route("FilterArtistByGenre/{genre}")]
+        //public IList<ArtistModel> FilterArtistByGenre([FromRoute] Genre genre)
+        //{
+        //    return _artistGalleryService.FilterArtistsByGenre(genre);
+        //}
 
  
     }
