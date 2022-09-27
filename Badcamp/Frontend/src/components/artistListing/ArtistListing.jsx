@@ -1,6 +1,5 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import apiRequest from "../../requests/apiRequest";
 import ALContainer from "./ALContainer";
 
 const ArtistListing = () => {
@@ -21,8 +20,6 @@ const ArtistListing = () => {
         setArtist(data);
         SetFilteredGenres(data);
         setIsLoading(false);
-        console.log(data);
-        console.log(genres);
       }
     };
     getData();
@@ -30,7 +27,6 @@ const ArtistListing = () => {
 
   const SetFilteredGenres = (artists) => {
     const singleGenres = [];
-    console.log(artists);
     artists.map((artist) =>
       artist.genres.forEach((genre) => {
         if (!singleGenres.includes(genre)) singleGenres.push(genre);

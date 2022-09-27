@@ -3,6 +3,7 @@ using Badcamp.Services.Interfaces;
 using Badcamp;
 using Badcamp.Services;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using Badcamp.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 

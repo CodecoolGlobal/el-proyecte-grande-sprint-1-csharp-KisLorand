@@ -1,7 +1,6 @@
 ﻿using System.Reflection.Metadata.Ecma335;
-using Badcamp.Models;
 
-namespace Badcamp.Services
+namespace Badcamp.Models
 {
     public class UserStorage
     {
