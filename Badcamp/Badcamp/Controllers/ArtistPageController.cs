@@ -1,4 +1,5 @@
-﻿using Badcamp.Models;
+﻿using Badcamp.Application.UseCases.ArtistPage;
+using Badcamp.Models;
 using Badcamp.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -10,9 +11,13 @@ namespace Badcamp.Controllers
 	public class ArtistPageController : ControllerBase
 	{
 		private ArtistPageService _artistPageService;
-		public ArtistPageController(ArtistPageService artistPageservice)
+		private ILogger<ArtistPageController> _logger;
+		private ArtistStorage _artistStorage;
+		public ArtistPageController(ArtistPageService artistPageservice, ILogger<ArtistPageController> logger, ArtistStorage artistStorage)
 		{
 			_artistPageService = artistPageservice;
+			_logger = logger;
+			_artistStorage = artistStorage;
 		}
 
 		[HttpGet]
@@ -25,8 +30,16 @@ namespace Badcamp.Controllers
 		[HttpGet("{id}")]
 		public ActionResult<ArtistModel> GetOneArtist([FromRoute] int id)
 		{
-			ArtistModel artist = _artistPageService.GetOne(id);
-			return Ok(artist);
+			var request = new GetArtistByIdRequest { Id = id};
+			var handler = new GetArtistByIdHandler(_artistStorage);
+			var response = handler.Handle(request);
+			if (response.Failure)
+			{
+				_logger.LogError(response.Error);
+				return BadRequest(response.Error);
+			}
+			_logger.LogInformation("Artist received");
+			return Ok(response.Value);
 		}
 
 		[HttpPost]
