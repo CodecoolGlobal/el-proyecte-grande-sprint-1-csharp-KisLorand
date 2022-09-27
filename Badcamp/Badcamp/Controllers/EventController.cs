@@ -68,14 +68,17 @@ namespace Badcamp.Controllers
             return Ok(response.Value);
         }
 
-        [Route("{artistId}/DeleteEvent/{eventId}")]
+        [Route("/DeleteEvent/{eventId}")]
         [HttpDelete]
-        public ActionResult<IReadOnlyList<Event>> DeleteEvent(int artistId, int eventId)
+        public ActionResult<Event> DeleteEvent(int eventId)
         {
-            IReadOnlyList<Event> events = _eventService.DeleteEvent(artistId, eventId);
+            var request = new DeleteEventRequest { EventId = eventId};
+            var handler = new DeleteEventHandler(_eventService);
+            handler.Handle(request);
+            _logger.LogInformation("Event deleted");
             return NoContent();
         }
-        [Route("{artistId}/UpdateEvent/{eventId}")]
+        [Route("/UpdateEvent/{eventId}")]
         [HttpPut]
         public ActionResult<Event> UpdateEvent(int eventId, [FromBody] Event eventUpdate)
         {
