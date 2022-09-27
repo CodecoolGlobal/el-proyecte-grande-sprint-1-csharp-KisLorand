@@ -21,6 +21,10 @@
             AudioSource = audiosource;
             Genres = genres;
         }
+        public void SetId(int newId)
+        {
+            Id = newId;
+        }
 
         public void UpdateSong(Song song)
         {
