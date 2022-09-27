@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Badcamp.Application.UseCases.ArtistPage.AddArtist
 {
-	public class AddArtistHandler : IRequestHandler<AddArtistRequest, Response<IReadOnlyList<ArtistModel>>>
+	public class AddArtistHandler : IRequestHandler<AddArtistRequest, Response<ArtistModel>>
 	{
 		private ArtistStorage _storage;
 		public AddArtistHandler(ArtistStorage storage)
@@ -16,22 +16,21 @@ namespace Badcamp.Application.UseCases.ArtistPage.AddArtist
 			_storage = storage;
 		}
 
-		public Response<IReadOnlyList<ArtistModel>> Handle(AddArtistRequest message)
+		public Response<ArtistModel> Handle(AddArtistRequest message)
 		{
-			IReadOnlyList<ArtistModel> artists;
+			ArtistModel artist = message.Artist;
 			try
 			{
 				_storage.AddArtist(message.Artist);
-				artists = _storage.GetArtists().ToList().AsReadOnly();
-				if (artists == null)
+				if (artist == null)
 				{
-					return Response.Fail<IReadOnlyList<ArtistModel>>("Artists list not found");
+					return Response.Fail<ArtistModel>("Artists list not found");
 				}
-				return Response.Ok(artists);
+				return Response.Ok(artist);
 			}
 			catch (Exception e)
 			{
-				return Response.Fail<IReadOnlyList<ArtistModel>>(e.Message);
+				return Response.Fail<ArtistModel>(e.Message);
 
 			}
 		}
