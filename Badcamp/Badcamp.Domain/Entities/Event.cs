@@ -18,5 +18,10 @@
             Upvote = upvote;
 
         }
+        public Event()
+        {
+            Title = string.Empty;
+            Description = string.Empty;
+        }
     }
 }

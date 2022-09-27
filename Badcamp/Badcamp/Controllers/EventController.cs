@@ -24,8 +24,16 @@ namespace Badcamp.Controllers
         [HttpPost]
         public ActionResult<Event> CreateNewEvent(int artistId, [FromBody] Event newEvent)
         {
-            Event createdEvent = _eventService.CreateEvent(artistId, newEvent);
-            return Ok(createdEvent);
+            var request = new CreateEventRequest { ArtistId = artistId, newEvent = newEvent };
+            var handler = new CreateEventHandler(_eventService);
+            var response = handler.Handle(request);
+            if (response.Failure)
+            {
+                _logger.LogError(response.Error);
+                return BadRequest(response.Error);
+            }
+            _logger.LogInformation("user received");
+            return Ok(response.Value);
         }
 
         [Route("{artistId}/GetEventsByArtist")]
