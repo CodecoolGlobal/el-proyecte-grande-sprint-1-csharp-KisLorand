@@ -21,7 +21,7 @@ namespace Badcamp.Application.UseCases.EventCases
             Event @event;
             try 
             {
-                @event = _eventService.CreateEvent(message.ArtistId, message.newEvent);
+                @event = _eventService.CreateEvent(message.ArtistId, message.NewEvent);
                 if (@event == null)
                 {
                     return Response.Fail<Event>("Couldn't be created");
