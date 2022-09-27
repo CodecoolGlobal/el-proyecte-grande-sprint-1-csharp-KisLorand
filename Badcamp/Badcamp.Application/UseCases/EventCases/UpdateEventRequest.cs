@@ -8,10 +8,9 @@ using System.Threading.Tasks;
 
 namespace Badcamp.Application.UseCases.EventCases
 {
-    public class CreateEventRequest : IRequest<Response>
+    public class UpdateEventRequest : IRequest<Response>
     {
-        public int ArtistId { get; set; }
-        public Event NewEvent { get; set; } = new Event();
-        
+        public int EventId { get; set; }
+        public Event UpdateEvent { get; set; } = new Event();
     }
 }
