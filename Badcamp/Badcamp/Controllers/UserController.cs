@@ -1,4 +1,5 @@
 ﻿using Badcamp.Application.UseCases;
+using Badcamp.Application.UseCases.UserCases.AddUser;
 using Badcamp.Models;
 using Badcamp.Services;
 using Microsoft.AspNetCore.Http;
@@ -40,9 +41,17 @@ namespace Badcamp.Controllers
         }
 
         [HttpPost("/RegisterUser")]
-        public void RegisterUser([FromBody] User newUser)
+        public ActionResult<User> RegisterUser([FromBody] AddUserRequest newUser)
         {
-            _userStorage.AddUser(newUser);
+            var handler = new AddUserHandler(_userStorage);
+            var response = handler.Handle(newUser);
+            if (response.Failure)
+            {
+                _logger.LogError(response.Error);
+                return BadRequest(response.Error);
+            }
+            _logger.LogInformation("user added");
+            return Ok(response.Value);
         }
 
         [HttpPut("/UpdateUser/{userName}")]
