@@ -1,4 +1,5 @@
 ﻿using Badcamp.Application.UseCases.ArtistPage;
+using Badcamp.Application.UseCases.ArtistPage.AddArtist;
 using Badcamp.Application.UseCases.ArtistPage.GetAllArtists;
 using Badcamp.Models;
 using Badcamp.Services;
@@ -54,8 +55,16 @@ namespace Badcamp.Controllers
 		[HttpPost]
 		public ActionResult<IList<ArtistModel>> AddArtist([FromBody] ArtistModel newArtist)
 		{
-			ArtistModel addedArtist = _artistPageService.Add(newArtist);
-			return Ok(_artistPageService.GetAll());
+			var request = new AddArtistRequest { Artist = newArtist};
+			var handler = new AddArtistHandler(_artistStorage);
+			var response = handler.Handle(request);
+			if (response.Failure)
+			{
+				_logger.LogError(response.Error);
+				return BadRequest(response.Error);
+			}
+			_logger.LogInformation("Artist added");
+			return Ok(response.Value);
 		}
 
 		[HttpPut("{id}")]
