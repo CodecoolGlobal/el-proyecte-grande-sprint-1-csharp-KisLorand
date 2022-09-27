@@ -48,7 +48,7 @@ namespace Badcamp.Services
             return eventsByArtist.AsReadOnly();
         }
 
-        public IReadOnlyList<Event> DeleteEvent(int artistId, int eventId)
+        public void DeleteEvent(int eventId)
         {
             
             for (int i=0; i<=Storage.Count; i++)
@@ -59,21 +59,21 @@ namespace Badcamp.Services
                     break;
                 }
             }
-
-            return GetEventByArtist(artistId);
         }
 
-        public IReadOnlyList<Event> UpdateEvent(int artistId, int eventId, Event eventUpdate)
+        public Event UpdateEvent(int eventId, Event eventUpdate)
         {
+            Event updatedEvent = new Event();
             foreach(Event @event in Storage)
             {
-                if(@event.Id == eventId)
+                if (@event.Id == eventId)
                 {
                     @event.Title = eventUpdate.Title;
                     @event.Description = eventUpdate.Description;
+                    updatedEvent = @event;
                 }
             }
-            return GetEventByArtist(artistId);
+            return updatedEvent;
         }
     }
 }
