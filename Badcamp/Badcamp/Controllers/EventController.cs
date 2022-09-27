@@ -24,7 +24,7 @@ namespace Badcamp.Controllers
         [HttpPost]
         public ActionResult<Event> CreateNewEvent(int artistId, [FromBody] Event newEvent)
         {
-            var request = new CreateEventRequest { ArtistId = artistId, newEvent = newEvent };
+            var request = new CreateEventRequest { ArtistId = artistId, NewEvent = newEvent };
             var handler = new CreateEventHandler(_eventService);
             var response = handler.Handle(request);
             if (response.Failure)
@@ -32,7 +32,7 @@ namespace Badcamp.Controllers
                 _logger.LogError(response.Error);
                 return BadRequest(response.Error);
             }
-            _logger.LogInformation("user received");
+            _logger.LogInformation("Event created");
             return Ok(response.Value);
         }
 
@@ -48,7 +48,7 @@ namespace Badcamp.Controllers
                 _logger.LogError(response.Error);
                 return BadRequest(response.Error);
             }
-            _logger.LogInformation("user received");
+            _logger.LogInformation("Events recieved");
             return Ok(response.Value);
         }
 
@@ -64,7 +64,7 @@ namespace Badcamp.Controllers
                 _logger.LogError(response.Error);
                 return BadRequest(response.Error);
             }
-            _logger.LogInformation("user received");
+            _logger.LogInformation("Events received");
             return Ok(response.Value);
         }
 
@@ -73,14 +73,22 @@ namespace Badcamp.Controllers
         public ActionResult<IReadOnlyList<Event>> DeleteEvent(int artistId, int eventId)
         {
             IReadOnlyList<Event> events = _eventService.DeleteEvent(artistId, eventId);
-            return Ok(events);
+            return NoContent();
         }
         [Route("{artistId}/UpdateEvent/{eventId}")]
         [HttpPut]
-        public ActionResult<IReadOnlyList<Event>> UpdateEvent(int artistId, int eventId, [FromBody] Event eventUpdate)
+        public ActionResult<Event> UpdateEvent(int eventId, [FromBody] Event eventUpdate)
         {
-            IReadOnlyList<Event> events = _eventService.UpdateEvent(artistId, eventId, eventUpdate);
-            return Ok(events);
+            var request = new UpdateEventRequest { EventId = eventId, UpdateEvent = eventUpdate };
+            var handler = new UpdateEventHandler(_eventService);
+            var response = handler.Handle(request);
+            if (response.Failure)
+            {
+                _logger.LogError(response.Error);
+                return BadRequest(response.Error);
+            }
+            _logger.LogInformation("Event updated");
+            return Ok(response.Value);
         }
     }
 }
