@@ -15,6 +15,7 @@ namespace Badcamp.Services
         public void AddSong(Song song);
         public void UpdateSong(int songId, Song updateData);
         public void DeleteSong(Song song);
+        public void DeleteSong(int songId);
 
     }
 }

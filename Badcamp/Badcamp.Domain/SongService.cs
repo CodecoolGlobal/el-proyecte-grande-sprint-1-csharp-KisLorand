@@ -82,5 +82,11 @@ namespace Badcamp.Services
         {
             SongStorage.Remove(song);
         }
+
+        public void DeleteSong(int songId)
+        {
+            var song = GetSongById(songId);
+            SongStorage.Remove(song);
+        }
     }
 }
