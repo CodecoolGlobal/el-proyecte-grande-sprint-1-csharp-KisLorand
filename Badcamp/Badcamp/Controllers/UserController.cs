@@ -1,10 +1,12 @@
 ﻿using Badcamp.Application.UseCases;
 using Badcamp.Application.UseCases.UserCases.AddUser;
 using Badcamp.Application.UseCases.UserCases.UpdateUserDataCase;
+using Badcamp.Application.UseCases.UserCases.GetAllUsersCase;
 using Badcamp.Models;
 using Badcamp.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Badcamp.Application.UseCases.UserCases.DeleteUserCase;
 
 namespace Badcamp.Controllers
 {
@@ -21,23 +23,32 @@ namespace Badcamp.Controllers
         }
 
         [HttpGet("/GetUsers")]
-        public IEnumerable<User> GetAllUsers()
+        public ActionResult<List<User>> GetAllUsers()
         {
-            return _userStorage.GetAllUsers();
-        }
-
-        [HttpGet("/GetUser/{userName}")]
-        public ActionResult<User> GetUser([FromRoute] string userName)
-        {
-            var request = new GetUserByNameRequest { UserName = userName };
-            var handler = new GeUserByNameHandler(_userStorage);
+            var request = new GetAllUsersRequest { };
+            var handler = new GetAllUsersHandler(_userStorage);
             var response = handler.Handle(request);
             if (response.Failure)
             {
                 _logger.LogError(response.Error);
                 return BadRequest(response.Error);
             }
-            _logger.LogInformation("user received");
+            _logger.LogInformation("All users received!");
+            return Ok(response.Value);
+        }
+
+        [HttpGet("/GetUser/{userName}")]
+        public ActionResult<User> GetUser([FromRoute] string userName)
+        {
+            var request = new GetUserByNameRequest { UserName = userName };
+            var handler = new GetUserByNameHandler(_userStorage);
+            var response = handler.Handle(request);
+            if (response.Failure)
+            {
+                _logger.LogError(response.Error);
+                return BadRequest(response.Error);
+            }
+            _logger.LogInformation("User received!");
             return Ok(response.Value);
         }
 
@@ -51,7 +62,7 @@ namespace Badcamp.Controllers
                 _logger.LogError(response.Error);
                 return BadRequest(response.Error);
             }
-            _logger.LogInformation("user added");
+            _logger.LogInformation("User added!");
             return Ok(response.Value);
         }
 
@@ -66,7 +77,22 @@ namespace Badcamp.Controllers
                 _logger.LogError(response.Error);
                 return BadRequest(response.Error);
             }
-            _logger.LogInformation("user updated");
+            _logger.LogInformation("User updated!");
+            return Ok(response.Value);
+        }
+
+        [HttpDelete("/DeleteUser/{userName}")]
+        public ActionResult<Event> DeleteUserByName([FromRoute] string userName)
+        {
+            var request = new DeleteUserByNameRequest { UserName = userName };
+            var handler = new DeleteUserByNameHandler(_userStorage);
+            var response = handler.Handle(request);
+            if (response.Failure)
+            {
+                _logger.LogError(response.Error);
+                return BadRequest(response.Error);
+            }
+            _logger.LogInformation("User deleted!");
             return Ok(response.Value);
         }
 
