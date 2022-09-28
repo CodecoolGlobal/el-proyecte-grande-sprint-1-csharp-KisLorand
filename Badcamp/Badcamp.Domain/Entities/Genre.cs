@@ -2,12 +2,11 @@
 
 namespace Badcamp.Models
 {
-	[JsonConverter(typeof(JsonStringEnumConverter))]
-	public enum Genre
+	public class Genre
 	{
-		Pop,
-		Rock,
-		Rap,
-		Techno
+		public long Id { get; set; }
+		public string Name { get; set; }
+		public HashSet<Song> Songs { get; set; }
+		public HashSet<ArtistModel> Artists { get; set; }
 	}
 }
