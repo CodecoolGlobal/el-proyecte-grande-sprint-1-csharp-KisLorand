@@ -1,58 +1,99 @@
-﻿using Badcamp.Models;
+﻿using Badcamp.Application.UseCases.SongCases;
+using Badcamp.Models;
 using Badcamp.Services;
 using Badcamp.Services.Interfaces;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Badcamp.Controllers
 {
+    [Route("api/[controller]")]
     [ApiController]
     public class SongController : ControllerBase
     {
-        private readonly ISongStorage _storage;
+        private readonly ISongService _songService;
+        private ILogger<SongController> _logger;
 
-        public SongController(ISongStorage songStorage)
+        public SongController(ISongService songService, ILogger<SongController> logger)
         {
-            _storage = songStorage;
+            _songService = songService;
+            _logger = logger;
+        }
+
+
+        [Route("addSong")]
+        [HttpPost]
+        public ActionResult<Song> AddNewSong([FromBody] Song NewSong)
+        {
+            var request = new AddSongRequest { NewSong = NewSong };
+            var handler = new AddSongHandler(_songService);
+            var response = handler.Handle(request);
+            if (response.Failure)
+            {
+                _logger.LogError(response.Error);
+                return BadRequest(response.Error);
+            }
+            _logger.LogInformation("Song Added");
+            return Ok(response.Value);
         }
 
         [HttpGet]
-        [Route("{songID}")]
-        public ActionResult<Song> GetSong([FromRoute] Guid songID)
+        [Route("getSong/{SongID}")]
+        public ActionResult<Song> GetSong([FromRoute] int SongID)
         {
-            Song song = _storage.GetSong(songID);
-            return Ok(song);
+            var request = new GetSongRequest { Id = SongID };
+            var handler = new GetSongHandler(_songService);
+            var response = handler.Handle(request);
+            if (response.Failure)
+            {
+                _logger.LogError(response.Error);
+                return BadRequest(response.Error);
+            }
+            _logger.LogInformation("Song Received");
+            return Ok(response.Value);
+
         }
 
         [HttpGet]
-        [Route("getall")]
-        public ActionResult<List<Song>> GetAll()
+        [Route("getallSongs")]
+        public ActionResult<List<Song>> GetAllSongs()
         {
-            List<Song>? response = _storage.GetAllSongs();
-            return Ok(response);
+            var request = new GetAllSongsRequest { };
+            var handler = new GetAllSongsHandler(_songService);
+            var response = handler.Handle(request);
+            if (response.Failure)
+            {
+                _logger.LogError(response.Error);
+                return BadRequest(response.Error);
+            }
+            _logger.LogInformation("Songs Received");
+            return Ok(response.Value);
         }
 
         [HttpDelete]
-        [Route("{songID}/delete")]
-        public ActionResult DeleteSong([FromRoute] Guid songID)
+        [Route("{SongID}/delete")]
+        public ActionResult DeleteSong([FromRoute] int SongID)
         {
-            Song song = _storage.GetSong(songID);
-            _storage.DeleteSong(song);
-            return Ok(_storage.GetAllSongs());
+            var request = new DeleteSongRequest { Id = SongID };
+            var handler = new DeleteSongHandler(_songService);
+            _logger.LogInformation("Song Deleted");
+            return NoContent();
         }
 
         [HttpPut]
-        [Route("{songID}/update")]
-        public ActionResult UpdateSong([FromRoute] Guid songID, [FromBody] Song song)
+        [Route("{SongID}/update")]
+        public ActionResult UpdateSong([FromRoute] int SongID, [FromBody] Song song)
         {
-            Song updatedSong = _storage.UpdateSong(song);
-            return Ok(updatedSong);
-        }
-        [HttpPost]
-        [Route("create")]
-        public ActionResult<Song> CreateSong([FromBody] string title)
-        {
-            Song newSong = _storage.CreateSong(title);
-            return Ok(newSong);
+            var request = new UpdateSongRequest { Id = SongID, updateData = song };
+            var handler = new UpdateSongHandler(_songService);
+            var response = handler.Handle(request);
+            if (response.Failure)
+            {
+                _logger.LogError(response.Error);
+                return BadRequest(response.Error);
+            }
+            _logger.LogInformation("Song Updated");
+            return Ok();
         }
     }
 }
