@@ -1,4 +1,5 @@
-﻿using Badcamp.Models;
+﻿using Badcamp.Application.UseCases.EventCases;
+using Badcamp.Models;
 using Badcamp.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -11,48 +12,86 @@ namespace Badcamp.Controllers
     public class EventController : ControllerBase
     {
         private EventService _eventService;
-        public EventController(EventService service)
+        private ILogger<EventController> _logger;
+
+        public EventController(EventService service, ILogger<EventController> logger)
         {
             _eventService = service;
+            _logger = logger;
         }
 
         [Route("{artistId}/Create")]
         [HttpPost]
         public ActionResult<Event> CreateNewEvent(int artistId, [FromBody] Event newEvent)
         {
-            Event createdEvent = _eventService.CreateEvent(artistId, newEvent);
-            return Ok(createdEvent);
+            var request = new CreateEventRequest { ArtistId = artistId, NewEvent = newEvent };
+            var handler = new CreateEventHandler(_eventService);
+            var response = handler.Handle(request);
+            if (response.Failure)
+            {
+                _logger.LogError(response.Error);
+                return BadRequest(response.Error);
+            }
+            _logger.LogInformation("Event created");
+            return Ok(response.Value);
         }
 
         [Route("{artistId}/GetEventsByArtist")]
         [HttpGet]
         public ActionResult<List<Event>> GetEventsByArtist(int artistId)
         {
-            List<Event> eventList = _eventService.GetEventByArtist(artistId);
-            return Ok(eventList);
+            var request = new GetEventByArtistRequest { ArtistId = artistId };
+            var handler = new GetEventByArtistHandler(_eventService);
+            var response = handler.Handle(request);
+            if (response.Failure)
+            {
+                _logger.LogError(response.Error);
+                return BadRequest(response.Error);
+            }
+            _logger.LogInformation("Events recieved");
+            return Ok(response.Value);
         }
 
         [Route("GetEvents")]
         [HttpGet]
         public ActionResult<List<Event>> GetEvents()
         {
-            List<Event> eventList = _eventService.Storage;
-            return Ok(eventList);
+            var request = new GetAllEventsRequest {};
+            var handler = new GetAllEventsHandler(_eventService);
+            var response = handler.Handle(request);
+            if (response.Failure)
+            {
+                _logger.LogError(response.Error);
+                return BadRequest(response.Error);
+            }
+            _logger.LogInformation("Events received");
+            return Ok(response.Value);
         }
 
-        [Route("{artistId}/DeleteEvent/{eventId}")]
+        [Route("/DeleteEvent/{eventId}")]
         [HttpDelete]
-        public ActionResult<List<Event>> DeleteEvent(int artistId, int eventId)
+        public ActionResult<Event> DeleteEvent(int eventId)
         {
-            List<Event> events = _eventService.DeleteEvent(artistId, eventId);
-            return Ok(events);
+            var request = new DeleteEventRequest { EventId = eventId};
+            var handler = new DeleteEventHandler(_eventService);
+            handler.Handle(request);
+            _logger.LogInformation("Event deleted");
+            return NoContent();
         }
-        [Route("{artistId}/UpdateEvent/{eventId}")]
+        [Route("/UpdateEvent/{eventId}")]
         [HttpPut]
-        public ActionResult<List<Event>> UpdateEvent(int artistId, int eventId, [FromBody] Event eventUpdate)
+        public ActionResult<Event> UpdateEvent(int eventId, [FromBody] Event eventUpdate)
         {
-            List<Event> events = _eventService.UpdateEvent(artistId, eventId, eventUpdate);
-            return Ok(events);
+            var request = new UpdateEventRequest { EventId = eventId, UpdateEvent = eventUpdate };
+            var handler = new UpdateEventHandler(_eventService);
+            var response = handler.Handle(request);
+            if (response.Failure)
+            {
+                _logger.LogError(response.Error);
+                return BadRequest(response.Error);
+            }
+            _logger.LogInformation("Event updated");
+            return Ok(response.Value);
         }
     }
 }
