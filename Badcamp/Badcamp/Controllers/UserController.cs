@@ -1,5 +1,6 @@
 ﻿using Badcamp.Application.UseCases;
 using Badcamp.Application.UseCases.UserCases.AddUser;
+using Badcamp.Application.UseCases.UserCases.UpdateUserDataCase;
 using Badcamp.Models;
 using Badcamp.Services;
 using Microsoft.AspNetCore.Http;
@@ -55,9 +56,18 @@ namespace Badcamp.Controllers
         }
 
         [HttpPut("/UpdateUser/{userName}")]
-        public void UpdateUser([FromRoute] string userName, [FromBody] User updatedUser)
+        public ActionResult<User> UpdateUser([FromRoute] string userName, [FromBody] User updatedUser)
         {
-            _userStorage.UpdateUserData(userName, updatedUser);
+            var request = new UpdateUserDataRequest { UserName = userName, UpdatedUser = updatedUser };
+            var handler = new UpdateUserDataHandler(_userStorage);
+            var response = handler.Handle(request);
+            if (response.Failure)
+            {
+                _logger.LogError(response.Error);
+                return BadRequest(response.Error);
+            }
+            _logger.LogInformation("user updated");
+            return Ok(response.Value);
         }
 
     }
