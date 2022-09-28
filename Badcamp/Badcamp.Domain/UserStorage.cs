@@ -46,5 +46,10 @@ namespace Badcamp.Models
             }
         }
 
+        public void DeleteUser(User user)
+        {
+            _users.Remove(user);
+        }
+
     }
 }
