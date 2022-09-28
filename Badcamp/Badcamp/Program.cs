@@ -4,6 +4,9 @@ using Badcamp;
 using Badcamp.Services;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Badcamp.Models;
+using Badcamp.Application;
+using Badcamp.Infrastucture;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +16,12 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddDbContext<IBadcampContext, BadcampContext>(options =>
+{
+    var connectionstring = builder.Configuration.GetConnectionString("BadcampContext");
+    options.UseSqlServer(connectionstring);
+});
+
 // change to scoped when no longer inmemory
 builder.Services.AddSingleton<ISongStorage, SongStorage>();
 builder.Services.AddSingleton<UserStorage>();
@@ -26,8 +35,8 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-	app.UseSwagger();
-	app.UseSwaggerUI();
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
 
 app.UseHttpsRedirection();

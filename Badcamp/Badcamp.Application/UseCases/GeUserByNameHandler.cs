@@ -11,26 +11,32 @@ namespace Badcamp.Application.UseCases
     public class GeUserByNameHandler : IRequestHandler<GetUserByNameRequest, Response<User>>
     {
         UserStorage _userStorage;
+        IBadcampContext _context;
         public GeUserByNameHandler(UserStorage userStorage)
         {
             _userStorage = userStorage;
         }
+        public GeUserByNameHandler(IBadcampContext context)
+        {
+            _context = context;
+        }
         public Response<User> Handle(GetUserByNameRequest message)
         {
-            User user;
             try
             {
-                user=_userStorage.GetUserByName(message.UserName);
-                if(user==null)
+                var user = _context.Users
+                    .Where(x => x.Username == message.UserName)
+                    .FirstOrDefault();
+
+                if(user == null)
                 {
-                    return Response.Fail<User>("user not found");
+                    return Response.Fail<User>("User not found");
                 }
-                return Response.Ok(user);
+                return Response.Ok<User>(user);
             }
             catch (Exception e)
             {
                 return Response.Fail<User>(e.Message);
-               
             }
          
         }
