@@ -9,7 +9,7 @@
         public string Description { get; private set; } = String.Empty;
         public string Lyrics { get; private set; } = String.Empty;
         public string AudioSource { get; private set; } = String.Empty;
-        public IEnumerable<Genre> Genres { get; private set; }
+        public IEnumerable<Genre>? Genres { get; private set; }
         public Song(int id, int artistId, string title, string album, string description, string lyrics, string audiosource, IEnumerable<Genre> genres)
         {   
             Id = id;
@@ -21,6 +21,11 @@
             AudioSource = audiosource;
             Genres = genres;
         }
+
+        public Song()
+        {
+        }
+
         public void SetId(int newId)
         {
             Id = newId;

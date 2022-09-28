@@ -10,8 +10,4 @@
     <ProjectReference Include="..\Badcamp.Domain\Badcamp.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="UseCases\SongCases\" />
-  </ItemGroup>
-
 </Project>
