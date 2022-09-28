@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Badcamp.Application.UseCases.ArtistPage.AddArtist
 {
-	public class AddArtistRequest : IRequest<Response>
+	public class ArtistModelRequest : IRequest<Response>
 	{
 		public ArtistModel Artist;
 	}
