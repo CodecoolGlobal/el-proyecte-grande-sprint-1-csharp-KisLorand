@@ -56,7 +56,7 @@ namespace Badcamp.Controllers
 		[HttpPost]
 		public ActionResult<ArtistModel> AddArtist([FromBody] ArtistModel newArtist)
 		{
-			var request = new AddArtistRequest { Artist = newArtist};
+			var request = new ArtistModelRequest { Artist = newArtist };
 			var handler = new AddArtistHandler(_artistStorage);
 			var response = handler.Handle(request);
 			if (response.Failure)

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Badcamp.Application.UseCases.ArtistPage.AddArtist
 {
-	public class AddArtistHandler : IRequestHandler<AddArtistRequest, Response<ArtistModel>>
+	public class AddArtistHandler : IRequestHandler<ArtistModelRequest, Response<ArtistModel>>
 	{
 		private ArtistStorage _storage;
 		public AddArtistHandler(ArtistStorage storage)
@@ -16,7 +16,7 @@ namespace Badcamp.Application.UseCases.ArtistPage.AddArtist
 			_storage = storage;
 		}
 
-		public Response<ArtistModel> Handle(AddArtistRequest message)
+		public Response<ArtistModel> Handle(ArtistModelRequest message)
 		{
 			ArtistModel artist = message.Artist;
 			try
