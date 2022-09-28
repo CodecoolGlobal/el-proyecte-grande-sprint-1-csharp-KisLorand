@@ -36,21 +36,6 @@ namespace Badcamp.Controllers
             return Ok(response.Value);
         }
 
-        [HttpGet()]
-        [Route("SearchArtistByName/{name}")]
-        public ArtistModel SearchArtist([FromRoute] string name)
-        {
-            throw new NotImplementedException();
-            //return _artistGalleryService.GetArtistByName(name);
-        }
-
-        //[HttpGet]
-        //[Route("FilterArtistByGenre/{genre}")]
-        //public IList<ArtistModel> FilterArtistByGenre([FromRoute] Genre genre)
-        //{
-        //    return _artistGalleryService.FilterArtistsByGenre(genre);
-        //}
-
  
     }
 }
