@@ -41,7 +41,7 @@ namespace Badcamp.Controllers
 		[HttpGet("{id}")]
 		public ActionResult<ArtistModel> GetOneArtist([FromRoute] int id)
 		{
-			var request = new GetArtistByIdRequest { Id = id};
+			var request = new ArtistIdRequest { Id = id};
 			var handler = new GetArtistByIdHandler(_artistStorage);
 			var response = handler.Handle(request);
 			if (response.Failure)
@@ -71,7 +71,7 @@ namespace Badcamp.Controllers
 		[HttpPut("{id}")]
 		public ActionResult<ArtistModel> UpdateArtist([FromRoute] int id, [FromBody] ArtistModel newArtistData)
 		{
-			var request = new UpdateArtistRequest { Artist = newArtistData };
+			var request = new ArtistModelRequest { Artist = newArtistData };
 			var handler = new UpdateArtistHandler(_artistStorage);
 			var response = handler.Handle(request);
 			if (response.Failure)
