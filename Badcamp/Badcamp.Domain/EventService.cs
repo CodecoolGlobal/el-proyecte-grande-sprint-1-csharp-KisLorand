@@ -10,8 +10,14 @@ namespace Badcamp.Services
         public EventService()
         {
             Storage = new List<Event>();
-            Event newEvent = new Event(0, 0, "Concert", "Let's meet there!!");
+            Event newEvent = new Event(0, 0, "Concert", "Let's meet there!!", 70);
+            Event newEvent2 = new Event(1, 2, "Kázmér is giving free hugs", "Let's meet there!!", 200);
             Storage.Add(newEvent);
+            Storage.Add(newEvent2);
+        }
+        public IReadOnlyList<Event> GetAllEvents()
+        {
+            return Storage.AsReadOnly();
         }
 
         public Event CreateEvent(int artistId, Event newEvent)
@@ -29,7 +35,7 @@ namespace Badcamp.Services
             return newEvent;
         }
 
-        public List<Event> GetEventByArtist(int artistId)
+        public IReadOnlyList<Event> GetEventByArtist(int artistId)
         {
             List<Event> eventsByArtist = new List<Event>();
             foreach (Event @event in Storage)
@@ -39,10 +45,10 @@ namespace Badcamp.Services
                     eventsByArtist.Add(@event);
                 }
             }
-            return eventsByArtist;
+            return eventsByArtist.AsReadOnly();
         }
 
-        public List<Event> DeleteEvent(int artistId, int eventId)
+        public void DeleteEvent(int eventId)
         {
             
             for (int i=0; i<=Storage.Count; i++)
@@ -53,21 +59,21 @@ namespace Badcamp.Services
                     break;
                 }
             }
-
-            return GetEventByArtist(artistId);
         }
 
-        internal List<Event> UpdateEvent(int artistId, int eventId, Event eventUpdate)
+        public Event UpdateEvent(int eventId, Event eventUpdate)
         {
+            Event updatedEvent = new Event();
             foreach(Event @event in Storage)
             {
-                if(@event.Id == eventId)
+                if (@event.Id == eventId)
                 {
                     @event.Title = eventUpdate.Title;
                     @event.Description = eventUpdate.Description;
+                    updatedEvent = @event;
                 }
             }
-            return GetEventByArtist(artistId);
+            return updatedEvent;
         }
     }
 }
