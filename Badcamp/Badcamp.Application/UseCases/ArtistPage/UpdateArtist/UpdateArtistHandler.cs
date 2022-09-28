@@ -1,4 +1,5 @@
 ﻿using Badcamp.Application.Common;
+using Badcamp.Application.UseCases.ArtistPage.AddArtist;
 using Badcamp.Models;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Badcamp.Application.UseCases.ArtistPage.UpdateArtist
 {
-	public class UpdateArtistHandler : IRequestHandler<UpdateArtistRequest, Response<ArtistModel>>
+	public class UpdateArtistHandler : IRequestHandler<ArtistModelRequest, Response<ArtistModel>>
 	{
 		private ArtistStorage _storage;
 		public UpdateArtistHandler(ArtistStorage storage)
@@ -16,7 +17,7 @@ namespace Badcamp.Application.UseCases.ArtistPage.UpdateArtist
 			_storage = storage;
 		}
 
-		public Response<ArtistModel> Handle(UpdateArtistRequest message)
+		public Response<ArtistModel> Handle(ArtistModelRequest message)
 		{
 			try
 			{
