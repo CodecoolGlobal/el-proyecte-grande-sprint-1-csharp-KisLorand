@@ -9,6 +9,10 @@
         public string FullName { get; set; }
         public ArtistModel Artist { get; set; }
 
+        public User()
+        {
+        }
+
         public User(string username, string password, DateTime dateOfBirth, string fullName)
         {
             Username = username;
@@ -17,6 +21,6 @@
             FullName = fullName;
         }
 
-        
+
     }
 }
