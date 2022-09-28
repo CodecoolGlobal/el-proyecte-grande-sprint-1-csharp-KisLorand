@@ -2,32 +2,64 @@
 {
     public class Song
     {
-        private Guid _songID;
-        private Guid _artistID;
-        private string _title;
-        private Guid _source;
+        public int Id { get; private set; }
+        public int ArtistId { get; private set; }
+        public string Title { get; private set; } = String.Empty;
+        public string AlbumTitle { get; private set; } = String.Empty;
+        public string Description { get; private set; } = String.Empty;
+        public string Lyrics { get; private set; } = String.Empty;
+        public string AudioSource { get; private set; } = String.Empty;
+        public IEnumerable<Genre>? Genres { get; private set; }
+        public Song(int id, int artistId, string title, string album, string description, string lyrics, string audiosource, IEnumerable<Genre> genres)
+        {   
+            Id = id;
+            ArtistId = artistId;
+            Title = title;
+            AlbumTitle = album;
+            Description = description;
+            Lyrics = lyrics;
+            AudioSource = audiosource;
+            Genres = genres;
+        }
 
-        public Guid SongID => _songID;
-        public Guid ArtistID => _artistID;
-        public string Title => _title;
-        public Guid Source => _source;
-        public Song(string title)
+        public Song()
         {
-            _songID = Guid.NewGuid();
-            _artistID = Guid.NewGuid();
-            _title = title;
-            _source = Guid.NewGuid();
+        }
+
+        public void SetId(int newId)
+        {
+            Id = newId;
         }
 
         public void UpdateSong(Song song)
         {
-            if (_title != song.Title)
+            if (ArtistId != song.ArtistId)
             {
-                _title = song.Title;
+                ArtistId = song.ArtistId;
             }
-            if (_source != song.Source)
+            if (Title != song.Title)
             {
-                _source = song.Source;
+                Title = song.Title;
+            }
+            if (AlbumTitle != song.AlbumTitle)
+            {
+                AlbumTitle = song.AlbumTitle;
+            }
+            if (Description != song.Description)
+            {
+                Description = song.Description;
+            }
+            if (Lyrics != song.Lyrics)
+            {
+                Lyrics = song.Lyrics;
+            }
+            if (AlbumTitle != song.AlbumTitle)
+            {
+                AlbumTitle = song.AlbumTitle;
+            }
+            if (Genres != song.Genres)
+            {
+                Genres = song.Genres;
             }
         }
     }
