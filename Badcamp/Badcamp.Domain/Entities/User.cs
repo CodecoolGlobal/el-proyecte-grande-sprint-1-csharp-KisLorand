@@ -2,12 +2,12 @@
 {
     public class User
     {
-        public int Id { get; set; }
-        public string Username { get; set; } = String.Empty;
-        public string Password { get; set; } = String.Empty;
+        public long Id { get; set; }
+        public string Username { get; set; }
+        public string Password { get; set; }
         public DateTime DateOfBirth { get; set; }
-        public string FullName { get; set; } = String.Empty;
-        public int? ArtistId { get; set; }
+        public string FullName { get; set; }
+        public ArtistModel Artist { get; set; }
 
         public User()
         {
@@ -19,7 +19,6 @@
             Password = password;
             DateOfBirth = dateOfBirth;
             FullName = fullName;
-            ArtistId = null;
         }
 
 
