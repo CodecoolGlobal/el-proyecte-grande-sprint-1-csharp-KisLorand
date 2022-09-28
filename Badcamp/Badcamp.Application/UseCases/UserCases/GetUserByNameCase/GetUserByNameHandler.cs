@@ -8,13 +8,14 @@ using System.Threading.Tasks;
 
 namespace Badcamp.Application.UseCases
 {
-    public class GeUserByNameHandler : IRequestHandler<GetUserByNameRequest, Response<User>>
+    public class GetUserByNameHandler : IRequestHandler<GetUserByNameRequest, Response<User>>
     {
         UserStorage _userStorage;
-        public GeUserByNameHandler(UserStorage userStorage)
+        public GetUserByNameHandler(UserStorage userStorage)
         {
             _userStorage = userStorage;
         }
+
         public Response<User> Handle(GetUserByNameRequest message)
         {
             User user;
