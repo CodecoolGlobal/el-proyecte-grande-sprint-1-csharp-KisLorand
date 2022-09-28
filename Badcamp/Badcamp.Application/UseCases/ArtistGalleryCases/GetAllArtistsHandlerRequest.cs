@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Badcamp.Application.UseCases.ArtistGalleryCases
 {
-    public class GetAllArtistsHandlerRequest : IRequest<Response<ArtistModel>>
+    public class GetAllArtistsHandlerRequest : IRequest<IReadOnlyList<ArtistModel>>
     {
     }
 }
