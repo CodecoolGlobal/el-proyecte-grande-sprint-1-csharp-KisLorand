@@ -8,14 +8,14 @@ using System.Threading.Tasks;
 
 namespace Badcamp.Application.UseCases.ArtistPage
 {
-	public class GetArtistByIdHandler : IRequestHandler<GetArtistByIdRequest, Response<ArtistModel>>
+	public class GetArtistByIdHandler : IRequestHandler<ArtistIdRequest, Response<ArtistModel>>
 	{
 		private ArtistStorage _storage;
 		public GetArtistByIdHandler(ArtistStorage storage)
 		{
 			_storage = storage;
 		}
-		public Response<ArtistModel> Handle(GetArtistByIdRequest message)
+		public Response<ArtistModel> Handle(ArtistIdRequest message)
 		{
 			ArtistModel artist;
 			try
