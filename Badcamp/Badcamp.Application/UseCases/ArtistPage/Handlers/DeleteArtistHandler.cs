@@ -1,4 +1,5 @@
 ﻿using Badcamp.Application.Common;
+using Badcamp.Application.UseCases.ArtistPage.Requests;
 using Badcamp.Domain.Entities;
 using Badcamp.Models;
 using System;
@@ -7,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Badcamp.Application.UseCases.ArtistPage
+namespace Badcamp.Application.UseCases.ArtistPage.Handlers
 {
 	public class DeleteArtistHandler : IRequestHandler<ArtistIdRequest, Response<Artist>>
 	{
