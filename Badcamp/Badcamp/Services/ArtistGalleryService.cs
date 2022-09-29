@@ -1,4 +1,5 @@
-﻿using Badcamp.Models;
+﻿using Badcamp.Domain.Entities;
+using Badcamp.Models;
 
 namespace Badcamp.Services
 {
@@ -11,22 +12,23 @@ namespace Badcamp.Services
             _artistStorage = artistStorage;
         }
 
-        public IList<ArtistModel> FilterArtistsByGenre(Genre genre)
+        public IList<Artist> FilterArtistsByGenre(Genre genre)
         {
-            return _artistStorage.GetArtists().Where(a => a.ArtistGenre == genre).ToList();
+            throw new NotImplementedException();
+            //return _artistStorage.GetArtists().Where(a => a.ArtistGenre == genre).ToList();
         }
 
-        public ArtistModel GetArtistById(int id)
+        public Artist GetArtistById(int id)
         {
             return _artistStorage.GetArtist(id);
         }
 
-        public IList<ArtistModel> GetAllArtists()
+        public IList<Artist> GetAllArtists()
         {
             return _artistStorage.GetArtists();
         }
 
-        public ArtistModel GetArtistByName(string name)
+        public Artist GetArtistByName(string name)
         {
             return _artistStorage.GetArtists().SingleOrDefault(a => a.Name == name);
 

@@ -1,4 +1,6 @@
+
 ﻿using Badcamp.Application.UseCases.ArtistGalleryCases;
+﻿using Badcamp.Domain.Entities;
 using Badcamp.Models;
 using Badcamp.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -11,7 +13,6 @@ namespace Badcamp.Controllers
     [ApiController]
     public class ArtistGalleryController : ControllerBase
     {
-
         private ArtistStorage _artistStorage;
 
         private ILogger<ArtistGalleryController> _logger;

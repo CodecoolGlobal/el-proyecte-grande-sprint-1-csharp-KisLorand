@@ -1,13 +1,12 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace Badcamp.Models
+namespace Badcamp.Domain.Entities
 {
-	[JsonConverter(typeof(JsonStringEnumConverter))]
-	public enum Genre
+	public class Genre
 	{
-		Pop,
-		Rock,
-		Rap,
-		Techno
+		public long Id { get; set; }
+		public string Name { get; set; }
+		public HashSet<Song> Songs { get; set; } = new HashSet<Song>();
+		public HashSet<Artist> Artists { get; set; } = new HashSet<Artist>();
 	}
 }
