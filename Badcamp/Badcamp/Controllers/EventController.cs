@@ -24,7 +24,7 @@ namespace Badcamp.Controllers
 
         [Route("{artistId}/Create")]
         [HttpPost]
-        public ActionResult<Event> CreateNewEvent(int artistId, [FromBody] Event newEvent)
+        public ActionResult<Event> CreateNewEvent(long artistId, [FromBody] Event newEvent)
         {
             var request = new CreateEventRequest { ArtistId = artistId, NewEvent = newEvent };
             var handler = new CreateEventHandler(_badcampContext);
@@ -40,7 +40,7 @@ namespace Badcamp.Controllers
 
         [Route("{artistId}/GetEventsByArtist")]
         [HttpGet]
-        public ActionResult<List<Event>> GetEventsByArtist(int artistId)
+        public ActionResult<List<Event>> GetEventsByArtist(long artistId)
         {
             var request = new GetEventByArtistRequest { ArtistId = artistId };
             var handler = new GetEventByArtistHandler(_badcampContext);
@@ -72,7 +72,7 @@ namespace Badcamp.Controllers
 
         [Route("/DeleteEvent/{eventId}")]
         [HttpDelete]
-        public ActionResult<Event> DeleteEvent(int eventId)
+        public ActionResult<Event> DeleteEvent(long eventId)
         {
             var request = new DeleteEventRequest { EventId = eventId};
             var handler = new DeleteEventHandler(_badcampContext);
@@ -87,7 +87,7 @@ namespace Badcamp.Controllers
         }
         [Route("/UpdateEvent/{eventId}")]
         [HttpPut]
-        public ActionResult<Event> UpdateEvent(int eventId, [FromBody] Event eventUpdate)
+        public ActionResult<Event> UpdateEvent(long eventId, [FromBody] Event eventUpdate)
         {
             var request = new UpdateEventRequest { EventId = eventId, UpdateEvent = eventUpdate };
             var handler = new UpdateEventHandler(_badcampContext);

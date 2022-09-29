@@ -31,6 +31,8 @@ namespace Badcamp.Application.UseCases.EventCases
 
                 @event = _context.Events.Find(message.EventId);
                 @event = message.UpdateEvent;
+                _context.SaveChanges();
+
                 if (@event == null)
                 {
                     return Response.Fail<Event>("Event Couldn't be updated");
