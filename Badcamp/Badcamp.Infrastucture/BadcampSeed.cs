@@ -171,7 +171,19 @@ namespace Badcamp.Infrastucture
                         Genres = new HashSet<Genre> {
                             context.Genres.Where(x => x.Name=="Rock"),
                         }
-                    }
+                    },
+                    new Song
+                    {
+                        Title = "Castle In The Sky",
+                        AlbumTitle = "High in the sky",
+                        Description = "",
+                        Lyrics = "",
+                        AudioSource = "/public/music",
+                        Genres = new HashSet<Genre> {
+                            context.Genres.Where(x => x.Name=="Alter"),
+                            context.Genres.Where(x => x.Name=="Rock"),
+                            context.Genres.Where(x => x.Name=="Techno")
+                        }
                     );
                 context.SaveChanges();
             }
