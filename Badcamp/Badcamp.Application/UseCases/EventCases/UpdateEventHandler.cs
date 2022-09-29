@@ -24,22 +24,24 @@ namespace Badcamp.Application.UseCases.EventCases
         }
         public Response<Event> Handle(UpdateEventRequest message)
         {
-            /* Event @event;
-             try
-             {
-                 @event = _eventService.UpdateEvent(message.EventId, message.UpdateEvent);
-                 if (@event == null)
-                 {
-                     return Response.Fail<Event>("Couldn't be created");
-                 }
-                 return Response.Ok(@event);
+           /* Event @event;
+            try
+            {
+                
+                @event = _context.Events.Find(message.EventId);
+                @event = message.UpdateEvent;
+                if (@event == null)
+                {
+                    return Response.Fail<Event>("Event Couldn't be updated");
+                }
+                return Response.Ok(@event);
 
-             }
-             catch (Exception e)
-             {
-                 return Response.Fail<Event>(e.Message);
+            }
+            catch (Exception e)
+            {
+                return Response.Fail<Event>(e.Message);
 
-             }*/
+            }*/
             return Response.Ok<Event>(new Event());
         }
     }

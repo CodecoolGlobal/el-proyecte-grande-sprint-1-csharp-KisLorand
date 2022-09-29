@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace Badcamp.Application.UseCases.EventCases
 {
-    public class DeleteEventHandler //: IRequestHandler<DeleteEventRequest, Response<Event>>
+    public class DeleteEventHandler : IRequestHandler<DeleteEventRequest, Response<Event>>
     {
-        EventService _eventService;
+        //EventService _eventService;
         IBadcampContext _context;
         /* public DeleteEventHandler(EventService eventService)
          {
@@ -21,29 +21,27 @@ namespace Badcamp.Application.UseCases.EventCases
         {
             _context = context;
         }
-        /*public Response<Event> Handle(DeleteEventRequest message)
+        public Response<Event> Handle(DeleteEventRequest message)
         {
-            Event @event;
-            try
-            {
-                @event = _eventService.DeleteEvent(message.EventId);
-                if (@event == null)
-                {
-                    return Response.Fail<Event>("Couldn't be created");
-                }
-                return Response.Ok(@event);
+            /* Event @event;
+             try
+             {
 
-            }
-            catch (Exception e)
-            {
-                return Response.Fail<Event>(e.Message);
+                 @event = _context.Events.Find(message.EventId);
+                 if (@event == null)
+                 {
+                     return Response.Fail<Event>("Couldn't be created");
+                 }
+                 _context.Events.Remove(@event);
+                 return Response.Ok(@event);
 
-            }
-        }*/
+             }
+             catch (Exception e)
+             {
+                 return Response.Fail<Event>(e.Message);
 
-        public void Handle(DeleteEventRequest message)
-        {
-           // _eventService.DeleteEvent(message.EventId);
+             }*/
+            return Response.Ok<Event>(new Event());
         }
     }
 }

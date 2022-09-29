@@ -75,8 +75,13 @@ namespace Badcamp.Controllers
         {
             var request = new DeleteEventRequest { EventId = eventId};
             var handler = new DeleteEventHandler(_badcampContext);
-            handler.Handle(request);
-            _logger.LogInformation("Event deleted");
+            var response = handler.Handle(request);
+            if (response.Failure)
+            {
+                _logger.LogError(response.Error);
+                return BadRequest(response.Error);
+            }
+            _logger.LogInformation("Event Deleted");
             return NoContent();
         }
         [Route("/UpdateEvent/{eventId}")]

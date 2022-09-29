@@ -23,14 +23,22 @@ namespace Badcamp.Application.UseCases.EventCases
         }
         public Response<Event> Handle(CreateEventRequest message)
         {
-         /*   Event @event;
+           /* Event @event;
+            Event newEvent;
+            ArtistModel artist;
             try
             {
-                @event = _eventService.CreateEvent(message.ArtistId, message.NewEvent);
+                // @event = _eventService.CreateEvent(message.ArtistId, message.NewEvent);
+                newEvent = message.NewEvent;
+                artist = _context.Artists.Find(message.ArtistId);
+                newEvent.Artist = artist;
+                _context.Events.Add(newEvent);
+                @event= _context.Events.Find(newEvent.Id);
                 if (@event == null)
                 {
                     return Response.Fail<Event>("Couldn't be created");
                 }
+
                 return Response.Ok(@event);
 
             }
@@ -39,7 +47,7 @@ namespace Badcamp.Application.UseCases.EventCases
                 return Response.Fail<Event>(e.Message);
 
             }*/
-         return Response.Ok<Event>(new Event());
+            return Response.Ok<Event>(new Event());
         }
     }
 }
