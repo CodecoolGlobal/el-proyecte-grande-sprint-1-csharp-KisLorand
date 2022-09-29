@@ -18,9 +18,9 @@ namespace Badcamp.Application.UseCases.UserCases.AddUser
         }
         public Response<User> Handle(AddUserRequest message)
         {
-            User user = message.NewUser;
             try
             {
+                User user = message.NewUser;
                 _context.Users.Add(user);
                 _context.SaveChanges(); 
                 return Response.Ok(user);
