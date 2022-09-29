@@ -11,19 +11,25 @@ namespace Badcamp.Application.UseCases.UserCases.UpdateUserDataCase
 {
     public class UpdateUserDataHandler : IRequestHandler<UpdateUserDataRequest, Response<User>>
     {
-        UserStorage _userStorage;
-        public UpdateUserDataHandler(UserStorage userStorage)
+        IBadcampContext _context;
+        public UpdateUserDataHandler(IBadcampContext context)
         {
-            _userStorage = userStorage;
+            _context = context;
         }
-
         public Response<User> Handle(UpdateUserDataRequest message)
         {
-            User user = message.UpdatedUser;
             try
-            {                
-                _userStorage.UpdateUserData(message.UserName, message.UpdatedUser);
-                return Response.Ok(user);
+            {
+                var userToUpdate = _context.Users.Where(u => u.Username == message.UserName).FirstOrDefault();
+                if (userToUpdate == null)
+                {
+                    return Response.Fail<User>("User does not exist!");
+                }
+                userToUpdate.Username = message.UpdatedUser.Username;
+                userToUpdate.Password = message.UpdatedUser.Password;
+                userToUpdate.FullName = message.UpdatedUser.FullName;
+                _context.SaveChanges();
+                return Response.Ok(userToUpdate);
             }
             catch (Exception e)
             {
