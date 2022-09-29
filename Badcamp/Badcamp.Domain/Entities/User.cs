@@ -1,4 +1,4 @@
-﻿namespace Badcamp.Models
+﻿namespace Badcamp.Domain.Entities
 {
     public class User
     {
@@ -7,7 +7,6 @@
         public string Password { get; set; }
         public DateTime DateOfBirth { get; set; }
         public string FullName { get; set; }
-        public ArtistModel Artist { get; set; }
 
         public User(string username, string password, DateTime dateOfBirth, string fullName)
         {
