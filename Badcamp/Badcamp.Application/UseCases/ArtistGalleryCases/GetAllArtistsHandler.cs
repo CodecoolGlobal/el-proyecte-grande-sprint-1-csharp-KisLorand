@@ -1,5 +1,5 @@
 ﻿using Badcamp.Application.Common;
-using Badcamp.Models;
+using Badcamp.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,8 +8,7 @@ using System.Threading.Tasks;
 
 namespace Badcamp.Application.UseCases.ArtistGalleryCases
 {
-   
-    public class GetAllArtistsHandler : IRequestHandler<GetAllArtistsHandlerRequest, Response<IReadOnlyList<ArtistModel>>>
+    public class GetAllArtistsHandler : IRequestHandler<GetAllArtistsHandlerRequest, Response<IReadOnlyList<Artist>>>
     {
 
         private ArtistStorage _storage;
@@ -17,23 +16,23 @@ namespace Badcamp.Application.UseCases.ArtistGalleryCases
         {
             _storage = storage;
         }
-        public Response<IReadOnlyList<ArtistModel>> Handle(GetAllArtistsHandlerRequest message)
+        public Response<IReadOnlyList<Artist>> Handle(GetAllArtistsHandlerRequest message)
         {
 
-            IReadOnlyList<ArtistModel> artists;
+            IReadOnlyList<Artist> artists;
 
             try
             {
-                artists = (IReadOnlyList<ArtistModel>)_storage.GetArtists();
+                artists = (IReadOnlyList<Artist>)_storage.GetArtists();
                 if(artists == null)
                 {
-                    return Response.Fail<IReadOnlyList<ArtistModel>>("Artists not found");
+                    return Response.Fail<IReadOnlyList<Artist>>("Artists not found");
                 }
                 return Response.Ok(artists);
             }
             catch(Exception e)
             {
-                return Response.Fail<IReadOnlyList<ArtistModel>>(e.Message);
+                return Response.Fail<IReadOnlyList<Artist>>(e.Message);
             }
         }
     }
