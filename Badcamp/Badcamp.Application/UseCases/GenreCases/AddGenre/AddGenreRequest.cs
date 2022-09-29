@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Badcamp.Application.UseCases.GenreCases.AddGenre
 {
-    internal class AddGenreRequest : IRequest<Response>
+    public class AddGenreRequest : IRequest<Response>
     {
         public string  Name { get; set; }
     }
