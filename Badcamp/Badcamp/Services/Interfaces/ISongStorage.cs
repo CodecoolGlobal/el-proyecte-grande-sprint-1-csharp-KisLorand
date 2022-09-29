@@ -1,4 +1,5 @@
-﻿using Badcamp.Models;
+﻿using Badcamp.Domain.Entities;
+using Badcamp.Models;
 
 namespace Badcamp.Services.Interfaces
 {
