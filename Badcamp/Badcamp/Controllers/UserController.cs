@@ -60,7 +60,7 @@ namespace Badcamp.Controllers
         [HttpPost("/RegisterUser")]
         public ActionResult<User> RegisterUser([FromBody] AddUserRequest newUser)
         {
-            var handler = new AddUserHandler(_userStorage);
+            var handler = new AddUserHandler(_badcampContext);
             var response = handler.Handle(newUser);
             if (response.Failure)
             {
