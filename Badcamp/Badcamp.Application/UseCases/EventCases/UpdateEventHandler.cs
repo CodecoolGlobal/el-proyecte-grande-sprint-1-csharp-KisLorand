@@ -25,10 +25,10 @@ namespace Badcamp.Application.UseCases.EventCases
         }
         public Response<Event> Handle(UpdateEventRequest message)
         {
-           /* Event @event;
+            Event @event;
             try
             {
-                
+
                 @event = _context.Events.Find(message.EventId);
                 @event = message.UpdateEvent;
                 if (@event == null)
@@ -42,8 +42,7 @@ namespace Badcamp.Application.UseCases.EventCases
             {
                 return Response.Fail<Event>(e.Message);
 
-            }*/
-            return Response.Ok<Event>(new Event());
+            }
         }
     }
 }

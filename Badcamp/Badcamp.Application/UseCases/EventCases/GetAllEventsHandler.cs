@@ -24,22 +24,21 @@ namespace Badcamp.Application.UseCases.EventCases
         }
         public Response<IReadOnlyList<Event>> Handle(GetAllEventsRequest message)
         {
-            /* IReadOnlyList<Event> events;
-             try
-             {
-                 events = _context.Events.ToList();
-                 if (events == null)
-                 {
-                     return Response.Fail<IReadOnlyList<Event>>("Events not found");
-                 }
-                 return Response.Ok(events);
-             }
-             catch (Exception e)
-             {
-                 return Response.Fail<IReadOnlyList<Event>>(e.Message);
+            IReadOnlyList<Event> events;
+            try
+            {
+                events = _context.Events.ToList();
+                if (events == null)
+                {
+                    return Response.Fail<IReadOnlyList<Event>>("Events not found");
+                }
+                return Response.Ok(events);
+            }
+            catch (Exception e)
+            {
+                return Response.Fail<IReadOnlyList<Event>>(e.Message);
 
-             }*/
-            return Response.Ok<IReadOnlyList<Event>>(new List<Event>());
+            }
 
         }
     }

@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Badcamp.Domain.Entities;
 
 namespace Badcamp.Application.UseCases.EventCases
 {
@@ -23,25 +24,24 @@ namespace Badcamp.Application.UseCases.EventCases
         }
         public Response<Event> Handle(DeleteEventRequest message)
         {
-            /* Event @event;
-             try
-             {
+            Event @event;
+            try
+            {
 
-                 @event = _context.Events.Find(message.EventId);
-                 if (@event == null)
-                 {
-                     return Response.Fail<Event>("Couldn't be created");
-                 }
-                 _context.Events.Remove(@event);
-                 return Response.Ok(@event);
+                @event = _context.Events.Find(message.EventId);
+                if (@event == null)
+                {
+                    return Response.Fail<Event>("Event couldn't be Deleted");
+                }
+                _context.Events.Remove(@event);
+                return Response.Ok(@event);
 
-             }
-             catch (Exception e)
-             {
-                 return Response.Fail<Event>(e.Message);
+            }
+            catch (Exception e)
+            {
+                return Response.Fail<Event>(e.Message);
 
-             }*/
-            return Response.Ok<Event>(new Event());
+            }
         }
     }
 }
