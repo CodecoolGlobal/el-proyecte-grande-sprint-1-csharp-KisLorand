@@ -5,10 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Badcamp.Application.UseCases.GenreCases.AddGenre
+namespace Badcamp.Application.UseCases.GenreCases.GetAllGenres
 {
-    public class AddGenreRequest : IRequest<Response>
+    public class GetAllGenresRequest : IRequest<Response>
     {
-        public string  Name { get; set; }
     }
 }
