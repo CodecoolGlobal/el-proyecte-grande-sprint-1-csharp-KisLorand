@@ -1,4 +1,5 @@
 ﻿using Badcamp.Application.Common;
+using Badcamp.Domain.Entities;
 using Badcamp.Models;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Badcamp.Application.UseCases
 {
-    public class GeUserByNameHandler : IRequestHandler<GetUserByNameRequest, Response<User>>
+    public class GetUserByNameHandler : IRequestHandler<GetUserByNameRequest, Response<User>>
     {
         UserStorage _userStorage;
         IBadcampContext _context;

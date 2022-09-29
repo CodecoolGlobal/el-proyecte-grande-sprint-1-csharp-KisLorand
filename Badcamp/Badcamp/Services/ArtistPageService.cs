@@ -1,4 +1,5 @@
-﻿using Badcamp.Models;
+﻿using Badcamp.Domain.Entities;
+using Badcamp.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Badcamp.Services
@@ -12,34 +13,34 @@ namespace Badcamp.Services
 			_artistStorage = storage;
 		}
 
-		public ArtistModel GetOne(int id)
+		public Artist GetOne(int id)
 		{
 			return _artistStorage.GetArtist(id);
 		}
 
-		public IList<ArtistModel> GetAll()
+		public IList<Artist> GetAll()
 		{
 			return _artistStorage.GetArtists();
 		}
 
-		public ArtistModel Add([FromBody] ArtistModel artist)
+		public Artist Add([FromBody] Artist artist)
 		{
 			_artistStorage.AddArtist(artist);
 			return artist;
 		}
 
-		public ArtistModel Update([FromRoute] int id, [FromBody] ArtistModel newArtistData)
+		public Artist Update([FromRoute] int id, [FromBody] Artist newArtistData)
 		{
-			ArtistModel updatedArtist = _artistStorage.GetArtist(id);
+			Artist updatedArtist = _artistStorage.GetArtist(id);
 			UpdateArtistData(newArtistData, updatedArtist);
 			return updatedArtist;
 		}
 
-		private void UpdateArtistData(ArtistModel newArtistData, ArtistModel updatedArtist)
+		private void UpdateArtistData(Artist newArtistData, Artist updatedArtist)
 		{
 			updatedArtist.Name = newArtistData.Name;
 			updatedArtist.Description = newArtistData.Description;
-			updatedArtist.ArtistGenre = newArtistData.ArtistGenre;
+			updatedArtist.Genres = newArtistData.Genres;
 			updatedArtist.ProfilePicture = newArtistData.ProfilePicture;
 		}
 	}
