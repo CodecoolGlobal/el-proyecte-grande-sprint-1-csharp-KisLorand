@@ -14,10 +14,10 @@ code {
 
 .container{
   max-width: 80vw;
+  min-height: 800px;
   margin: 2rem auto;
   padding: 1rem;
   border: 1px solid lightgrey;
   border-radius: 10px;
   text-align: center;
-
 }
