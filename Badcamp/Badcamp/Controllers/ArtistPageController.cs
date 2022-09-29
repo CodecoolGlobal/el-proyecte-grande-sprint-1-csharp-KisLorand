@@ -53,10 +53,10 @@ namespace Badcamp.Controllers
 			return Ok(response.Value);
 		}
 
-		[HttpPost]
-		public ActionResult<Artist> AddArtist([FromBody] Artist newArtist)
+		[HttpPost("{userId}")]
+		public ActionResult<Artist> AddArtist([FromRoute] long id, [FromBody] Artist newArtist)
 		{
-			var request = new ArtistRequest { Artist = newArtist };
+			var request = new ArtistAndIdRequest { Artist = newArtist, UserId=id };
 			var handler = new AddArtistHandler(_context);
 			var response = handler.Handle(request);
 			if (response.Failure)

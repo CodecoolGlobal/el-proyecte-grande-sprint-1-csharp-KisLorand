@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Badcamp.Application.UseCases.ArtistPage.Handlers
 {
-	public class AddArtistHandler : IRequestHandler<ArtistRequest, Response<Artist>>
+	public class AddArtistHandler : IRequestHandler<ArtistAndIdRequest, Response<Artist>>
 	{
 		private IBadcampContext _context;
 		public AddArtistHandler(IBadcampContext context)
@@ -17,11 +17,13 @@ namespace Badcamp.Application.UseCases.ArtistPage.Handlers
 			_context = context;
 		}
 
-		public Response<Artist> Handle(ArtistRequest message)
+		public Response<Artist> Handle(ArtistAndIdRequest message)
 		{
 			Artist artist = message.Artist;
 			try
 			{
+				User user = _context.Users.Find(message.UserId);
+				artist.User = user;
 				_context.Artists.Add(message.Artist);
 				_context.SaveChanges();
 				if (artist == null)

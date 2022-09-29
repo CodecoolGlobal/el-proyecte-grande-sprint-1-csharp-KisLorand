@@ -2,6 +2,7 @@
 using Badcamp.Application.UseCases.ArtistPage.Requests;
 using Badcamp.Domain.Entities;
 using Badcamp.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,7 +23,7 @@ namespace Badcamp.Application.UseCases.ArtistPage.Handlers
 			Artist artist;
 			try
 			{
-				artist = _context.Artists.Where(x=>x.Id==message.Id).FirstOrDefault();
+				artist = _context.Artists.Where(x=>x.Id==message.Id).Include(x => x.User).FirstOrDefault();
 				if (artist == null)
 				{
 					return Response.Fail<Artist>("Artist not found");
