@@ -11,10 +11,10 @@ namespace Badcamp.Application.UseCases.ArtistPage.Handlers
 {
 	public class AddArtistHandler : IRequestHandler<ArtistRequest, Response<Artist>>
 	{
-		private ArtistStorage _storage;
-		public AddArtistHandler(ArtistStorage storage)
+		private IBadcampContext _context;
+		public AddArtistHandler(IBadcampContext context)
 		{
-			_storage = storage;
+			_context = context;
 		}
 
 		public Response<Artist> Handle(ArtistRequest message)
@@ -22,7 +22,8 @@ namespace Badcamp.Application.UseCases.ArtistPage.Handlers
 			Artist artist = message.Artist;
 			try
 			{
-				_storage.AddArtist(message.Artist);
+				_context.Artists.Add(message.Artist);
+				_context.SaveChanges();
 				if (artist == null)
 				{
 					return Response.Fail<Artist>("Artists list not found");
