@@ -23,6 +23,9 @@ builder.Services.AddDbContext<IBadcampContext, BadcampContext>(options =>
     options.UseSqlServer(connectionstring);
 });
 
+builder.Services.AddTransient<BadcampSeed>();
+
+
 // change to scoped when no longer inmemory
 builder.Services.AddSingleton<ISongStorage, SongStorage>();
 builder.Services.AddSingleton<UserStorage>();
@@ -33,6 +36,10 @@ builder.Services.AddScoped<ArtistGalleryService>();
 
 var app = builder.Build();
 
+using var scope = app.Services.CreateScope();
+var services = scope.ServiceProvider;
+var initialiser = services.GetRequiredService<BadcampSeed>();
+initialiser.Seed();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
