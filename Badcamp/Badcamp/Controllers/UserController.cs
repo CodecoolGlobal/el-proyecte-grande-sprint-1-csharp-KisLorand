@@ -46,7 +46,7 @@ namespace Badcamp.Controllers
         public ActionResult<User> GetUser([FromRoute] string userName)
         {
             var request = new GetUserByNameRequest { UserName = userName };
-            var handler = new GeUserByNameHandler(_badcampContext);
+            var handler = new GetUserByNameHandler(_badcampContext);
             var response = handler.Handle(request);
             if (response.Failure)
             {
