@@ -24,12 +24,11 @@ namespace Badcamp.Application.UseCases.EventCases
         }
         public Response<Event> Handle(CreateEventRequest message)
         {
-            Event @event;
+            Event? @event;
             Event newEvent;
-            Artist artist;
+            Artist? artist;
             try
             {
-                // @event = _eventService.CreateEvent(message.ArtistId, message.NewEvent);
                 newEvent = message.NewEvent;
                 artist = _context.Artists.Find(message.ArtistId);
                 newEvent.Artist = artist;

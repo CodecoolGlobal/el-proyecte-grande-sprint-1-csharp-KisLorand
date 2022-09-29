@@ -25,7 +25,7 @@ namespace Badcamp.Application.UseCases.EventCases
         }
         public Response<Event> Handle(UpdateEventRequest message)
         {
-            Event @event;
+            Event? @event;
             try
             {
 
