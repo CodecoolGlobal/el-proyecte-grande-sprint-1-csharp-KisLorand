@@ -4,7 +4,7 @@ using System;
 
 namespace Badcamp.Application.UseCases.ArtistPage.AddArtist
 {
-	public class ArtistModelRequest : IRequest<Response>
+	public class ArtistRequest : IRequest<Response>
 	{
 		public Artist Artist;
 	}
