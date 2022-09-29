@@ -11,21 +11,22 @@ namespace Badcamp.Application.UseCases.UserCases.DeleteUserCase
 {
     public class DeleteUserByNameHandler : IRequestHandler<DeleteUserByNameRequest, Response<User>>
     {
-        UserStorage _userStorage;
-        public DeleteUserByNameHandler(UserStorage userStorage)
+        IBadcampContext _context;
+        public DeleteUserByNameHandler(IBadcampContext context)
         {
-            _userStorage = userStorage;
+            _context = context;
         }
         public Response<User> Handle(DeleteUserByNameRequest message)
-        {
-            User user = _userStorage.GetUserByName(message.UserName);
+        {            
             try
-            {                
+            {
+                User user = _context.Users.Where(u => u.Username == message.UserName).FirstOrDefault();
                 if (user == null)
                 {
                     return Response.Fail<User>("User does not exist!");
                 }
-                _userStorage.DeleteUser(user);
+                _context.Users.Remove(user);
+                _context.SaveChanges();
                 return Response.Ok(user);
             }
             catch (Exception e)

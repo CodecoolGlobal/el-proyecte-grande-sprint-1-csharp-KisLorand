@@ -16,13 +16,11 @@ namespace Badcamp.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        private UserStorage _userStorage;
         private ILogger<UserController> _logger;
         private readonly IBadcampContext _badcampContext;
 
-        public UserController(UserStorage userStorage , ILogger<UserController> logger , IBadcampContext badcampContext)
+        public UserController(ILogger<UserController> logger , IBadcampContext badcampContext)
         {
-            _userStorage = userStorage;
             _logger = logger;
             _badcampContext = badcampContext;
         }
@@ -31,7 +29,7 @@ namespace Badcamp.Controllers
         public ActionResult<List<User>> GetAllUsers()
         {
             var request = new GetAllUsersRequest { };
-            var handler = new GetAllUsersHandler(_userStorage);
+            var handler = new GetAllUsersHandler(_badcampContext);
             var response = handler.Handle(request);
             if (response.Failure)
             {
@@ -75,7 +73,7 @@ namespace Badcamp.Controllers
         public ActionResult<User> UpdateUser([FromRoute] string userName, [FromBody] User updatedUser)
         {
             var request = new UpdateUserDataRequest { UserName = userName, UpdatedUser = updatedUser };
-            var handler = new UpdateUserDataHandler(_userStorage);
+            var handler = new UpdateUserDataHandler(_badcampContext);
             var response = handler.Handle(request);
             if (response.Failure)
             {
@@ -90,7 +88,7 @@ namespace Badcamp.Controllers
         public ActionResult<Event> DeleteUserByName([FromRoute] string userName)
         {
             var request = new DeleteUserByNameRequest { UserName = userName };
-            var handler = new DeleteUserByNameHandler(_userStorage);
+            var handler = new DeleteUserByNameHandler(_badcampContext);
             var response = handler.Handle(request);
             if (response.Failure)
             {
