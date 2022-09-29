@@ -11,18 +11,18 @@ namespace Badcamp.Application.UseCases.UserCases.AddUser
 {
     public class AddUserHandler : IRequestHandler<AddUserRequest, Response<User>>
     {
-        UserStorage _userStorage;
-        public AddUserHandler(UserStorage userStorage)
+        IBadcampContext _context;
+        public AddUserHandler(IBadcampContext context)
         {
-            _userStorage = userStorage;
+            _context = context;
         }
-
         public Response<User> Handle(AddUserRequest message)
         {
-            User user = new User(message.UserName, message.Password, message.DateOfBirth, message.FullName);
             try
             {
-                _userStorage.AddUser(user);
+                User user = message.NewUser;
+                _context.Users.Add(user);
+                _context.SaveChanges(); 
                 return Response.Ok(user);
             }
             catch (Exception e)

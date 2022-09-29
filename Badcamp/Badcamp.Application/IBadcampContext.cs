@@ -12,5 +12,6 @@ namespace Badcamp.Application
         DbSet<Event> Events { get; set; }
         DbSet<Song> Songs { get; set; }
         void SaveChanges();
+        
     }
 }
