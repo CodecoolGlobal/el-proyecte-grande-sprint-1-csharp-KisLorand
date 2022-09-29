@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Badcamp.Application.Common;
+using Badcamp.Domain.Entities;
 using Badcamp.Models;
 
 namespace Badcamp.Application.UseCases.UserCases.UpdateUserDataCase
