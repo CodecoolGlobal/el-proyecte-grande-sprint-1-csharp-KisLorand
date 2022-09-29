@@ -1,6 +1,6 @@
 ﻿using Badcamp.Application.Common;
 
-namespace Badcamp.Application.UseCases.ArtistPage
+namespace Badcamp.Application.UseCases.ArtistPage.Requests
 {
 	public class ArtistIdRequest : IRequest<Response>
 	{

@@ -2,7 +2,7 @@
 using Badcamp.Domain.Entities;
 using System;
 
-namespace Badcamp.Application.UseCases.ArtistPage.AddArtist
+namespace Badcamp.Application.UseCases.ArtistPage.Requests
 {
 	public class ArtistRequest : IRequest<Response>
 	{
