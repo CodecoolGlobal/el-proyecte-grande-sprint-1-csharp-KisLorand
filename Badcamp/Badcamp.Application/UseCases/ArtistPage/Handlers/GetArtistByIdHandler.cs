@@ -12,17 +12,17 @@ namespace Badcamp.Application.UseCases.ArtistPage.Handlers
 {
 	public class GetArtistByIdHandler : IRequestHandler<ArtistIdRequest, Response<Artist>>
 	{
-		private ArtistStorage _storage;
-		public GetArtistByIdHandler(ArtistStorage storage)
+		private IBadcampContext _context;
+		public GetArtistByIdHandler(IBadcampContext context)
 		{
-			_storage = storage;
+			_context = context;
 		}
 		public Response<Artist> Handle(ArtistIdRequest message)
 		{
 			Artist artist;
 			try
 			{
-				artist = _storage.GetArtist(message.Id);
+				artist = _context.Artists.Where(x=>x.Id==message.Id).FirstOrDefault();
 				if (artist == null)
 				{
 					return Response.Fail<Artist>("Artist not found");
