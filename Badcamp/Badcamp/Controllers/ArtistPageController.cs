@@ -1,11 +1,7 @@
-﻿using Badcamp.Application.UseCases.ArtistPage;
-using Badcamp.Application.UseCases.ArtistPage.AddArtist;
-using Badcamp.Application.UseCases.ArtistPage.GetAllArtists;
-using Badcamp.Application.UseCases.ArtistPage.UpdateArtist;
+﻿using Badcamp.Application.UseCases.ArtistPage.Handlers;
+using Badcamp.Application.UseCases.ArtistPage.Requests;
 using Badcamp.Domain.Entities;
-using Badcamp.Models;
 using Badcamp.Services;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Badcamp.Controllers
@@ -57,7 +53,7 @@ namespace Badcamp.Controllers
 		[HttpPost]
 		public ActionResult<Artist> AddArtist([FromBody] Artist newArtist)
 		{
-			var request = new ArtistModelRequest { Artist = newArtist };
+			var request = new ArtistRequest { Artist = newArtist };
 			var handler = new AddArtistHandler(_artistStorage);
 			var response = handler.Handle(request);
 			if (response.Failure)
@@ -72,7 +68,7 @@ namespace Badcamp.Controllers
 		[HttpPut("{id}")]
 		public ActionResult<Artist> UpdateArtist([FromRoute] int id, [FromBody] Artist newArtistData)
 		{
-			var request = new ArtistModelRequest { Artist = newArtistData };
+			var request = new ArtistRequest { Artist = newArtistData };
 			var handler = new UpdateArtistHandler(_artistStorage);
 			var response = handler.Handle(request);
 			if (response.Failure)
