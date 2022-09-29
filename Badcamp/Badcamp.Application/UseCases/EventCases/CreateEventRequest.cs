@@ -11,8 +11,8 @@ namespace Badcamp.Application.UseCases.EventCases
 {
     public class CreateEventRequest : IRequest<Response>
     {
-        public long ArtistId { get; set; }
-        public Event NewEvent { get; set; }
+        public int ArtistId { get; set; }
+        public Event NewEvent { get; set; } = new Event();
         
     }
 }

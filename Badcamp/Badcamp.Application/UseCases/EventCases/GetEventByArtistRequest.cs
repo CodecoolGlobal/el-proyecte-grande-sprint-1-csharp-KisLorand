@@ -9,6 +9,6 @@ namespace Badcamp.Application.UseCases.EventCases
 {
     public class GetEventByArtistRequest : IRequest<Response>
     {
-        public long ArtistId { get; set; }
+        public int ArtistId { get; set; }
     }
 }

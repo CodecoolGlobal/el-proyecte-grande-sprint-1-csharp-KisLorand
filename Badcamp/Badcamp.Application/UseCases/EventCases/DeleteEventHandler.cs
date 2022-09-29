@@ -31,10 +31,9 @@ namespace Badcamp.Application.UseCases.EventCases
                 @event = _context.Events.Find(message.EventId);
                 if (@event == null)
                 {
-                    return Response.Fail<Event>("Can't find event");
+                    return Response.Fail<Event>("Event couldn't be Deleted");
                 }
                 _context.Events.Remove(@event);
-                _context.SaveChanges();
                 return Response.Ok(@event);
 
             }

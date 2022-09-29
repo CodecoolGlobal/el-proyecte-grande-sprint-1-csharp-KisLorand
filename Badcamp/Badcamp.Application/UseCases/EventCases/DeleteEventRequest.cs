@@ -9,6 +9,6 @@ namespace Badcamp.Application.UseCases.EventCases
 {
     public class DeleteEventRequest : IRequest<Response>
     {
-        public long EventId { get; set; }
+        public int EventId { get; set; }
     }
 }
