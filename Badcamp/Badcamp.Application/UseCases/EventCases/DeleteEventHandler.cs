@@ -34,6 +34,7 @@ namespace Badcamp.Application.UseCases.EventCases
                     return Response.Fail<Event>("Event couldn't be Deleted");
                 }
                 _context.Events.Remove(@event);
+                _context.SaveChanges();
                 return Response.Ok(@event);
 
             }
