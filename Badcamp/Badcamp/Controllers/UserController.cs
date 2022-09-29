@@ -1,5 +1,6 @@
 ﻿using Badcamp.Application;
 using Badcamp.Application.UseCases;
+using Badcamp.Domain.Entities;
 using Badcamp.Application.UseCases.UserCases.AddUser;
 using Badcamp.Application.UseCases.UserCases.UpdateUserDataCase;
 using Badcamp.Application.UseCases.UserCases.GetAllUsersCase;
@@ -45,7 +46,7 @@ namespace Badcamp.Controllers
         public ActionResult<User> GetUser([FromRoute] string userName)
         {
             var request = new GetUserByNameRequest { UserName = userName };
-            var handler = new GeUserByNameHandler(_badcampContext);
+            var handler = new GetUserByNameHandler(_badcampContext);
             var response = handler.Handle(request);
             if (response.Failure)
             {

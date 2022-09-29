@@ -1,4 +1,5 @@
 ﻿using Badcamp.Application.Common;
+using Badcamp.Domain.Entities;
 using Badcamp.Models;
 using System;
 using System.Collections.Generic;
@@ -12,11 +13,11 @@ namespace Badcamp.Application.UseCases
     {
         UserStorage _userStorage;
         IBadcampContext _context;
-        public GeUserByNameHandler(UserStorage userStorage)
+        public GetUserByNameHandler(UserStorage userStorage)
         {
             _userStorage = userStorage;
         }
-        public GeUserByNameHandler(IBadcampContext context)
+        public GetUserByNameHandler(IBadcampContext context)
         {
             _context = context;
         }

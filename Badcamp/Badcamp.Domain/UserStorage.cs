@@ -1,4 +1,5 @@
-﻿using System.Reflection.Metadata.Ecma335;
+﻿using Badcamp.Domain.Entities;
+using System.Reflection.Metadata.Ecma335;
 
 namespace Badcamp.Models
 {

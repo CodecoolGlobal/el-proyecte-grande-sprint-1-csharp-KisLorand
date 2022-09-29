@@ -1,4 +1,5 @@
 ﻿using Badcamp.Application.Common;
+using Badcamp.Domain.Entities;
 using Badcamp.Models;
 using Badcamp.Services;
 using System;
@@ -11,28 +12,34 @@ namespace Badcamp.Application.UseCases.EventCases
 {
     public class GetEventByArtistHandler : IRequestHandler<GetEventByArtistRequest, Response<IReadOnlyList<Event>>>
     {
-        EventService _eventService;
-        public GetEventByArtistHandler(EventService eventService)
+       // EventService _eventService;
+        IBadcampContext _context;
+        /*public GetEventByArtistHandler(EventService eventService)
         {
             _eventService = eventService;
+        }*/
+        public GetEventByArtistHandler(IBadcampContext context)
+        {
+            _context = context;
         }
         public Response<IReadOnlyList<Event>> Handle(GetEventByArtistRequest message)
         {
-            IReadOnlyList<Event> events;
-            try
-            {
-                events = _eventService.GetEventByArtist(message.ArtistId);
-                if (events == null)
-                {
-                    return Response.Fail<IReadOnlyList<Event>>("Events not found");
-                }
-                return Response.Ok(events);
-            }
-            catch (Exception e)
-            {
-                return Response.Fail<IReadOnlyList<Event>>(e.Message);
+            /* IReadOnlyList<Event> events;
+             try
+             {
+                 events = null; _eventService.GetEventByArtist(message.ArtistId);
+                 if (events == null)
+                 {
+                     return Response.Fail<IReadOnlyList<Event>>("Events not found");
+                 }
+                 return Response.Ok(events);
+             }
+             catch (Exception e)
+             {
+                 return Response.Fail<IReadOnlyList<Event>>(e.Message);
 
-            }
+             }*/
+            return Response.Ok<IReadOnlyList<Event>>(new List<Event>());
 
         }
     }

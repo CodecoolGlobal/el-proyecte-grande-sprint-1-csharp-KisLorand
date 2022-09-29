@@ -7,11 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Badcamp.Application.UseCases.EventCases
+namespace Badcamp.Application.UseCases.ArtistGalleryCases
 {
-    public class UpdateEventRequest : IRequest<Response>
+    public class GetAllArtistsHandlerRequest : IRequest<Response>
     {
-        public int EventId { get; set; }
-        public Event UpdateEvent { get; set; } = new Event();
     }
 }

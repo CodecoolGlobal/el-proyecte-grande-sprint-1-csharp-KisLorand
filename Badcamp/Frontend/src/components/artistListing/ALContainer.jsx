@@ -25,6 +25,7 @@ const ALContainer = ({
         genres={genres}
 
       />
+      {/* <section className="card-container"> */}
       {artists.map((artist) => (
         <ArtistCard
           artist={artist}
@@ -32,6 +33,7 @@ const ALContainer = ({
           descLength={artist.description.length}
         />
       ))}
+      {/* </section> */}
     </main>
   );
 };
