@@ -1,10 +1,14 @@
 ﻿using Badcamp.Application;
 using Badcamp.Application.UseCases;
 using Badcamp.Domain.Entities;
+using Badcamp.Application.UseCases.UserCases.AddUser;
+using Badcamp.Application.UseCases.UserCases.UpdateUserDataCase;
+using Badcamp.Application.UseCases.UserCases.GetAllUsersCase;
 using Badcamp.Models;
 using Badcamp.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Badcamp.Application.UseCases.UserCases.DeleteUserCase;
 
 namespace Badcamp.Controllers
 {
@@ -24,9 +28,18 @@ namespace Badcamp.Controllers
         }
 
         [HttpGet("/GetUsers")]
-        public IEnumerable<User> GetAllUsers()
+        public ActionResult<List<User>> GetAllUsers()
         {
-            return _userStorage.GetAllUsers();
+            var request = new GetAllUsersRequest { };
+            var handler = new GetAllUsersHandler(_userStorage);
+            var response = handler.Handle(request);
+            if (response.Failure)
+            {
+                _logger.LogError(response.Error);
+                return BadRequest(response.Error);
+            }
+            _logger.LogInformation("All users received!");
+            return Ok(response.Value);
         }
 
         [HttpGet("/GetUser/{userName}")]
@@ -40,20 +53,52 @@ namespace Badcamp.Controllers
                 _logger.LogError(response.Error);
                 return BadRequest(response.Error);
             }
-            _logger.LogInformation("user received");
+            _logger.LogInformation("User received!");
             return Ok(response.Value);
         }
 
         [HttpPost("/RegisterUser")]
-        public void RegisterUser([FromBody] User newUser)
+        public ActionResult<User> RegisterUser([FromBody] AddUserRequest newUser)
         {
-            _userStorage.AddUser(newUser);
+            var handler = new AddUserHandler(_userStorage);
+            var response = handler.Handle(newUser);
+            if (response.Failure)
+            {
+                _logger.LogError(response.Error);
+                return BadRequest(response.Error);
+            }
+            _logger.LogInformation("User added!");
+            return Ok(response.Value);
         }
 
         [HttpPut("/UpdateUser/{userName}")]
-        public void UpdateUser([FromRoute] string userName, [FromBody] User updatedUser)
+        public ActionResult<User> UpdateUser([FromRoute] string userName, [FromBody] User updatedUser)
         {
-            _userStorage.UpdateUserData(userName, updatedUser);
+            var request = new UpdateUserDataRequest { UserName = userName, UpdatedUser = updatedUser };
+            var handler = new UpdateUserDataHandler(_userStorage);
+            var response = handler.Handle(request);
+            if (response.Failure)
+            {
+                _logger.LogError(response.Error);
+                return BadRequest(response.Error);
+            }
+            _logger.LogInformation("User updated!");
+            return Ok(response.Value);
+        }
+
+        [HttpDelete("/DeleteUser/{userName}")]
+        public ActionResult<Event> DeleteUserByName([FromRoute] string userName)
+        {
+            var request = new DeleteUserByNameRequest { UserName = userName };
+            var handler = new DeleteUserByNameHandler(_userStorage);
+            var response = handler.Handle(request);
+            if (response.Failure)
+            {
+                _logger.LogError(response.Error);
+                return BadRequest(response.Error);
+            }
+            _logger.LogInformation("User deleted!");
+            return Ok(response.Value);
         }
 
     }

@@ -35,15 +35,21 @@ namespace Badcamp.Models
             throw new Exception("Given user does not exist!");
         }
 
-        public void UpdateUserData(string userName, User updatedUser)
+        public void UpdateUserData(string currentUser ,User updatedUser)
         {
             foreach (var user in _users)
             {
-                if (user.Username != userName) continue;
+                if (user.Username != currentUser) continue;
                 user.Username = updatedUser.Username;
                 user.FullName = updatedUser.FullName;
                 user.Password = updatedUser.Password;
+                user.DateOfBirth = updatedUser.DateOfBirth;
             }
+        }
+
+        public void DeleteUser(User user)
+        {
+            _users.Remove(user);
         }
 
     }
