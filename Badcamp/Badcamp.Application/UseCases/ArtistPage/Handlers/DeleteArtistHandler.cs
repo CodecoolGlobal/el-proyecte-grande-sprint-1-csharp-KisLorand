@@ -1,4 +1,5 @@
 ﻿using Badcamp.Application.Common;
+using Badcamp.Domain.Entities;
 using Badcamp.Models;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Badcamp.Application.UseCases.ArtistPage
 {
-	public class DeleteArtistHandler : IRequestHandler<ArtistIdRequest, Response<ArtistModel>>
+	public class DeleteArtistHandler : IRequestHandler<ArtistIdRequest, Response<Artist>>
 	{
 		private ArtistStorage _storage;
 		public DeleteArtistHandler(ArtistStorage storage)
@@ -16,22 +17,22 @@ namespace Badcamp.Application.UseCases.ArtistPage
 			_storage = storage;
 		}
 
-		public Response<ArtistModel> Handle(ArtistIdRequest message)
+		public Response<Artist> Handle(ArtistIdRequest message)
 		{
-			ArtistModel artist;
+			Artist artist;
 			try
 			{
 				artist = _storage.GetArtist(message.Id);
 				if (artist == null)
 				{
-					return Response.Fail<ArtistModel>("Artist not found");
+					return Response.Fail<Artist>("Artist not found");
 				}
 				//_storage.DeleteArtist(message.Id);
 				return Response.Ok(artist);
 			}
 			catch (Exception ex)
 			{
-				return Response.Fail<ArtistModel>(ex.Message);
+				return Response.Fail<Artist>(ex.Message);
 			}
 		}
 	}
