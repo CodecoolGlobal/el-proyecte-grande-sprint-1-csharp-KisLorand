@@ -7,7 +7,7 @@ namespace Badcamp.Domain.Entities
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long Id { get; set; }
         public Artist? Artist { get; set; }
-        public string Title { get; set; } = string.Empty;
+        public string Title { get; set; }
         public string Description { get; set; } = string.Empty;
 
         public int Upvote { get; set; } = 0;
