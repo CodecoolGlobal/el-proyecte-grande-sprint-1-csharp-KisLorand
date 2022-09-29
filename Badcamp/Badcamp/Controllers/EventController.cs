@@ -1,4 +1,5 @@
 ﻿using Badcamp.Application.UseCases.EventCases;
+using Badcamp.Domain.Entities;
 using Badcamp.Models;
 using Badcamp.Services;
 using Microsoft.AspNetCore.Http;
