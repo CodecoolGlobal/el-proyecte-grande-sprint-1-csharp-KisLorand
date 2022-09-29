@@ -432,19 +432,13 @@ namespace Badcamp.Infrastucture
                             context.Genres.Where(x => x.Name=="Rock").FirstOrDefault(),
                             context.Genres.Where(x => x.Name=="Techno").FirstOrDefault(),
                         }
-                    }
-                    ) ;
-                            context.Genres.Where(x => x.Name=="Alter"),
-                            context.Genres.Where(x => x.Name=="Rock"),
-                            context.Genres.Where(x => x.Name=="Techno")
-                        }
                     },
                     new Song
                     {
                         Title = "Donkey Autopsy",
                         AlbumTitle = "Big Boy Band",
                         Description = "A song about suffering and struggling",
-                        Lyrics = @"Donkey Autopsy
+                        Lyrics = @"
                                     Have You Met John?
                                     Stand by Your Donkey
                                     Good Donkey
@@ -546,10 +540,10 @@ namespace Badcamp.Infrastucture
                                     In Donkey We Trust",
                         AudioSource = "/public/music",
                         Genres = new HashSet<Genre> {
-                            context.Genres.Where(x => x.Name=="Alter"),
-                            context.Genres.Where(x => x.Name=="Folk"),
-                            context.Genres.Where(x => x.Name=="Rock"),
-                            context.Genres.Where(x => x.Name=="Techno")
+                            context.Genres.Where(x => x.Name=="Alter").FirstOrDefault(),
+                            context.Genres.Where(x => x.Name=="Folk").FirstOrDefault(),
+                            context.Genres.Where(x => x.Name=="Rock").FirstOrDefault(),
+                            context.Genres.Where(x => x.Name=="Techno").FirstOrDefault()
                         }
                     }
                     );
