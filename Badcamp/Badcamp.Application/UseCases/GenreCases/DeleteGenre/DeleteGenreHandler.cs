@@ -18,7 +18,22 @@ namespace Badcamp.Application.UseCases.GenreCases.DeleteGenre
         }
         public Response<Genre> Handle(DeleteGenreRequest message)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var genre = _context.Genres.Find(message.Id);
+                if (genre == null)
+                {
+                    return Response.Fail<Genre>("Genre not found");
+                }
+                _context.Genres.Remove(genre);
+                _context.SaveChanges();
+                return Response.Ok(genre);
+            }
+            catch (Exception e)
+            {
+                return Response.Fail<Genre>(e.Message);
+                
+            }
         }
     }
 }
