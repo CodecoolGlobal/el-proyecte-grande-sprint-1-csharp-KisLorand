@@ -11,12 +11,8 @@ namespace Badcamp.Application.UseCases
 {
     public class GetUserByNameHandler : IRequestHandler<GetUserByNameRequest, Response<User>>
     {
-        UserStorage _userStorage;
         IBadcampContext _context;
-        public GetUserByNameHandler(UserStorage userStorage)
-        {
-            _userStorage = userStorage;
-        }
+        
         public GetUserByNameHandler(IBadcampContext context)
         {
             _context = context;

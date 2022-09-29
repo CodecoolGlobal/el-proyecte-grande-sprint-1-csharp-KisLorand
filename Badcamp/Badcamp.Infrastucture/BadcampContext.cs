@@ -18,6 +18,9 @@ namespace Badcamp.Infrastucture
            
         }
 
-    
+        void IBadcampContext.SaveChanges()
+        {
+            this.SaveChanges();
+        }
     }
 }
