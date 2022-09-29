@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using Badcamp.Domain.Entities;
 using Badcamp.Models;
 
 namespace Badcamp.Services

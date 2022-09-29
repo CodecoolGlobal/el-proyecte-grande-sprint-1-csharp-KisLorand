@@ -1,5 +1,6 @@
 ﻿using Badcamp.Application;
 using Badcamp.Application.UseCases;
+using Badcamp.Domain.Entities;
 using Badcamp.Application.UseCases.UserCases.AddUser;
 using Badcamp.Application.UseCases.UserCases.UpdateUserDataCase;
 using Badcamp.Application.UseCases.UserCases.GetAllUsersCase;

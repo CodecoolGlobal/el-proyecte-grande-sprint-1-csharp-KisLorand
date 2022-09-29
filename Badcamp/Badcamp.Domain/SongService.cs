@@ -1,4 +1,5 @@
-﻿using Badcamp.Models;
+﻿using Badcamp.Domain.Entities;
+using Badcamp.Models;
 using System.Linq;
 
 namespace Badcamp.Services
@@ -29,7 +30,8 @@ namespace Badcamp.Services
 
         public IReadOnlyList<Song> GetMultipleSongsByArtistId(int artistId)
         {
-            return SongStorage.FindAll(song => song.ArtistId == artistId);
+            throw new NotImplementedException();
+            //return SongStorage.FindAll(song => song.ArtistId == artistId);
         }
 
         public IReadOnlyList<Song> GetMultipleSongsByAlbumId(int albumId)
@@ -61,11 +63,12 @@ namespace Badcamp.Services
             throw new NotImplementedException();
         }
 
-        public void AddSong(Song newSong)
+        public Song AddSong(Song newSong)
         {
-            int id = (SongStorage.Count is not 0) ? SongStorage.Last().Id + 1 : 0;
-            newSong.SetId(id);
-            SongStorage.Add(newSong);
+            throw new NotSupportedException();
+            //int id = (SongStorage.Count is not 0) ? SongStorage.Last().Id + 1 : 0;
+            //newSong.SetId(id);
+            //SongStorage.Add(newSong);
         }
 
         public void UpdateSong(int songId, Song updateData)

@@ -1,4 +1,5 @@
-﻿using Badcamp.Models;
+﻿using Badcamp.Domain.Entities;
+using Badcamp.Models;
 
 namespace Badcamp.Services
 {
@@ -12,7 +13,7 @@ namespace Badcamp.Services
         public IReadOnlyList<Song> GetMultipleSongsByGenreInclusive(IEnumerable<Genre> genres);
         public IReadOnlyList<Song> GetMultipleSongsByGenreExclusive(IEnumerable<Genre> genres);
         public IReadOnlyList<Song> GetMultipleSongsByLyrics(string lyircs);
-        public void AddSong(Song song);
+        public Song AddSong(Song song);
         public void UpdateSong(int songId, Song updateData);
         public void DeleteSong(Song song);
         public void DeleteSong(int songId);
