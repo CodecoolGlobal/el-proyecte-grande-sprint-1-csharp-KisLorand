@@ -1,4 +1,5 @@
-﻿using Badcamp.Application.UseCases.ArtistPage.Handlers;
+﻿using Badcamp.Application;
+using Badcamp.Application.UseCases.ArtistPage.Handlers;
 using Badcamp.Application.UseCases.ArtistPage.Requests;
 using Badcamp.Domain.Entities;
 using Badcamp.Services;
@@ -13,18 +14,20 @@ namespace Badcamp.Controllers
 		private ArtistPageService _artistPageService;
 		private ILogger<ArtistPageController> _logger;
 		private ArtistStorage _artistStorage;
-		public ArtistPageController(ArtistPageService artistPageservice, ILogger<ArtistPageController> logger, ArtistStorage artistStorage)
+		private IBadcampContext _context;
+		public ArtistPageController(ArtistPageService artistPageservice, ILogger<ArtistPageController> logger, ArtistStorage artistStorage, IBadcampContext context)
 		{
 			_artistPageService = artistPageservice;
 			_logger = logger;
 			_artistStorage = artistStorage;
+			_context = context;
 		}
 
 		[HttpGet]
 		public ActionResult<IList<Artist>> GetAllArtists()
 		{
 			var request = new GetAllArtistsRequest();
-			var handler = new GetAllArtistsHandler(_artistStorage);
+			var handler = new GetAllArtistsHandler(_context);
 			var response = handler.Handle(request);
 			if (response.Failure)
 			{
@@ -39,7 +42,7 @@ namespace Badcamp.Controllers
 		public ActionResult<Artist> GetOneArtist([FromRoute] int id)
 		{
 			var request = new ArtistIdRequest { Id = id};
-			var handler = new GetArtistByIdHandler(_artistStorage);
+			var handler = new GetArtistByIdHandler(_context);
 			var response = handler.Handle(request);
 			if (response.Failure)
 			{
@@ -54,7 +57,7 @@ namespace Badcamp.Controllers
 		public ActionResult<Artist> AddArtist([FromBody] Artist newArtist)
 		{
 			var request = new ArtistRequest { Artist = newArtist };
-			var handler = new AddArtistHandler(_artistStorage);
+			var handler = new AddArtistHandler(_context);
 			var response = handler.Handle(request);
 			if (response.Failure)
 			{
@@ -69,7 +72,7 @@ namespace Badcamp.Controllers
 		public ActionResult<Artist> UpdateArtist([FromRoute] int id, [FromBody] Artist newArtistData)
 		{
 			var request = new ArtistRequest { Artist = newArtistData };
-			var handler = new UpdateArtistHandler(_artistStorage);
+			var handler = new UpdateArtistHandler(_context);
 			var response = handler.Handle(request);
 			if (response.Failure)
 			{
@@ -84,7 +87,7 @@ namespace Badcamp.Controllers
 		public ActionResult<Artist> DeleteArtist([FromRoute] int id)
 		{
 			var request = new ArtistIdRequest { Id = id };
-			var handler = new DeleteArtistHandler(_artistStorage);
+			var handler = new DeleteArtistHandler(_context);
 			var response = handler.Handle(request);
 			if (response.Failure)
 			{
