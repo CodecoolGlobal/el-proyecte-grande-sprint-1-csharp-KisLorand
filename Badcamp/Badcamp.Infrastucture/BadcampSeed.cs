@@ -110,6 +110,12 @@ namespace Badcamp.Infrastucture
                         User = context.Users.Where(user => user.Username == "Kázmér").FirstOrDefault(),
                         Description = "I don't want peace. I want Problems Allways.",
                         ProfilePicture = "/kazimir_3.png",
+                        Genres = new HashSet<Genre> {
+                            context.Genres.Where(x => x.Name=="Alter").FirstOrDefault(),
+                            context.Genres.Where(x => x.Name=="Folk").FirstOrDefault(),
+                            context.Genres.Where(x => x.Name=="Rock").FirstOrDefault(),
+                            context.Genres.Where(x => x.Name=="Techno").FirstOrDefault(),
+                        }
                     },
                     new Artist
                     {
@@ -117,8 +123,11 @@ namespace Badcamp.Infrastucture
                         User = context.Users.Where(user => user.Username == "Huba").FirstOrDefault(),
                         Description = "",
                         ProfilePicture = "/huba_and_kazimir.png",
-                        /*ArtistGenre =
-                        Events =
+                        Genres = new HashSet<Genre> {
+                            context.Genres.Where(x => x.Name=="Hip-Hopp").FirstOrDefault(),
+                            context.Genres.Where(x => x.Name=="Pop").FirstOrDefault(),
+                        }
+                        /*Events =
                         Songs =*/
                     },
                     new Artist
@@ -127,6 +136,9 @@ namespace Badcamp.Infrastucture
                         User = context.Users.Where(user => user.Username == "Gisella").FirstOrDefault(),
                         Description = "",
                         ProfilePicture = "/gizella.png",
+                        Genres = new HashSet<Genre> {
+                            context.Genres.Where(x => x.Name=="Rock").FirstOrDefault()
+                        }
                     },
                     new Artist
                     {
@@ -134,6 +146,9 @@ namespace Badcamp.Infrastucture
                         User = context.Users.Where(user => user.Username == "Béla").FirstOrDefault(),
                         Description = "",
                         ProfilePicture = "",
+                        Genres = new HashSet<Genre> {
+                            context.Genres.Where(x => x.Name=="Rock").FirstOrDefault()
+                        }
                     },
                     new Artist
                     {
@@ -141,6 +156,9 @@ namespace Badcamp.Infrastucture
                         User = context.Users.Where(user => user.Username == "Elek").FirstOrDefault(),
                         Description = "",
                         ProfilePicture = "/gizella.png",
+                        Genres = new HashSet<Genre> {
+                            context.Genres.Where(x => x.Name=="Rock").FirstOrDefault()
+                        }
                     }
                     );
                 context.SaveChanges();
@@ -150,18 +168,20 @@ namespace Badcamp.Infrastucture
                 context.Songs.AddRange(
                     new Song
                     {
+                        Artist = context.Artists.Where(x => x.Name == "Hubba").FirstOrDefault(),
                         Title = "Hubbalubbadubdub",
                         AlbumTitle = "The Curtain",
                         Description = "A song about Huba. And Kázmér.",
                         Lyrics = "",
                         AudioSource = "/public/music",
                         Genres = new HashSet<Genre> {
-							context.Genres.Where(x => x.Name=="Hip-Hopp").FirstOrDefault(),
-							context.Genres.Where(x => x.Name=="Pop").FirstOrDefault(),
-						}
+                            context.Genres.Where(x => x.Name=="Hip-Hopp").FirstOrDefault(),
+                            context.Genres.Where(x => x.Name=="Pop").FirstOrDefault(),
+                        }
                     },
                     new Song
                     {
+                        Artist = context.Artists.Where(x => x.Name == "Gizi").FirstOrDefault(),
                         Title = "The Dream",
                         AlbumTitle = "Derams",
                         Description = "",
@@ -173,19 +193,21 @@ namespace Badcamp.Infrastucture
                     },
                     new Song
                     {
+                        Artist = context.Artists.Where(x => x.Name == "Billy Geen").FirstOrDefault(),
                         Title = "Castle In The Sky",
                         AlbumTitle = "High in the sky",
                         Description = "",
                         Lyrics = "",
                         AudioSource = "/public/music",
                         Genres = new HashSet<Genre> {
-							context.Genres.Where(x => x.Name=="Alter").FirstOrDefault(),
-							context.Genres.Where(x => x.Name=="Rock").FirstOrDefault(),
-							context.Genres.Where(x => x.Name=="Techno").FirstOrDefault(),
-						}
+                            context.Genres.Where(x => x.Name=="Alter").FirstOrDefault(),
+                            context.Genres.Where(x => x.Name=="Rock").FirstOrDefault(),
+                            context.Genres.Where(x => x.Name=="Techno").FirstOrDefault(),
+                        }
                     },
                     new Song
                     {
+                        Artist = context.Artists.Where(x => x.Name == "KA-ZZ").FirstOrDefault(),
                         Title = "Supercallifragisticexpialidocious Rhapsody",
                         AlbumTitle = "Done-Keyz",
                         Description = "A warnig",
@@ -297,8 +319,9 @@ namespace Badcamp.Infrastucture
                             context.Genres.Where(x => x.Name=="Techno").FirstOrDefault(),
                         }
                     },
-                    new Song 
-                    { 
+                    new Song
+                    {
+                        Artist = context.Artists.Where(x => x.Name == "KA-ZZ").FirstOrDefault(),
                         Title = "Great Balls of Cats",
                         AlbumTitle = "Done-Keyz",
                         Description = "A warnig",
@@ -410,7 +433,7 @@ namespace Badcamp.Infrastucture
                             context.Genres.Where(x => x.Name=="Techno").FirstOrDefault(),
                         }
                     }
-                    );
+                    ) ;
                 context.SaveChanges();
             }
             if (!context.Events.Any())
