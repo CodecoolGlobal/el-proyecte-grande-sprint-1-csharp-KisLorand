@@ -11,15 +11,20 @@ namespace Badcamp.Application.UseCases.EventCases
 {
     public class CreateEventHandler : IRequestHandler<CreateEventRequest, Response<Event>>
     {
-        EventService _eventService;
-        public CreateEventHandler(EventService eventService)
+        IBadcampContext _context;
+        /*public CreateEventHandler(EventService eventService)
         {
             _eventService = eventService;
         }
+*/
+        public CreateEventHandler(IBadcampContext context)
+        {
+            _context = context;
+        }
         public Response<Event> Handle(CreateEventRequest message)
         {
-            Event @event;
-            try 
+         /*   Event @event;
+            try
             {
                 @event = _eventService.CreateEvent(message.ArtistId, message.NewEvent);
                 if (@event == null)
@@ -33,7 +38,8 @@ namespace Badcamp.Application.UseCases.EventCases
             {
                 return Response.Fail<Event>(e.Message);
 
-            }
+            }*/
+         return Response.Ok<Event>(new Event());
         }
     }
 }

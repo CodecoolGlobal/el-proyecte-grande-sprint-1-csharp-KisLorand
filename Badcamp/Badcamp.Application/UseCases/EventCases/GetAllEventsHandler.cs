@@ -11,28 +11,34 @@ namespace Badcamp.Application.UseCases.EventCases
 {
     public class GetAllEventsHandler : IRequestHandler<GetAllEventsRequest, Response<IReadOnlyList<Event>>>
     {
-        EventService _eventService;
-        public GetAllEventsHandler(EventService eventService)
+        // EventService _eventService;
+        IBadcampContext _context;
+     /*   public GetAllEventsHandler(EventService eventService)
         {
             _eventService = eventService;
+        }*/
+        public GetAllEventsHandler(IBadcampContext context)
+        {
+            _context = context;
         }
         public Response<IReadOnlyList<Event>> Handle(GetAllEventsRequest message)
         {
-            IReadOnlyList<Event> events;
-            try
-            {
-                events = _eventService.GetAllEvents();
-                if (events == null)
-                {
-                    return Response.Fail<IReadOnlyList<Event>>("Events not found");
-                }
-                return Response.Ok(events);
-            }
-            catch (Exception e)
-            {
-                return Response.Fail<IReadOnlyList<Event>>(e.Message);
+            /* IReadOnlyList<Event> events;
+             try
+             {
+                 events = _context.Events.ToList();
+                 if (events == null)
+                 {
+                     return Response.Fail<IReadOnlyList<Event>>("Events not found");
+                 }
+                 return Response.Ok(events);
+             }
+             catch (Exception e)
+             {
+                 return Response.Fail<IReadOnlyList<Event>>(e.Message);
 
-            }
+             }*/
+            return Response.Ok<IReadOnlyList<Event>>(new List<Event>());
 
         }
     }

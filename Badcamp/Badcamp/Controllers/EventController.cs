@@ -1,4 +1,5 @@
-﻿using Badcamp.Application.UseCases.EventCases;
+﻿using Badcamp.Application;
+using Badcamp.Application.UseCases.EventCases;
 using Badcamp.Models;
 using Badcamp.Services;
 using Microsoft.AspNetCore.Http;
@@ -11,13 +12,13 @@ namespace Badcamp.Controllers
     [ApiController]
     public class EventController : ControllerBase
     {
-        private EventService _eventService;
         private ILogger<EventController> _logger;
+        private readonly IBadcampContext _badcampContext;
 
-        public EventController(EventService service, ILogger<EventController> logger)
+        public EventController(ILogger<EventController> logger, IBadcampContext badcampContext)
         {
-            _eventService = service;
             _logger = logger;
+            _badcampContext = badcampContext;
         }
 
         [Route("{artistId}/Create")]
@@ -25,7 +26,7 @@ namespace Badcamp.Controllers
         public ActionResult<Event> CreateNewEvent(int artistId, [FromBody] Event newEvent)
         {
             var request = new CreateEventRequest { ArtistId = artistId, NewEvent = newEvent };
-            var handler = new CreateEventHandler(_eventService);
+            var handler = new CreateEventHandler(_badcampContext);
             var response = handler.Handle(request);
             if (response.Failure)
             {
@@ -41,7 +42,7 @@ namespace Badcamp.Controllers
         public ActionResult<List<Event>> GetEventsByArtist(int artistId)
         {
             var request = new GetEventByArtistRequest { ArtistId = artistId };
-            var handler = new GetEventByArtistHandler(_eventService);
+            var handler = new GetEventByArtistHandler(_badcampContext);
             var response = handler.Handle(request);
             if (response.Failure)
             {
@@ -57,7 +58,7 @@ namespace Badcamp.Controllers
         public ActionResult<List<Event>> GetEvents()
         {
             var request = new GetAllEventsRequest {};
-            var handler = new GetAllEventsHandler(_eventService);
+            var handler = new GetAllEventsHandler(_badcampContext);
             var response = handler.Handle(request);
             if (response.Failure)
             {
@@ -73,7 +74,7 @@ namespace Badcamp.Controllers
         public ActionResult<Event> DeleteEvent(int eventId)
         {
             var request = new DeleteEventRequest { EventId = eventId};
-            var handler = new DeleteEventHandler(_eventService);
+            var handler = new DeleteEventHandler(_badcampContext);
             handler.Handle(request);
             _logger.LogInformation("Event deleted");
             return NoContent();
@@ -83,7 +84,7 @@ namespace Badcamp.Controllers
         public ActionResult<Event> UpdateEvent(int eventId, [FromBody] Event eventUpdate)
         {
             var request = new UpdateEventRequest { EventId = eventId, UpdateEvent = eventUpdate };
-            var handler = new UpdateEventHandler(_eventService);
+            var handler = new UpdateEventHandler(_badcampContext);
             var response = handler.Handle(request);
             if (response.Failure)
             {

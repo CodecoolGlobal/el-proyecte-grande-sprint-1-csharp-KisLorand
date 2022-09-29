@@ -12,9 +12,14 @@ namespace Badcamp.Application.UseCases.EventCases
     public class DeleteEventHandler //: IRequestHandler<DeleteEventRequest, Response<Event>>
     {
         EventService _eventService;
-        public DeleteEventHandler(EventService eventService)
+        IBadcampContext _context;
+        /* public DeleteEventHandler(EventService eventService)
+         {
+             _eventService = eventService;
+         }*/
+        public DeleteEventHandler(IBadcampContext context)
         {
-            _eventService = eventService;
+            _context = context;
         }
         /*public Response<Event> Handle(DeleteEventRequest message)
         {
@@ -38,7 +43,7 @@ namespace Badcamp.Application.UseCases.EventCases
 
         public void Handle(DeleteEventRequest message)
         {
-            _eventService.DeleteEvent(message.EventId);
+           // _eventService.DeleteEvent(message.EventId);
         }
     }
 }
