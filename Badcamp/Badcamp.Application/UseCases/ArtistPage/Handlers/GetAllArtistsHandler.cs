@@ -13,17 +13,23 @@ namespace Badcamp.Application.UseCases.ArtistPage.Handlers
 	public class GetAllArtistsHandler : IRequestHandler<GetAllArtistsRequest, Response<IReadOnlyList<Artist>>>
 	{
 		private ArtistStorage _storage;
+		private IBadcampContext _context;
 		public GetAllArtistsHandler(ArtistStorage storage)
 		{
 			_storage = storage;
 		}
+		public GetAllArtistsHandler(IBadcampContext context)
+		{
+			_context = context;
+		}
+
 
 		public Response<IReadOnlyList<Artist>> Handle(GetAllArtistsRequest message)
 		{
 			IReadOnlyList<Artist> artists;
 			try
 			{
-				artists = _storage.GetArtists().ToList().AsReadOnly();
+				artists = _context.Artists.ToList();
 				if (artists == null)
 				{
 					return Response.Fail<IReadOnlyList<Artist>>("Artists list not found");
