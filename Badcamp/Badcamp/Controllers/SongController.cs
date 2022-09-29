@@ -1,4 +1,5 @@
-﻿using Badcamp.Application.UseCases.SongCases;
+﻿using Badcamp.Application;
+using Badcamp.Application.UseCases.SongCases;
 using Badcamp.Domain.Entities;
 using Badcamp.Models;
 using Badcamp.Services;
@@ -12,22 +13,22 @@ namespace Badcamp.Controllers
     [ApiController]
     public class SongController : ControllerBase
     {
-        private readonly ISongService _songService;
+        private readonly IBadcampContext _badcampContext;
         private ILogger<SongController> _logger;
 
-        public SongController(ISongService songService, ILogger<SongController> logger)
+        public SongController(ILogger<SongController> logger, IBadcampContext context)
         {
-            _songService = songService;
+            _badcampContext = context;
             _logger = logger;
         }
 
 
         [Route("addSong")]
         [HttpPost]
-        public ActionResult<Song> AddNewSong([FromBody] Song NewSong)
+        public ActionResult AddNewSong([FromBody] Song NewSong)
         {
             var request = new AddSongRequest { NewSong = NewSong };
-            var handler = new AddSongHandler(_songService);
+            var handler = new AddSongHandler(_badcampContext);
             var response = handler.Handle(request);
             if (response.Failure)
             {
@@ -35,7 +36,7 @@ namespace Badcamp.Controllers
                 return BadRequest(response.Error);
             }
             _logger.LogInformation("Song Added");
-            return Ok(response.Value);
+            return Ok();
         }
 
         [HttpGet]
@@ -43,7 +44,7 @@ namespace Badcamp.Controllers
         public ActionResult<Song> GetSong([FromRoute] int SongID)
         {
             var request = new GetSongRequest { Id = SongID };
-            var handler = new GetSongHandler(_songService);
+            var handler = new GetSongHandler(_badcampContext);
             var response = handler.Handle(request);
             if (response.Failure)
             {
@@ -60,7 +61,7 @@ namespace Badcamp.Controllers
         public ActionResult<List<Song>> GetAllSongs()
         {
             var request = new GetAllSongsRequest { };
-            var handler = new GetAllSongsHandler(_songService);
+            var handler = new GetAllSongsHandler(_badcampContext);
             var response = handler.Handle(request);
             if (response.Failure)
             {
@@ -73,10 +74,10 @@ namespace Badcamp.Controllers
 
         [HttpDelete]
         [Route("{SongID}/delete")]
-        public ActionResult DeleteSong([FromRoute] int SongID)
+        public ActionResult DeleteSong([FromRoute] Song song)
         {
-            var request = new DeleteSongRequest { Id = SongID };
-            var handler = new DeleteSongHandler(_songService);
+            var request = new DeleteSongRequest { song = song };
+            var handler = new DeleteSongHandler(_badcampContext);
             _logger.LogInformation("Song Deleted");
             return NoContent();
         }
@@ -86,7 +87,7 @@ namespace Badcamp.Controllers
         public ActionResult UpdateSong([FromRoute] int SongID, [FromBody] Song song)
         {
             var request = new UpdateSongRequest { Id = SongID, updateData = song };
-            var handler = new UpdateSongHandler(_songService);
+            var handler = new UpdateSongHandler(_badcampContext);
             var response = handler.Handle(request);
             if (response.Failure)
             {

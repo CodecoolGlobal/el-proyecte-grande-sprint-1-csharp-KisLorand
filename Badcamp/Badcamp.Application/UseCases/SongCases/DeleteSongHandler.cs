@@ -6,15 +6,16 @@ namespace Badcamp.Application.UseCases.SongCases
 {
     public class DeleteSongHandler
     {
-        readonly ISongService _songService;
-        public DeleteSongHandler(ISongService songService)
+        private IBadcampContext _context;
+        public DeleteSongHandler(IBadcampContext context)
         {
-            _songService = songService;
+            _context = context;
         }
 
         public void Handle(DeleteSongRequest message)
         {
-            _songService.DeleteSong(message.Id);
+            _context.Songs.Remove(message.song);
+            _context.SaveChanges();
         }
     }
 }

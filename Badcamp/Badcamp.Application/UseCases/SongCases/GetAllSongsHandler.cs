@@ -7,22 +7,22 @@ namespace Badcamp.Application.UseCases.SongCases
 {
     public class GetAllSongsHandler : IRequestHandler<GetAllSongsRequest, Response<IReadOnlyList<Song>>>
     {
-        ISongService _songService;
-        public GetAllSongsHandler(ISongService songService)
+        private IBadcampContext _context;
+
+        public GetAllSongsHandler(IBadcampContext context)
         {
-            _songService = songService;
+            _context = context;
         }
         public Response<IReadOnlyList<Song>> Handle(GetAllSongsRequest message)
         {
-            IReadOnlyList<Song> songs;
             try
             {
-                songs = _songService.GetAllSongs();
+                var songs = _context.Songs.ToArray();
                 if (songs == null)
                 {
                     return Response.Fail<IReadOnlyList<Song>>("No songs wer found");
                 }
-                return Response.Ok(songs);
+                return Response.Ok<IReadOnlyList<Song>>(songs);
             }
             catch (Exception e)
             {

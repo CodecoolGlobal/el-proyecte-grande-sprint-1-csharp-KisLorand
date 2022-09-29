@@ -7,17 +7,19 @@ namespace Badcamp.Application.UseCases.SongCases
 {
     public class UpdateSongHandler
     {
-        readonly ISongService _songService;
-        public UpdateSongHandler(ISongService songService)
+        private IBadcampContext _context;
+
+        public UpdateSongHandler(IBadcampContext context)
         {
-            _songService = songService;
+            _context = context;
         }
 
         public Response Handle(UpdateSongRequest message)
         {
             try
             {
-                _songService.UpdateSong(message.Id, message.updateData);
+                _context.Songs.Update(message.updateData);
+                _context.SaveChanges();
                 return Response.Ok("Song Updated");
             }
             catch (Exception e)
