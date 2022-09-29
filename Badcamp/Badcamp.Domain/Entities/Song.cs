@@ -1,15 +1,15 @@
-﻿namespace Badcamp.Models
+﻿namespace Badcamp.Domain.Entities
 {
     public class Song
     {
         public long Id { get; set; }
-        public ArtistModel Artist { get; set; }
+        public Artist Artist { get; set; }
         public string Title { get; set; } = String.Empty;
         public string AlbumTitle { get;  set; } = String.Empty;
         public string Description { get;  set; } = String.Empty;
         public string Lyrics { get; set; } = String.Empty;
         public string AudioSource { get; set; } = String.Empty;
-        public HashSet<Genre>? Genres { get; set; }
+        public HashSet<Genre> Genres { get; set; } = new HashSet<Genre>();
         public Song(int id, string title, string album, string description, string lyrics, string audiosource, IEnumerable<Genre> genres)
         {   
             Id = id;

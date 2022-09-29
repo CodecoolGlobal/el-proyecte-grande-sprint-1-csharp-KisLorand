@@ -1,4 +1,5 @@
 ﻿using Badcamp.Application.Common;
+using Badcamp.Domain.Entities;
 using Badcamp.Models;
 using Badcamp.Services;
 using System;
@@ -11,17 +12,22 @@ namespace Badcamp.Application.UseCases.EventCases
 {
     public class GetAllEventsHandler : IRequestHandler<GetAllEventsRequest, Response<IReadOnlyList<Event>>>
     {
-        EventService _eventService;
-        public GetAllEventsHandler(EventService eventService)
+        // EventService _eventService;
+        IBadcampContext _context;
+     /*   public GetAllEventsHandler(EventService eventService)
         {
             _eventService = eventService;
+        }*/
+        public GetAllEventsHandler(IBadcampContext context)
+        {
+            _context = context;
         }
         public Response<IReadOnlyList<Event>> Handle(GetAllEventsRequest message)
         {
             IReadOnlyList<Event> events;
             try
             {
-                events = _eventService.GetAllEvents();
+                events = _context.Events.ToList();
                 if (events == null)
                 {
                     return Response.Fail<IReadOnlyList<Event>>("Events not found");

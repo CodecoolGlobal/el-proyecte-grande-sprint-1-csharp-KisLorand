@@ -1,4 +1,5 @@
 ﻿using Badcamp.Application.Common;
+using Badcamp.Domain.Entities;
 using Badcamp.Models;
 using Badcamp.Services;
 using System;
@@ -11,21 +12,33 @@ namespace Badcamp.Application.UseCases.EventCases
 {
     public class CreateEventHandler : IRequestHandler<CreateEventRequest, Response<Event>>
     {
-        EventService _eventService;
-        public CreateEventHandler(EventService eventService)
+        IBadcampContext _context;
+        /*public CreateEventHandler(EventService eventService)
         {
             _eventService = eventService;
         }
+*/
+        public CreateEventHandler(IBadcampContext context)
+        {
+            _context = context;
+        }
         public Response<Event> Handle(CreateEventRequest message)
         {
-            Event @event;
-            try 
+            Event? @event;
+            Event newEvent;
+            Artist? artist;
+            try
             {
-                @event = _eventService.CreateEvent(message.ArtistId, message.NewEvent);
+                newEvent = message.NewEvent;
+                artist = _context.Artists.Find(message.ArtistId);
+                newEvent.Artist = artist;
+                _context.Events.Add(newEvent);
+                @event = _context.Events.Find(newEvent.Id);
                 if (@event == null)
                 {
-                    return Response.Fail<Event>("Couldn't be created");
+                    return Response.Fail<Event>("Event couldn't be created");
                 }
+
                 return Response.Ok(@event);
 
             }

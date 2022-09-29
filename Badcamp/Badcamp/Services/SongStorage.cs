@@ -1,4 +1,5 @@
-﻿using Badcamp.Models;
+﻿using Badcamp.Domain.Entities;
+using Badcamp.Models;
 using Badcamp.Services.Interfaces;
 
 namespace Badcamp.Services
@@ -13,15 +14,16 @@ namespace Badcamp.Services
         }
         private List<Song> CreateTestSongStorage(int size, List<string> title)
         {
-            Random random = new Random();
-            _storage = new List<Song>();
-            for (int i = 0; i < size; i++)
-            {
-                var CurrentTitle = title[random.Next(0, title.Count)];
-                Song newSong = new Song(CurrentTitle);
-                _storage.Add(newSong);
-            }
-            return _storage;
+            throw new NotImplementedException();
+            //Random random = new Random();
+            //_storage = new List<Song>();
+            //for (int i = 0; i < size; i++)
+            //{
+            //    var CurrentTitle = title[random.Next(0, title.Count)];
+            //    Song newSong = new Song(CurrentTitle);
+            //    _storage.Add(newSong);
+            //}
+            //return _storage;
         }
         private List<string> GetSongTitles()
         {
@@ -35,14 +37,7 @@ namespace Badcamp.Services
         }
         public Song GetSong(Guid songID)
         {
-            foreach (var song in _storage)
-            {
-                if(song.SongID == songID)
-                {
-                    return song;
-                }
-            }
-            return null;
+            throw new NotImplementedException();
         }
 
         public List<Song> DeleteSong(Song song)
@@ -52,21 +47,23 @@ namespace Badcamp.Services
         }
         public Song UpdateSong(Song song)
         {
-            foreach (var currentSong in _storage)
-            {
-                if (currentSong.SongID == song.SongID)
-                {
-                    currentSong.UpdateSong(song);
-                    return currentSong;
-                }
-            }
-            return null;
+            throw new NotImplementedException();
+            //foreach (var currentSong in _storage)
+            //{
+            //    if (currentSong.SongID == song.SongID)
+            //    {
+            //        currentSong.UpdateSong(song);
+            //        return currentSong;
+            //    }
+            //}
+            //return null;
         }
         public Song CreateSong(string title)
         {
-            Song newSong = new Song(title);
-            _storage.Add(newSong);
-            return newSong;
+            throw new NotSupportedException();
+            //Song newSong = new Song(title);
+            //_storage.Add(newSong);
+            //return newSong;
         }
     }
 }

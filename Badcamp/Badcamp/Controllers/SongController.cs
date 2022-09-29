@@ -1,4 +1,5 @@
 ﻿using Badcamp.Application.UseCases.SongCases;
+using Badcamp.Domain.Entities;
 using Badcamp.Models;
 using Badcamp.Services;
 using Badcamp.Services.Interfaces;
