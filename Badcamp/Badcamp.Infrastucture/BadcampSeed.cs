@@ -1,4 +1,4 @@
-﻿using Badcamp.Models;
+﻿using Badcamp.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Badcamp.Infrastucture
 {
-	internal class BadcampSeed
+	public class BadcampSeed
 	{
         private readonly BadcampContext context;
 
@@ -104,38 +104,38 @@ namespace Badcamp.Infrastucture
             if (!context.Artists.Any())
             {
                 context.Artists.AddRange(
-                    new ArtistModel
+                    new Artist
                     {
                         Name = "KA-ZZ",
                         User = context.Users.Where(user => user.Username == "Kázmér").FirstOrDefault(),
                         Description = "I don't want peace. I want Problems Allways.",
                         ProfilePicture = "/kazimir_3.png",
                     },
-                    new ArtistModel
+                    new Artist
                     {
                         Name = "Hubba",
                         User = context.Users.Where(user => user.Username == "Huba").FirstOrDefault(),
                         Description = "",
                         ProfilePicture = "/huba_and_kazimir.png",
-                        ArtistGenre =
+                        /*ArtistGenre =
                         Events =
-                        Songs =
+                        Songs =*/
                     },
-                    new ArtistModel
+                    new Artist
                     {
                         Name = "Gizi",
                         User = context.Users.Where(user => user.Username == "Gisella").FirstOrDefault(),
                         Description = "",
                         ProfilePicture = "/gizella.png",
                     },
-                    new ArtistModel
+                    new Artist
                     {
                         Name = "Billy Geen",
                         User = context.Users.Where(user => user.Username == "Béla").FirstOrDefault(),
                         Description = "",
                         ProfilePicture = "",
                     },
-                    new ArtistModel
+                    new Artist
                     {
                         Name = "Johny Cache",
                         User = context.Users.Where(user => user.Username == "Elek").FirstOrDefault(),
@@ -157,8 +157,8 @@ namespace Badcamp.Infrastucture
                         Lyrics = "",
                         AudioSource = "/public/music",
                         Genres = new HashSet<Genre> {
-                            context.Genres.Where(x => x.Name=="Hip-Hopp"),
-                            context.Genres.Where(x => x.Name=="Pop"),
+                            /*context.Genres.Where(x => x.Name=="Hip-Hopp"),
+                            context.Genres.Where(x => x.Name=="Pop"),*/
                         }
                     },
                     new Song
@@ -169,7 +169,7 @@ namespace Badcamp.Infrastucture
                         Lyrics = "",
                         AudioSource = "/public/music",
                         Genres = new HashSet<Genre> {
-                            context.Genres.Where(x => x.Name=="Rock"),
+                            //context.Genres.Where(x => x.Name=="Rock"),
                         }
                     },
                     new Song
@@ -180,10 +180,11 @@ namespace Badcamp.Infrastucture
                         Lyrics = "",
                         AudioSource = "/public/music",
                         Genres = new HashSet<Genre> {
-                            context.Genres.Where(x => x.Name=="Alter"),
+                            /*context.Genres.Where(x => x.Name=="Alter"),
                             context.Genres.Where(x => x.Name=="Rock"),
-                            context.Genres.Where(x => x.Name=="Techno")
+                            context.Genres.Where(x => x.Name=="Techno"),*/
                         }
+                    }
                     );
                 context.SaveChanges();
             }

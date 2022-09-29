@@ -23,6 +23,8 @@ builder.Services.AddDbContext<IBadcampContext, BadcampContext>(options =>
     options.UseSqlServer(connectionstring);
 });
 
+builder.Services.AddTransient<BadcampSeed>();
+
 // change to scoped when no longer inmemory
 builder.Services.AddSingleton<ISongStorage, SongStorage>();
 builder.Services.AddSingleton<UserStorage>();
