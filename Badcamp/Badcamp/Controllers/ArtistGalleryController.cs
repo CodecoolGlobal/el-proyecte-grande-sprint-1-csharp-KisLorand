@@ -23,7 +23,7 @@ namespace Badcamp.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IReadOnlyList<ArtistModel>> GetAllArtist()
+        public ActionResult<IReadOnlyList<Artist>> GetAllArtist()
         {
             var request = new GetAllArtistsHandlerRequest();
             var handler = new GetAllArtistsHandler(_artistStorage);
