@@ -13,11 +13,7 @@ namespace Badcamp.Application.UseCases.EventCases
     public class CreateEventHandler : IRequestHandler<CreateEventRequest, Response<Event>>
     {
         IBadcampContext _context;
-        /*public CreateEventHandler(EventService eventService)
-        {
-            _eventService = eventService;
-        }
-*/
+
         public CreateEventHandler(IBadcampContext context)
         {
             _context = context;
@@ -33,6 +29,7 @@ namespace Badcamp.Application.UseCases.EventCases
                 artist = _context.Artists.Find(message.ArtistId);
                 newEvent.Artist = artist;
                 _context.Events.Add(newEvent);
+                _context.SaveChanges();
                 @event = _context.Events.Find(newEvent.Id);
                 if (@event == null)
                 {

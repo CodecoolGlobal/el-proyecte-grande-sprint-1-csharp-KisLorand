@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace Badcamp.Application.UseCases.EventCases
 {
@@ -27,7 +28,7 @@ namespace Badcamp.Application.UseCases.EventCases
             IReadOnlyList<Event> events;
             try
             {
-                events = _context.Events.ToList();
+                events = _context.Events.Include(x => x.Artist).ToList();
                 if (events == null)
                 {
                     return Response.Fail<IReadOnlyList<Event>>("Events not found");

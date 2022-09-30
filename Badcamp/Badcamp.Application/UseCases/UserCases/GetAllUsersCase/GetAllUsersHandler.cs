@@ -11,21 +11,19 @@ namespace Badcamp.Application.UseCases.UserCases.GetAllUsersCase
 {
     public class GetAllUsersHandler : IRequestHandler<GetAllUsersRequest, Response<IReadOnlyList<User>>>
     {
-        UserStorage _userStorage;
-        public GetAllUsersHandler(UserStorage userStorage)
+        IBadcampContext _context;
+        public GetAllUsersHandler(IBadcampContext context)
         {
-            _userStorage = userStorage;
+            _context = context;
         }
-
         public Response<IReadOnlyList<User>> Handle(GetAllUsersRequest message)
-        {
-            IReadOnlyList<User> users;
+        {            
             try
             {
-                users = _userStorage.GetAllUsers();
+                IReadOnlyList<User> users = _context.Users.ToList();
                 if (users == null)
                 {
-                    return Response.Fail<IReadOnlyList<User>>("Events not found");
+                    return Response.Fail<IReadOnlyList<User>>("Did not find any users!");
                 }
                 return Response.Ok(users);
             }
