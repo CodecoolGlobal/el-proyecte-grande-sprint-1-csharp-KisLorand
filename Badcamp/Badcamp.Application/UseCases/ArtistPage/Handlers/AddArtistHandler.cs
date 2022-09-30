@@ -24,7 +24,7 @@ namespace Badcamp.Application.UseCases.ArtistPage.Handlers
 			{
 				User user = _context.Users.Find(message.UserId);
 				artist.User = user;
-				_context.Artists.Add(message.Artist);
+				_context.Artists.Add(artist);
 				_context.SaveChanges();
 				if (artist == null)
 				{
