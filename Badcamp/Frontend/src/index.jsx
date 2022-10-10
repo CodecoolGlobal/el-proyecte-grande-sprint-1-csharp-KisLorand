@@ -24,7 +24,7 @@ root.render(
           <Route exact path='/events' element={<EventPage />}></Route>
           <Route exact path='/artistpage' element={<ArtistPage artistId={1}/>}></Route>
           <Route path='ArtistListing' element={<ArtistListing />}></Route>
-           <Route path="user">
+           <Route path="profile">
               <Route path=":id" element={<UserPage/>} />
           </Route>
           <Route path="login" element={<Login />} />
