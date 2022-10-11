@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Badcamp.Controllers
 {
     [ApiController]
-    [Route("api/[conroller]")]
+    [Route("api/[controller]")]
     public class GenreController : ControllerBase
     {
 
