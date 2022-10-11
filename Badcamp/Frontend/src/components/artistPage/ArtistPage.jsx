@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect, useRef, useContext } from 'react';
 import ArtistName from './ArtistName';
 import ArtistDescription from './ArtistDescription';
 import ArtistPicture from './ArtistPicture';
@@ -15,19 +15,17 @@ const ArtistPage = (props) => {
   const [artist, setArtist] = useState(null); 
   const [listData, setListData] = useState(null); 
   const [selectSong, setSelectSong] = useState(true);
+  const editRef = useRef(false);
 
- /*  const urlArtists = "http://localhost:3000/artists";
-  const urlSongs = "http://localhost:3000/songs";
-  const urlEvents = "http://localhost:3000/events"; */
+  const urlArtists = `${process.env.REACT_APP_BASE_URL}api/ArtistPage`; 
+  const urlSongs = `${process.env.REACT_APP_BASE_URL}api/Event/GetEvents`; 
+  const urlEvents = `${process.env.REACT_APP_BASE_URL}api/Event/GetEvents`; //
 
-  const urlArtists = "https://localhost:7151/api/ArtistPage/GetAllArtists";
-  const urlSongs = "http://localhost:3000/songs";
-  const urlEvents = "http://localhost:3000/events";
-
-  
   useEffect(() => {
+    console.log(urlArtists)
     apiRequest(urlArtists, [artist, setArtist]);
     apiRequest(urlSongs, [listData, setListData])
+    console.log(artist);
   }, [props.artistId]);
 
   useEffect(() => {
@@ -45,7 +43,16 @@ const ArtistPage = (props) => {
         <Card className="eventCard border border-4 w-50" style={{ width: "18rem" }}>
         <Card.Header>
           <Card.Title>
+            {/* editNameRef ? */}
             <ArtistName artistName={artist[0].name}  />
+            {/* : <Input
+            role="input"
+            aria-label="input for client's email"
+              id="client-email"
+              type="email"
+              label="Enter client's email address*:"
+              placeholder="johndoe@gmail.com"
+            /> */}
             <ArtistDescription artistDesc={artist[0].description}/>
             <Card.Subtitle className="mb-2 text-muted text-end">
               <ArtistPicture artistProfilePicture={artist[0].profilePicture} height={250} />
