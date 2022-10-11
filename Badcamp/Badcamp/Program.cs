@@ -40,8 +40,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<IBadcampContext, BadcampContext>(options =>
 {
-    //var connectionstring = builder.Configuration.GetConnectionString("BadcampContext");
-    var connectionstring = "Server = (localdb)\\mssqllocaldb; Database = BadCamp; Integrated Security = True";
+    var connectionstring = builder.Configuration.GetConnectionString("BadcampContext");
     options.UseSqlServer(connectionstring);
 });
 
