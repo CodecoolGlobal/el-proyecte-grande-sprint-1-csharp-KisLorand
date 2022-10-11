@@ -4,11 +4,9 @@ using Badcamp.Domain.Entities;
 using Badcamp.Application.UseCases.UserCases.AddUser;
 using Badcamp.Application.UseCases.UserCases.UpdateUserDataCase;
 using Badcamp.Application.UseCases.UserCases.GetAllUsersCase;
-using Badcamp.Models;
-using Badcamp.Services;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Badcamp.Application.UseCases.UserCases.DeleteUserCase;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Badcamp.Controllers
 {
