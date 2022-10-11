@@ -60,32 +60,30 @@ namespace Badcamp.Controllers
         public ActionResult<Song> GetSong([FromRoute] int SongID)
         {
             var request = new GetSongRequest { Id = SongID };
-            var handler = new GetSongHandler(_badcampContext);
-            var response = handler.Handle(request);
+            var response = _getSongHandler.Handle(request);
             if (response.Failure)
             {
                 _logger.LogError(response.Error);
                 return BadRequest(response.Error);
             }
             _logger.LogInformation("Song Received");
-            return Ok(response.Value);
-
+            return Ok(response);
+            
         }
 
         [HttpGet]
-        [Route("getallSongs")]
+        [Route("getall")]
         public ActionResult<List<Song>> GetAllSongs()
         {
             var request = new GetAllSongsRequest { };
-            var handler = new GetAllSongsHandler(_badcampContext);
-            var response = handler.Handle(request);
+            var response = _getAllSongsHandler.Handle(request);
             if (response.Failure)
             {
                 _logger.LogError(response.Error);
                 return BadRequest(response.Error);
             }
             _logger.LogInformation("Songs Received");
-            return Ok(response.Value);
+            return Ok(response);
         }
 
         [HttpDelete]
@@ -103,12 +101,10 @@ namespace Badcamp.Controllers
         }
 
         [HttpPut]
-        [Route("{SongID}/update")]
-        public ActionResult UpdateSong([FromRoute] int SongID, [FromBody] Song song)
+        [Route("/update")]
+        public ActionResult UpdateSong([FromBody] UpdateSongRequest updateSong)
         {
-            var request = new UpdateSongRequest { Id = SongID, updateData = song };
-            var handler = new UpdateSongHandler(_badcampContext);
-            var response = handler.Handle(request);
+            var response = _updateSongHandler.Handle(updateSong);
             if (response.Failure)
             {
                 _logger.LogError(response.Error);

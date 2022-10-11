@@ -20,7 +20,7 @@ namespace Badcamp.Application.UseCases.SongCases
                 var songs = _context.Songs.ToArray();
                 if (songs == null)
                 {
-                    return Response.Fail<IReadOnlyList<Song>>("No songs wer found");
+                    return Response.Fail<IReadOnlyList<Song>>("No songs were found");
                 }
                 return Response.Ok<IReadOnlyList<Song>>(songs);
             }
