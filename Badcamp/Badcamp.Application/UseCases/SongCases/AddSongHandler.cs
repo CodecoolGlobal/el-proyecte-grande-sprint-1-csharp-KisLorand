@@ -16,8 +16,26 @@ namespace Badcamp.Application.UseCases.SongCases
 
         public Response Handle(AddSongRequest message)
         {
+
             try
             {
+                var artist = _context.Artists.Find(message.ArtistId);
+                if (artist != null)
+                {
+                    message.NewSong.Artist = artist;
+                }
+
+                var genres = new HashSet<Genre>();
+                foreach (int genreId in message.GenreList)
+                {
+                    var genreIter = _context.Genres.Find(genreId);
+                    if (genreIter != null)
+                    {
+                        genres.Add(genreIter);
+                    }
+                }
+                message.NewSong.Genres = genres;
+
                 _context.Songs.Add(message.NewSong);
                 _context.SaveChanges();
                 return Response.Ok();

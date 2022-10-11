@@ -4,7 +4,7 @@ using Badcamp.Services;
 
 namespace Badcamp.Application.UseCases.SongCases
 {
-    public class DeleteSongHandler
+    public class DeleteSongHandler: IRequestHandler<DeleteSongRequest, Response>
     {
         private IBadcampContext _context;
         public DeleteSongHandler(IBadcampContext context)
@@ -12,10 +12,18 @@ namespace Badcamp.Application.UseCases.SongCases
             _context = context;
         }
 
-        public void Handle(DeleteSongRequest message)
+        public Response Handle(DeleteSongRequest message)
         {
-            _context.Songs.Remove(message.song);
-            _context.SaveChanges();
+            try
+            {
+                _context.Songs.Remove(message.song);
+                _context.SaveChanges();
+                return Response.Ok("Song Deleted");
+            }
+            catch (Exception e)
+            {
+                return Response.Fail(e.Message);
+            }
         }
     }
 }

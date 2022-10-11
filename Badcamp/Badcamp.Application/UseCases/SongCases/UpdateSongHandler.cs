@@ -5,7 +5,7 @@ using Badcamp.Services;
 
 namespace Badcamp.Application.UseCases.SongCases
 {
-    public class UpdateSongHandler
+    public class UpdateSongHandler: IRequestHandler<UpdateSongRequest, Response>
     {
         private IBadcampContext _context;
 
