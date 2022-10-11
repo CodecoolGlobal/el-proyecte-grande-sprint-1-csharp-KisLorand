@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Extensions.Configuration;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -34,5 +35,7 @@ namespace Badcamp.Application.Common
         /// </summary>
         /// <param name="message">The request message</param>
         void Handle(TRequest message);
+        void Handle(TRequest message, IConfiguration config);
     }
+
 }

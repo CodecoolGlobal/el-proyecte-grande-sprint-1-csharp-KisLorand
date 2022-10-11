@@ -1,13 +1,15 @@
 import './Login.css';
 import LoginForm from './LoginForm';
 import React from 'react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { UserContext } from '../../userContext/UserContext';
 
 
 const Login = () => {
 
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const { setUserId } = useContext(UserContext);
+
     const [error, setError] = useState(null);
     const redirect = useNavigate();
 
@@ -42,7 +44,7 @@ const handleSubmit = (e) => {
         if (userData.password !== password.value) {
             setError('Invalid password');
         } else {
-            setIsLoggedIn(true);
+            setUserId(userData.id);
             redirect('/');
         }
     } else {

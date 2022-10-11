@@ -2,7 +2,7 @@ import './Register.css';
 import RegistrationForm from './RegistrationForm';
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Redirect } from 'react-router-dom';
 import apiRequest from './apiRequest';
 
 
@@ -15,6 +15,7 @@ const Registration = () => {
     const [users, setUsers] = useState([]);
     const [regError, setRegError] = useState(null);
     const [fetchError, setFetchError] = useState(null);
+    const [username, setUsername] = useState(null);
 
     useEffect(() => {
         const fetchItems = async () => {
@@ -51,7 +52,7 @@ const Registration = () => {
         const result = await apiRequest(apiUrl, postOptions);
         if (result) setFetchError(result);
 
-        redirect('/');
+        redirect('/login');
     }
 
     const handleSubmit = (e) => {
@@ -62,16 +63,18 @@ const Registration = () => {
 
         if (existingUsername) {
             setRegError("Username already exists, please try again!");
-            return;
+            e.target.reset();
         }
 
-        if (newPassword !== newPassword2) {
+        else if (newPassword.value !== newPassword2.value) {
             setRegError("Passwords does not match, please try again!");
-            return;
+            e.target.reset();
         }
         
-
-        addUser(newUsername.value, newPassword.value, newDateOfBirth.value, newFullName.value);
+        else {
+            addUser(newUsername.value, newPassword.value, newDateOfBirth.value, newFullName.value);
+        }
+        
     }
 
     return (
@@ -80,7 +83,8 @@ const Registration = () => {
             <RegistrationForm
                 handleSubmit={handleSubmit}
                 regError={regError}
-            //{/*errorMessage={error}*/}            />
+            //{/*errorMessage={error}*/}
+            />
 
         </div>
     );
