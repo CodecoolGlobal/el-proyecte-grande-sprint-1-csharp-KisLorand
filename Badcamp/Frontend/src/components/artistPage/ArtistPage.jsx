@@ -16,9 +16,14 @@ const ArtistPage = (props) => {
   const [listData, setListData] = useState(null); 
   const [selectSong, setSelectSong] = useState(true);
 
-  const urlArtists = "http://localhost:3000/artists";
+ /*  const urlArtists = "http://localhost:3000/artists";
+  const urlSongs = "http://localhost:3000/songs";
+  const urlEvents = "http://localhost:3000/events"; */
+
+  const urlArtists = "https://localhost:7151/api/ArtistPage/GetAllArtists";
   const urlSongs = "http://localhost:3000/songs";
   const urlEvents = "http://localhost:3000/events";
+
   
   useEffect(() => {
     apiRequest(urlArtists, [artist, setArtist]);
