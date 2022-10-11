@@ -13,7 +13,6 @@ const Event = ({ item, handleUpvote }) => {
 						<Link
 							to={`/artistpage/${item.artist.id}`}
 							style={{ textDecoration: "none" }}
-							className="subtitle"
 						>
 							{item.artist.name}
 						</Link>
