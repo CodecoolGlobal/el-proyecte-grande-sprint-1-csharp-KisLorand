@@ -1,5 +1,6 @@
 ﻿using Badcamp.Application.Common;
 using Badcamp.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,10 +12,10 @@ namespace Badcamp.Application.UseCases.ArtistGalleryCases
     public class GetAllArtistsHandler : IRequestHandler<GetAllArtistsHandlerRequest, Response<IReadOnlyList<Artist>>>
     {
 
-        private ArtistStorage _storage;
-        public GetAllArtistsHandler(ArtistStorage storage)
+        private IBadcampContext _context;
+        public GetAllArtistsHandler(IBadcampContext context)
         {
-            _storage = storage;
+            _context = context;
         }
         public Response<IReadOnlyList<Artist>> Handle(GetAllArtistsHandlerRequest message)
         {
@@ -23,7 +24,7 @@ namespace Badcamp.Application.UseCases.ArtistGalleryCases
 
             try
             {
-                artists = (IReadOnlyList<Artist>)_storage.GetArtists();
+                artists = _context.Artists.Include(artist => artist.Genres).ToList();
                 if(artists == null)
                 {
                     return Response.Fail<IReadOnlyList<Artist>>("Artists not found");
