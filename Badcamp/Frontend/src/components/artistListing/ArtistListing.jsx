@@ -3,7 +3,9 @@ import { useState, useEffect } from "react";
 import ALContainer from "./ALContainer";
 
 const ArtistListing = () => {
-  const API_URL = "http://localhost:3000/artists";
+  const baseUrl = process.env.REACT_APP_BASE_URL
+  const artistsUrl = `${baseUrl}api/ArtistGallery`;
+  const genresUrl = `${baseUrl}api/Genre`;
   const [searchValue, setSearchValue] = useState("");
   const [filterValue, setFilterValue] = useState("");
   const [artists, setArtist] = useState([]);
@@ -11,29 +13,34 @@ const ArtistListing = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const getData = async () => {
-      const response = await fetch(API_URL);
+    const getArtists = async () => {
+      const response = await fetch(artistsUrl);
       if (!response.ok) {
         throw Error("Error occoured. Reload the app");
       } else {
         const data = await response.json();
+        console.log(data)
         setArtist(data);
-        SetFilteredGenres(data);
         setIsLoading(false);
       }
     };
-    getData();
-  }, []);
+    const getGenres = async () =>{
+      const response = await fetch(genresUrl);
+      if (!response.ok) {
+        throw Error("Error occoured. Reload the app");
+      } else {
+        const data = await response.json();
+        console.log(data)
+        setGenres(data);
+        setIsLoading(false);
+      }
+    }
+    getArtists();
+    getGenres();
 
-  const SetFilteredGenres = (artists) => {
-    const singleGenres = [];
-    artists.map((artist) =>
-      artist.genres.forEach((genre) => {
-        if (!singleGenres.includes(genre)) singleGenres.push(genre);
-      })
-    );
-    setGenres(singleGenres);
-  };
+  }, []);
+  console.log(artists)
+  console.log(genres)
 
   const filterArtist = (artist) => {
     return artist.name.toLowerCase().includes(searchValue.toLocaleLowerCase())

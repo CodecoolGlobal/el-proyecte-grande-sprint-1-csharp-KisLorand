@@ -10,14 +10,17 @@
         public string Lyrics { get; set; } = String.Empty;
         public string AudioSource { get; set; } = String.Empty;
         public HashSet<Genre> Genres { get; set; } = new HashSet<Genre>();
-        public Song(int id, string title, string album, string description, string lyrics, string audiosource, IEnumerable<Genre> genres)
-        {   
+
+        public Song(long id, Artist artist, string title, string albumTitle, string description, string lyrics, string audioSource, HashSet<Genre> genres)
+        {
             Id = id;
+            Artist = artist;
             Title = title;
-            AlbumTitle = album;
+            AlbumTitle = albumTitle;
             Description = description;
             Lyrics = lyrics;
-            AudioSource = audiosource;
+            AudioSource = audioSource;
+            Genres = genres;
         }
 
         public Song()

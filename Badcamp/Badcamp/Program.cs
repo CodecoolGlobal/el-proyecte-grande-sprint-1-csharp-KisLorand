@@ -9,6 +9,9 @@ using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Badcamp.Application.Common;
+using Badcamp.Application.UseCases.SongCases;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -48,7 +51,11 @@ builder.Services.AddTransient<BadcampSeed>();
 
 
 // change to scoped when no longer inmemory
-builder.Services.AddSingleton<ISongStorage, SongStorage>();
+builder.Services.AddScoped<IRequestHandler<AddSongRequest, Response>, AddSongHandler>();
+builder.Services.AddScoped<IRequestHandler<DeleteSongRequest, Response>, DeleteSongHandler>();
+builder.Services.AddScoped<IRequestHandler<UpdateSongRequest, Response>, UpdateSongHandler>();
+builder.Services.AddScoped<IRequestHandler<GetSongRequest, Response>, GetSongHandler>();
+builder.Services.AddScoped<IRequestHandler<GetAllSongsRequest, Response>, GetAllSongsHandler>();
 builder.Services.AddSingleton<UserStorage>();
 builder.Services.AddSingleton<EventService>();
 builder.Services.AddSingleton<ArtistStorage>();
