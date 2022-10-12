@@ -9,6 +9,9 @@
 .upvote-img{
     height: 2rem;
 }
-.subtitle{
+a.subtitle{
     color :rgb(0, 0, 0);
+}
+a.subtitle:visited{
+    color:black
 }
