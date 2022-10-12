@@ -8,6 +8,7 @@ const EditBtn = (btnprops) => {
         if (toggleState===true) {
             UpdateData();
         }
+        console.log(btnprops.artist.name);
     };
 
     const UpdateData = () => {
@@ -18,10 +19,10 @@ const EditBtn = (btnprops) => {
         const artistDescription = desc.value.length === 0 ? desc.placeholder : desc.value; 
 
         const UpdateObj = {
-            Id: btnprops.artist.id,
-            Name: artistName,
-            Description: artistDescription,
-            ProfilePicture: btnprops.pfp
+            id: btnprops.artist.id,
+            name: artistName,
+            description: artistDescription,
+            profilePicture: btnprops.pfp
         };
 
         fetch(`${process.env.REACT_APP_BASE_URL}api/ArtistPage/${btnprops.artist.id}`, {
