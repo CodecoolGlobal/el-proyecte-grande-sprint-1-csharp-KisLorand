@@ -29,12 +29,12 @@ namespace Badcamp.Application.UseCases.EventCases
             try
             {
                 // _context.Events.Update(message.UpdateEvent);
-                @event = _context.Events.Find(message.EventId);
+                @event = _context.Events.Find(message.UpdateEvent.Id);
                 @event.Title = message.UpdateEvent.Title;
                 @event.Description = message.UpdateEvent.Description;
                 @event.Upvote = message.UpdateEvent.Upvote;
                 _context.SaveChanges();
-                @event = _context.Events.Find(message.EventId);
+                @event = _context.Events.Find(message.UpdateEvent.Id);
                 if (@event == null)
                 {
                     return Response.Fail<Event>("Event Couldn't be updated");
