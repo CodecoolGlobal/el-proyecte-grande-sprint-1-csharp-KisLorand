@@ -19,7 +19,6 @@ const ArtistListing = () => {
         throw Error("Error occoured. Reload the app");
       } else {
         const data = await response.json();
-        console.log(data)
         setArtist(data);
         setIsLoading(false);
       }
@@ -30,18 +29,14 @@ const ArtistListing = () => {
         throw Error("Error occoured. Reload the app");
       } else {
         const data = await response.json();
-        console.log(data)
         setGenres(data);
         setIsLoading(false);
       }
     }
     getArtists();
     getGenres();
-
+    
   }, []);
-  console.log(artists)
-  console.log(genres)
-
   const filterArtist = (artist) => {
     return artist.name.toLowerCase().includes(searchValue.toLocaleLowerCase())
       ? true
