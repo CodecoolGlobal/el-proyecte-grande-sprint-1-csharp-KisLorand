@@ -14,10 +14,7 @@
             "program": "${workspaceFolder}\\src\\components\\eventComponents\\EventPage.jsx",
             "outFiles": [
                 "${workspaceFolder}/**/*.js"
-            ],
-            "env": {
-                "baseUrl": "http://localhost:7151/"
-              }
+            ]
         }
     ]
 }

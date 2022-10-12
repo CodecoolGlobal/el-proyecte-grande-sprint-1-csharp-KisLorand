@@ -6,8 +6,8 @@ import apiRequest from "../../requests/apiRequest";
 const EventPage = (props) => {
 	const [events, setEvents] = useState(null);
 	const [isUpdate, setIsUpdate] = useState(false);
-	const urlGet = "https://localhost:7151/api/Event/GetEvents";
-	const urlUpdate = "https://localhost:7151/api/Event/UpdateEvent";
+	const urlGet = process.env.REACT_APP_BASE_URL + "/api/Event/GetEvents";
+	const urlUpdate = process.env.REACT_APP_BASE_URL + "api/Event/UpdateEvent";
 	useEffect(() => {
 		apiRequest(urlGet, [events, setEvents]);
 	}, []);
