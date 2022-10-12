@@ -1,10 +1,50 @@
 import React from 'react';
 
-const EditBtn = ({ref}) => {
-    
+const EditBtn = (btnprops) => {
+    const [toggleState, setToggleState] = btnprops.toggle;
+
+    const toggleButtonState = (toggleState) => {
+        setToggleState(toggleState === true ? false : true);
+        if (toggleState===true) {
+            UpdateData();
+        }
+    };
+
+    const UpdateData = () => {
+        const name = document.getElementById("artist-name-edit");
+        const artistName = name.value.length === 0 ? name.placeholder : name.value; 
+        
+        const desc = document.getElementById("artist-description-textarea");
+        const artistDescription = desc.value.length === 0 ? desc.placeholder : desc.value; 
+
+        const UpdateObj = {
+            Id: btnprops.artist.id,
+            Name: artistName,
+            Description: artistDescription,
+            ProfilePicture: btnprops.pfp
+        };
+
+        fetch(`${process.env.REACT_APP_BASE_URL}api/ArtistPage/${btnprops.artist.id}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(UpdateObj),
+        })
+        .then((response) => {
+            console.log(response, "response");
+            if (response.status !== 200) {
+            console.log("not ok" + response.status);
+            }
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+    };
+
   return (
-    <button onClick={ref.current = true}>
-      Edit
+    <button onClick={()=>toggleButtonState(toggleState)}>
+      {toggleState === true ? "Save" : "Edit"}
     </button>
   )
 };
