@@ -1,64 +1,85 @@
 import './Login.css';
 import LoginForm from './LoginForm';
 import React from 'react';
-import { useState, useEffect, useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { UserContext } from '../../userContext/UserContext';
-
+import { useState, useEffect, useContext, useRef } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
+import AuthContext from '../../contexts/AuthProvider';
+import jwt_decode from "jwt-decode";
+import axios from '../../requests/axios';
+const LOGIN_URL = '/login';
 
 const Login = () => {
+    const { setAuth } = useContext(AuthContext);
 
-    const { setUserId } = useContext(UserContext);
-
-    const [error, setError] = useState(null);
     const redirect = useNavigate();
+    const location = useLocation();
+    const from = location.state?.from?.pathname || "/";
 
-    const apiUrl = "http://localhost:3000/users";
-    const [users, setUsers] = useState([]);
+    const userRef = useRef();
+    const errRef = useRef();
 
+    const [user, setUser] = useState('');
+    const [pwd, setPwd] = useState('');
+    const [errMsg, setErrMsg] = useState('');   
+    
     useEffect(() => {
-        const fetchItems = async () => {
-            try {
-                const response = await fetch(apiUrl);
-                if (!response.ok) throw Error('Did not receive expected data!');
-                const listUsers = await response.json();
-                setUsers(listUsers);
-            } catch (err) {
-                console.log(err.message);
-            } 
-        }
-
-        fetchItems();
-        
-
+        userRef.current.focus();
     }, []);
 
+    useEffect(() => {
+        setErrMsg('');
+    }, [user, pwd]);
 
-const handleSubmit = (e) => {
-    e.preventDefault();
+    const handleSubmit = async (e) => {
+        e.preventDefault();
 
-    var { username, password } = document.forms[0];
-    var userData = users.find((user) => user.username === username.value);
+        try {
+            const response = await axios.post(LOGIN_URL,
+                JSON.stringify({Username: user, Password: pwd}),
+                {
+                    headers: { 'Content-Type': 'application/json'},
+                    withCredentials: true
+                }
+            );
 
-    if (userData) {
-        if (userData.password !== password.value) {
-            setError('Invalid password');
-        } else {
-            setUserId(userData.id);
-            redirect('/');
+            const accessToken = response?.data.value;
+            const decoded = jwt_decode(accessToken);
+            const userId = (decoded['http://schemas.microsoft.com/ws/2008/06/identity/claims/primarysid']);         
+
+            const userData = { user, userId, accessToken };
+            localStorage.setItem("user", JSON.stringify(userData));
+            setAuth(userData);
+            setUser('');
+            setPwd('');
+            redirect(from, { replace: true });
+        } catch (err) {
+            console.log(err);
+            if (!err.response) {
+                setErrMsg('No Server Response');
+            } else if (err.response?.status === 400) {
+                setErrMsg('Missing Username or Password');
+            } else if (err.response?.status === 401) {
+                setErrMsg('Unauthorized');
+            } else if (err.response?.status === 404) {
+                setErrMsg('User does not exist');
+            } else {
+                setErrMsg('Login Failed');
+            }
+            errRef.current.focus();
         }
-    } else {
-        setError('Invalid username');
-    }
-
-}
+    }    
 
     return (
-        <div className="Login">
-            <h1>Login</h1><br /><br />
+        <div className="InputForm">
             <LoginForm
+                user={user}
+                setUser={setUser}
+                userRef={userRef}
+                pwd={pwd}
+                setPwd={setPwd}
+                errRef={errRef}
+                errMsg={errMsg}
                 handleSubmit={handleSubmit}
-                errorMessage={error}
             />
         </div>
     );
