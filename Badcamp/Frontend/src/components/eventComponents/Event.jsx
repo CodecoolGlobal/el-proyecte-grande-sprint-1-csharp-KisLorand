@@ -9,7 +9,7 @@ const Event = ({ item, handleUpvote }) => {
 			<Card.Header>
 				<Card.Title>
 					{item.title}
-					<Card.Subtitle className="mb-2 text-muted text-end">
+					<Card.Subtitle className="mb-2 text-muted text-end subtitle">
 						<Link
 							to={`/artistpage/${item.artist.id}`}
 							style={{ textDecoration: "none" }}
