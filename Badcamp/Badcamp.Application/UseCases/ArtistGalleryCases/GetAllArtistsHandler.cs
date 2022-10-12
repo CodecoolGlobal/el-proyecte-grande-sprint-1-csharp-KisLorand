@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Badcamp.Application.UseCases.ArtistGalleryCases
 {
-    public class GetAllArtistsHandler : IRequestHandler<GetAllArtistsHandlerRequest, Response<IReadOnlyList<Artist>>>
+    public class GetAllArtistsHandler : IRequestHandler<GetAllArtistsHandlerRequest, Response<IReadOnlyList<ArtistListItemDto>>>
     {
 
         private IBadcampContext _context;
@@ -17,23 +17,33 @@ namespace Badcamp.Application.UseCases.ArtistGalleryCases
         {
             _context = context;
         }
-        public Response<IReadOnlyList<Artist>> Handle(GetAllArtistsHandlerRequest message)
+        public Response<IReadOnlyList<ArtistListItemDto>> Handle(GetAllArtistsHandlerRequest message)
         {
 
-            IReadOnlyList<Artist> artists;
+            IReadOnlyList<ArtistListItemDto> artistsDtos;
+            IList<Artist> artists;
 
             try
             {
                 artists = _context.Artists.Include(artist => artist.Genres).ToList();
+                artistsDtos = artists.Select(artist => new ArtistListItemDto
+                {
+                    Id = artist.Id,
+                    Name = artist.Name,
+                    Description = artist.Description,
+                    ProfilePicture = artist.ProfilePicture,
+                    Genres = artist.Genres.Select(g => g.Name).ToList()
+                }).ToList();
+
                 if(artists == null)
                 {
-                    return Response.Fail<IReadOnlyList<Artist>>("Artists not found");
+                    return Response.Fail<IReadOnlyList<ArtistListItemDto>>("Artists not found");
                 }
-                return Response.Ok(artists);
+                return Response.Ok(artistsDtos);
             }
             catch(Exception e)
             {
-                return Response.Fail<IReadOnlyList<Artist>>(e.Message);
+                return Response.Fail<IReadOnlyList<ArtistListItemDto>>(e.Message);
             }
         }
     }
