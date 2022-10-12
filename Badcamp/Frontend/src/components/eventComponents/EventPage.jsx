@@ -5,27 +5,35 @@ import apiRequest from "../../requests/apiRequest";
 
 const EventPage = (props) => {
 	const [events, setEvents] = useState(null);
+	const [isUpdate, setIsUpdate] = useState(false);
 	const urlGet = "https://localhost:7151/api/Event/GetEvents";
 	const urlUpdate = "https://localhost:7151/api/Event/UpdateEvent";
 	useEffect(() => {
 		apiRequest(urlGet, [events, setEvents]);
 	}, []);
 
-	const handleUpvote = async (item) => {
+	const updateItem = (item) => {
+		let updatedItem = {
+			id: item.id,
+			title: item.title,
+			description: item.description,
+			upvote: item.upvote,
+		};
+		return updatedItem;
+	};
+
+	const handleUpvote = (item) => {
 		item.upvote += 1;
-		let fd = new FormData();
-		for (let prop in item) {
-			fd.append(prop, JSON.stringify(item[prop]));
-		}
+		let updatedItem = updateItem(item);
 		const requestOptions = {
 			method: "PUT",
 			headers: { "Content-Type": "application/json" },
-			body: fd,
+			body: JSON.stringify(updatedItem),
 		};
 		fetch(urlUpdate, requestOptions).then((response) => response.json());
+		setIsUpdate(!isUpdate);
 	};
 
-	console.log(events);
 	return events === null ? (
 		<p>"Loading..."</p>
 	) : (
