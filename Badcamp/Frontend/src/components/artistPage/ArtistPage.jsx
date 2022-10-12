@@ -10,6 +10,8 @@ import apiRequest from '../../requests/apiRequest';
 import { RequestContext } from '../../requests/requestContext';
 import EventList from './EventList';
 import Card from "react-bootstrap/Card";
+import Input from './Input';
+import EditBtn from './EditBtn';
 
 const ArtistPage = (props) => {
   const [artist, setArtist] = useState(null); 
@@ -43,16 +45,20 @@ const ArtistPage = (props) => {
         <Card className="eventCard border border-4 w-50" style={{ width: "18rem" }}>
         <Card.Header>
           <Card.Title>
-            {/* editNameRef ? */}
-            <ArtistName artistName={artist[0].name}  />
-            {/* : <Input
-            role="input"
-            aria-label="input for client's email"
-              id="client-email"
-              type="email"
-              label="Enter client's email address*:"
-              placeholder="johndoe@gmail.com"
-            /> */}
+            {/* editNameRef */}
+            {
+            editRef ?
+              <Input
+              role="input"
+              aria-label="input for client's email"
+                id="client-email"
+                type="artistName"
+                label="Enter client's email address*:"
+                placeholder={artist[0].name}
+              /> :
+              <ArtistName artistName={artist[0].name}  />
+            }
+            <EditBtn ref={editRef} />
             <ArtistDescription artistDesc={artist[0].description}/>
             <Card.Subtitle className="mb-2 text-muted text-end">
               <ArtistPicture artistProfilePicture={artist[0].profilePicture} height={250} />
