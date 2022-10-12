@@ -19,6 +19,7 @@ const ArtistListing = () => {
         throw Error("Error occoured. Reload the app");
       } else {
         const data = await response.json();
+        console.log(data)
         setArtist(data);
         setIsLoading(false);
       }
