@@ -13,21 +13,22 @@ import Card from "react-bootstrap/Card";
 import Input from './Input';
 import EditBtn from './EditBtn';
 
+import InputTextarea from './InputTextarea';
+
 const ArtistPage = (props) => {
   const [artist, setArtist] = useState(null); 
   const [listData, setListData] = useState(null); 
   const [selectSong, setSelectSong] = useState(true);
   const editRef = useRef(false);
+  const [editName, setEditName] = useState(false);
 
   const urlArtists = `${process.env.REACT_APP_BASE_URL}api/ArtistPage`; 
   const urlSongs = `${process.env.REACT_APP_BASE_URL}api/Event/GetEvents`; 
   const urlEvents = `${process.env.REACT_APP_BASE_URL}api/Event/GetEvents`; //
 
   useEffect(() => {
-    console.log(urlArtists)
     apiRequest(urlArtists, [artist, setArtist]);
     apiRequest(urlSongs, [listData, setListData])
-    console.log(artist);
   }, [props.artistId]);
 
   useEffect(() => {
@@ -45,21 +46,29 @@ const ArtistPage = (props) => {
         <Card className="eventCard border border-4 w-50" style={{ width: "18rem" }}>
         <Card.Header>
           <Card.Title>
-            {/* editNameRef */}
+          <EditBtn toggle={ [editName, setEditName] } pfp={artist[0].profilePicture} artist={artist[0]}/>
+
             {
-            editRef ?
+            editName === true ?
+              <>
               <Input
               role="input"
-              aria-label="input for client's email"
-                id="client-email"
+              aria-label="input for artist's name"
+                id="artist-name-edit"
                 type="artistName"
-                label="Enter client's email address*:"
                 placeholder={artist[0].name}
-              /> :
+              /> 
+              <InputTextarea 
+                id="artist-description-textarea"
+                aria-label="input for artist's description"
+                placeholder={artist[0].description}
+              />
+              </> : <>
               <ArtistName artistName={artist[0].name}  />
+              <ArtistDescription artistDesc={artist[0].description}/>
+              </>
             }
-            <EditBtn ref={editRef} />
-            <ArtistDescription artistDesc={artist[0].description}/>
+            
             <Card.Subtitle className="mb-2 text-muted text-end">
               <ArtistPicture artistProfilePicture={artist[0].profilePicture} height={250} />
             </Card.Subtitle>
