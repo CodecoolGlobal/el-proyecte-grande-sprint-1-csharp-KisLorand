@@ -38,6 +38,10 @@ const ArtistPage = (props) => {
     console.log(listData);
   }, [selectSong]);
 
+  const HandleValueChange = (value) => {
+    console.log(value)
+  }
+
   if (artist === null || listData == null) {
     return (
       <p>"Loading..."</p>
@@ -57,20 +61,22 @@ const ArtistPage = (props) => {
 
             {
             editName === true ?
-              <>
+              <form>
               <Input
-              role="input"
-              aria-label="input for artist's name"
+                role="input"
+                aria-label="input for artist's name"
                 id="artist-name-edit"
                 type="artistName"
                 placeholder={artist[0].name}
+/*                 value={artist[0].name}
+                onChange={(e) => {HandleValueChange(e.target.value)}} */
               /> 
               <InputTextarea 
                 id="artist-description-textarea"
                 aria-label="input for artist's description"
                 placeholder={artist[0].description}
               />
-              </> : <>
+              </form > : <>
               <ArtistName artistName={artist[0].name}  />
               <ArtistDescription artistDesc={artist[0].description}/>
               </>
