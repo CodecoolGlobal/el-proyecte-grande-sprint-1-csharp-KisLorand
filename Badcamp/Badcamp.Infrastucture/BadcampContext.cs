@@ -19,6 +19,15 @@ namespace Badcamp.Infrastucture
            
         }
 
+        //protected override void OnModelCreating(ModelBuilder modelBuilder)
+        //{
+        //    modelBuilder
+        //        .Entity<Playlist>()
+        //        .HasMany(p => p.Songs)
+        //        .WithOne(p => p.Playlists)
+        //        .OnDelete(DeleteBehavior.ClientCascade);
+        //}
+
         void IBadcampContext.SaveChanges()
         {
             this.SaveChanges();
