@@ -22,10 +22,10 @@ const NavBar = () => {
             <ul>
                 <li><Link to="/SongListing">Home</Link></li>
                 <li><Link to="/ArtistListing">Artists</Link></li>
-                <li><Link to={`profile/${storedUser.userId}`}>Profile</Link></li>
-                <li><Link to={`profile/${user.userId}`}>Profile</Link></li>
-                <li><Link to={`artistpage/1`}>MyArtistPage</Link></li>
-                <li><Link to="register">Register</Link></li>
+
+                <li><Link to={`profile/${storedUser.userId}`}>Profile</Link></li> 
+                <li><Link to={`artistpage/edit`}>MyArtistPage</Link></li>
+
                 <li><Link to="events">Events</Link></li>
                 <li><Link to="/" onClick={handleLogout}>Logout</Link></li>
                 <span id='logged-in'><FaUser style={{fontSize: "25px", marginRight: "8px"}}/>  {storedUser.user}</span>

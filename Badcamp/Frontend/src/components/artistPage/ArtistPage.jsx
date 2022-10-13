@@ -1,5 +1,6 @@
 import React from 'react';
 import { useState, useEffect, useRef, useContext } from 'react';
+import { useParams } from 'react-router-dom';
 import ArtistName from './ArtistName';
 import ArtistDescription from './ArtistDescription';
 import ArtistPicture from './ArtistPicture';
@@ -16,26 +17,33 @@ import EditBtn from './EditBtn';
 import InputTextarea from './InputTextarea';
 
 const ArtistPage = (props) => {
+  const { id } = useParams();
+  const user = JSON.parse(localStorage.getItem('user'));
   const [artist, setArtist] = useState(null); 
   const [listData, setListData] = useState(null); 
   const [selectSong, setSelectSong] = useState(true);
   const [editName, setEditName] = useState(false);
   const [editState, setEditState] = useState(false);
 
-  const urlArtists = `${process.env.REACT_APP_BASE_URL}api/ArtistPage`; 
-  //const urlSongs = `${process.env.REACT_APP_BASE_URL}api/Song/getall`; 
-  const urlSongs = `${process.env.REACT_APP_BASE_URL}api/Event/GetEvents`; 
+  const urlArtists = `${process.env.REACT_APP_BASE_URL}api/ArtistPage/${id}`; 
+  const urlArtistEdit = `${process.env.REACT_APP_BASE_URL}api/ArtistPage/Edit/${user.userId}`; 
+  const urlSongs = `${process.env.REACT_APP_BASE_URL}api/Song/getall`; 
   const urlEvents = `${process.env.REACT_APP_BASE_URL}api/Event/GetEvents`; 
+
+  useEffect(() => {
+    apiRequest(urlArtistEdit, [artist, setArtist]);
+    apiRequest(urlSongs, [listData, setListData]);
+  }, [id===null])
 
   useEffect(() => {
     apiRequest(urlArtists, [artist, setArtist]);
     apiRequest(urlSongs, [listData, setListData]);
-  }, [props.artistId]);
+  }, [id===undefined]);
 
   useEffect(() => {
     const url = (selectSong ? urlSongs : urlEvents)
     apiRequest(url, [listData, setListData]);
-    console.log(listData);
+    apiRequest(urlSongs, [listData, setListData]);
   }, [selectSong]);
 
   useEffect(()=>{
@@ -57,12 +65,14 @@ const ArtistPage = (props) => {
         <Card className="eventCard border border-4 w-50" style={{ width: "18rem" }}>
         <Card.Header>
           <Card.Title>
-          <EditBtn 
-            toggle={ [editName, setEditName] } 
-            pfp={artist[0].profilePicture} 
-            artist={artist[0]} 
-            edit={[editState, setEditState] }
-          />
+            {user.userId == artist.user.id ? 
+              <EditBtn 
+                toggle={ [editName, setEditName] } 
+                pfp={artist.profilePicture} 
+                artist={artist} 
+                edit={[editState, setEditState] }
+              /> : null
+            }
 
             {
             editName === true ?
@@ -72,23 +82,21 @@ const ArtistPage = (props) => {
                 aria-label="input for artist's name"
                 id="artist-name-edit"
                 type="artistName"
-                placeholder={artist[0].name}
-/*                 value={artist[0].name}
-                onChange={(e) => {HandleValueChange(e.target.value)}} */
+                placeholder={artist.name}
               /> 
               <InputTextarea 
                 id="artist-description-textarea"
                 aria-label="input for artist's description"
-                placeholder={artist[0].description}
+                placeholder={artist.description}
               />
               </form > : <>
-              <ArtistName artistName={artist[0].name}  />
-              <ArtistDescription artistDesc={artist[0].description}/>
+              <ArtistName artistName={artist.name}  />
+              <ArtistDescription artistDesc={artist.description}/>
               </>
             }
             
             <Card.Subtitle className="mb-2 text-muted text-end">
-              <ArtistPicture artistProfilePicture={artist[0].profilePicture} height={250} />
+              <ArtistPicture artistProfilePicture={artist.profilePicture} height={250} />
             </Card.Subtitle>
           </Card.Title>
         </Card.Header>
@@ -96,11 +104,11 @@ const ArtistPage = (props) => {
             <ToggleButton toggle={[selectSong, setSelectSong]}/>
             {selectSong ? 
               <SongList 
-                songs={listData.filter((song) => song.artist.id === artist[0].id)} 
+                songs={listData.filter((song) => song.artistId === artist.id)} 
               /> :
               <EventList
-                events={listData.filter((event) => event.artist.id === artist[0].id)}
-                artistName={artist[0].name}
+                events={listData.filter((event) => event.artistId === artist.id)}
+                artistName={artist.name}
               />
             }
         </Card.Body>

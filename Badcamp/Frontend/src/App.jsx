@@ -23,6 +23,9 @@ function App() {
                 <Route index element={<SongListing/>}></Route>
                 <Route path='SongListing' element={<SongListing />}></Route>
                 <Route exact path='/events' element={<EventPage />}></Route>
+                <Route exact path='/artistpage'>
+                    <Route path=":id" element={<ArtistPage/>} />
+                </Route>
                 <Route path='ArtistListing' element={<ArtistListing />}></Route>
                 <Route path="login" element={<Login />} />
                 <Route path="register" element={<Register />} />
@@ -37,8 +40,9 @@ function App() {
                         <Route path=":id/edit" element={<EditUser />}/>
                         <Route path=":id/updating" element={<Updating />}/>
                     </Route>
+                    <Route path="artistpage/edit" element={<ArtistPage/>} />
                 </Route> 
-
+                
             </Route>
         </Routes>
     );
