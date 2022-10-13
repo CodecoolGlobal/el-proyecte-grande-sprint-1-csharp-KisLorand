@@ -20,10 +20,20 @@ namespace Badcamp.Application.UseCases.UserCases.AddUser
         {
             try
             {
-                User user = message.NewUser;
-                _context.Users.Add(user);
-                _context.SaveChanges(); 
-                return Response.Ok(user);
+                var existingUser = _context.Users
+                    .Where(x => x.Username == message.NewUser.Username)
+                    .FirstOrDefault();
+
+                if (existingUser == null)
+                {
+                    User user = message.NewUser;
+                    _context.Users.Add(user);
+                    _context.SaveChanges();
+                    return Response.Ok(user);
+                }
+
+                return Response.Fail<User>("User already exists!");
+
             }
             catch (Exception e)
             {
