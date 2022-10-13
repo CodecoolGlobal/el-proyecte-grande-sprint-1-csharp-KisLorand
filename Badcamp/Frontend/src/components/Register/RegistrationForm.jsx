@@ -1,47 +1,76 @@
-const RegistrationForm = ( { handleSubmit, regError }) => {
+import { Link } from 'react-router-dom';
+
+const RegistrationForm = ( { newUserName, setNewUserName, fullName, setFullName, birthDate, setBirthDate, 
+    pwd1, setPwd1, pwd2, setPwd2, errMsg, handleSubmit }) => {
 
     return (
+        <section>
+
+        <p className={errMsg ? "errmsg" : "offscreen"}>
+            {errMsg}
+        </p>
+
+        <h1>Register</h1>
+
         <form onSubmit={handleSubmit}>
-            <input
-                placeholder="*Username"
-                type="text"
-                name="newUsername"
+            <label htmlFor="username">*Username</label>
+            <input 
+                type="text" 
+                id="username" 
+                autoComplete='off'
+                onChange={(e) => setNewUserName(e.target.value)}
+                value={newUserName}
                 required
-                autoFocus
-            /><br /><br />
+            />
 
-            <input
-                placeholder="*Full name"
-                type="text"
-                name="newFullName"
+            <label htmlFor="fullname">*FullName</label>
+            <input 
+                type="text" 
+                id="fullname" 
+                onChange={(e) => setFullName(e.target.value)}
+                value={fullName}
                 required
-            /><br /><br />
+            />
 
-            <label htmlFor="date" style={{ color: "red" }}>*Date of birth</label><br />
-            <input
-                id="date"
-                type="date"
-                name="newDateOfBirth"
+            <label htmlFor="birthdate">*Date of birth</label>
+            <input 
+                type="date" 
+                id="birthdate" 
+                onChange={(e) => setBirthDate(e.target.value)}
+                value={birthDate}
                 required
-            /><br /><br />
+            />
 
-            <input
-                placeholder="*Password"
-                type="password"
-                name="newPassword"
+            <label htmlFor="password1">*Password</label>
+            <input 
+                type="password" 
+                id="password1" 
+                onChange={(e) => setPwd1(e.target.value)}
+                value={pwd1}
                 required
-            /><br /><br />
+            />
 
-            <input
-                placeholder="*Confirm password"
-                type="password"
-                name="newPassword2"
+            <label htmlFor="password2">*Confirm Password</label>
+            <input 
+                type="password" 
+                id="password2" 
+                onChange={(e) => setPwd2(e.target.value)}
+                value={pwd2}
                 required
-            /><br /><br />
+            />
 
-            <button className="custom-btn" type="submit">Register</button><br /><br />
-            {regError ? <p style={{ color: "red" }}>{regError}</p> : null}
-        </form>
+            <button>Register</button>   
+
+        </form>       
+
+        <p>
+            Already have Account?<br/>
+            <span className='line'>
+                <Link to="/login">Sign In</Link>
+            </span>
+        </p>
+
+        </section>
     );
 }
 
