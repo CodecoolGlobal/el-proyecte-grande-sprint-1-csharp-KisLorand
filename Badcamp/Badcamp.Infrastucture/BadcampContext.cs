@@ -9,13 +9,14 @@ namespace Badcamp.Infrastucture
     {
         public DbSet<User> Users { get; set; }
         public DbSet<Artist> Artists { get; set; }
-        public DbSet<Genre> Genres  { get; set; }
+        public DbSet<Genre> Genres { get; set; }
         public DbSet<Event> Events { get; set; }
         public DbSet<Song> Songs { get; set; }
+        public DbSet<Playlist> Playlists { get; set; }
         public BadcampContext(DbContextOptions<BadcampContext> options)
-        :base(options)
+        : base(options)
         {
-           
+
         }
 
         void IBadcampContext.SaveChanges()
