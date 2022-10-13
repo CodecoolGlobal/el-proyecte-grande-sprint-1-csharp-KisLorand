@@ -29,19 +29,22 @@
     color: white;
 }
 
-.InputForm a, a:visited {
-    color: #fff;
-}
-
 .InputForm select,
 .InputForm input[type="text"],
 .InputForm input[type="password"],
+.InputForm input[type="date"],
 .InputForm button,
 .InputForm textarea {
   font-family: 'Nunito', sans-serif;
   font-size: 22px;
   padding: 0.25rem;
   border-radius: 0.5rem;
+}
+
+.InputForm input[type="text"]::placeholder {
+  color: red;
+  font-style: italic;
+  font-size: 20px;
 }
 
 .InputForm label,
