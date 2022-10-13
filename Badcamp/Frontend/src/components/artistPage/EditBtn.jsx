@@ -37,8 +37,8 @@ const EditBtn = (btnprops) => {
             console.log(response, "response");
             if (response.status !== 200) {
             console.log("not ok" + response.status);
-
             }
+            setEditState(editState === true ? false : true);
         })
         .catch((err) => {
             console.log(err);

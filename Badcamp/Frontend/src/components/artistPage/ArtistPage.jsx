@@ -29,7 +29,7 @@ const ArtistPage = (props) => {
 
   useEffect(() => {
     apiRequest(urlArtists, [artist, setArtist]);
-    apiRequest(urlSongs, [listData, setListData])
+    apiRequest(urlSongs, [listData, setListData]);
   }, [props.artistId]);
 
   useEffect(() => {
@@ -37,6 +37,11 @@ const ArtistPage = (props) => {
     apiRequest(url, [listData, setListData]);
     console.log(listData);
   }, [selectSong]);
+
+  useEffect(()=>{
+    apiRequest(urlArtists, [artist, setArtist]);
+    apiRequest(urlSongs, [listData, setListData]);
+  },[editState]);
 
   const HandleValueChange = (value) => {
     console.log(value)
