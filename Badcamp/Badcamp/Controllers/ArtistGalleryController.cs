@@ -1,5 +1,6 @@
 
-﻿using Badcamp.Application.UseCases.ArtistGalleryCases;
+using Badcamp.Application;
+using Badcamp.Application.UseCases.ArtistGalleryCases;
 ﻿using Badcamp.Domain.Entities;
 using Badcamp.Models;
 using Badcamp.Services;
@@ -13,20 +14,20 @@ namespace Badcamp.Controllers
     [ApiController]
     public class ArtistGalleryController : ControllerBase
     {
-        private ArtistStorage _artistStorage;
+        private IBadcampContext _context;
 
         private ILogger<ArtistGalleryController> _logger;
-        public ArtistGalleryController(ILogger<ArtistGalleryController> logger, ArtistStorage artistStoreage)
+        public ArtistGalleryController(ILogger<ArtistGalleryController> logger, IBadcampContext context)
         {
-            _artistStorage = artistStoreage;
+            _context = context; 
             _logger = logger;
         }
 
         [HttpGet]
-        public ActionResult<IReadOnlyList<Artist>> GetAllArtist()
+        public ActionResult<IReadOnlyList<ArtistListItemDto>> GetAllArtist()
         {
             var request = new GetAllArtistsHandlerRequest();
-            var handler = new GetAllArtistsHandler(_artistStorage);
+            var handler = new GetAllArtistsHandler(_context);
             var response = handler.Handle(request);
             if (response.Failure)
             {

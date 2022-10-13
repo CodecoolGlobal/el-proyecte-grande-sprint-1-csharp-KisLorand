@@ -19,13 +19,13 @@ const ArtistPage = (props) => {
   const [artist, setArtist] = useState(null); 
   const [listData, setListData] = useState(null); 
   const [selectSong, setSelectSong] = useState(true);
-  const editRef = useRef(false);
   const [editName, setEditName] = useState(false);
-  const c = useState(false);
+  const [editState, setEditState] = useState(false);
 
   const urlArtists = `${process.env.REACT_APP_BASE_URL}api/ArtistPage`; 
+  //const urlSongs = `${process.env.REACT_APP_BASE_URL}api/Song/getall`; 
   const urlSongs = `${process.env.REACT_APP_BASE_URL}api/Event/GetEvents`; 
-  const urlEvents = `${process.env.REACT_APP_BASE_URL}api/Event/GetEvents`; //
+  const urlEvents = `${process.env.REACT_APP_BASE_URL}api/Event/GetEvents`; 
 
   useEffect(() => {
     apiRequest(urlArtists, [artist, setArtist]);
@@ -35,6 +35,7 @@ const ArtistPage = (props) => {
   useEffect(() => {
     const url = (selectSong ? urlSongs : urlEvents)
     apiRequest(url, [listData, setListData]);
+    console.log(listData);
   }, [selectSong]);
 
   if (artist === null || listData == null) {
@@ -51,7 +52,7 @@ const ArtistPage = (props) => {
             toggle={ [editName, setEditName] } 
             pfp={artist[0].profilePicture} 
             artist={artist[0]} 
-            edit={[editName, setEditName]}
+            edit={[editState, setEditState] }
           />
 
             {
@@ -84,10 +85,10 @@ const ArtistPage = (props) => {
             <ToggleButton toggle={[selectSong, setSelectSong]}/>
             {selectSong ? 
               <SongList 
-                songs={listData.filter((song) => song.artistId === artist[0].id)} 
+                songs={listData.filter((song) => song.artist.id === artist[0].id)} 
               /> :
               <EventList
-                events={listData.filter((event) => event.artistId === artist[0].id)}
+                events={listData.filter((event) => event.artist.id === artist[0].id)}
                 artistName={artist[0].name}
               />
             }

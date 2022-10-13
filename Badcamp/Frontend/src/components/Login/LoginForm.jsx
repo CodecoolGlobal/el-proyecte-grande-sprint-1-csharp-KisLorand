@@ -1,31 +1,49 @@
-const LoginForm = ({ handleSubmit, errorMessage }) => {
+import { Link } from 'react-router-dom';
+
+const LoginForm = ({ user, setUser, userRef, pwd, setPwd, errRef, errMsg, handleSubmit }) => {
 
     return (
-        <form onSubmit={handleSubmit}>
-            <label htmlFor="username">Username</label><br />
-            <input
-                id="username"
-                placeholder="Enter username"
-                type="text"
-                name="username"
-                required
-                autoFocus
-            />
+        <section>
 
-            <br /><br />
+            <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"}>
+                {errMsg}
+            </p>
 
-            <label htmlFor="password">Password</label><br />
-            <input
-                id="password"
-                placeholder="Enter password"
-                type="password"
-                name="password"
-                required
-            /><br /><br />
+            <h1>Sign In</h1>
 
-            <button className="custom-btn" type="submit">Submit</button><br /><br />
-            {errorMessage ? <p style={{ color: "red" }}>{errorMessage}</p> : null}
-        </form>
+            <form onSubmit={handleSubmit}>
+                <label htmlFor="username">Username</label>
+                <input 
+                    type="text" 
+                    id="username" 
+                    ref={userRef}
+                    autoComplete='off'
+                    onChange={(e) => setUser(e.target.value)}
+                    value={user}
+                    required
+                />
+
+                <label htmlFor="password">Password</label>
+                <input 
+                    type="password" 
+                    id="password" 
+                    onChange={(e) => setPwd(e.target.value)}
+                    value={pwd}
+                    required
+                />
+
+                <button>Sign In</button>   
+
+            </form>
+
+            <p>
+                Don't have Account?<br/>
+                <span className='line'>
+                    <Link to="/register">Register</Link>
+                </span>
+            </p>
+
+        </section>
     );
 }
 

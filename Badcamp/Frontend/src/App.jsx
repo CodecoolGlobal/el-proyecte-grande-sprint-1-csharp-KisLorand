@@ -1,17 +1,41 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Layout from './components/Layout';
-import { UserContext } from './userContext/UserContext';
-import {useState} from 'react';
+import { Routes, Route } from 'react-router-dom';
+import ArtistListing from './components/artistListing/ArtistListing';
+import ArtistPage from './components/artistPage/ArtistPage';
+import EventPage from './components/eventComponents/EventPage';
+import UserPage from './components/userPage/UserPage';
+import SongListing from './components/songComponents/SongListing';
+import Login from './components/Login/Login';
+import Register from './components/Register/Registration';
+import RequireAuth from './components/RequireAuth';
+import Unauthorized from './components/Unauthorized';
 
 function App() {
-    const [userId, setUserId] = useState(null);
 
     return (
-        <div className="App">
-            <UserContext.Provider value={{userId, setUserId}}>
-                <Layout />
-            </UserContext.Provider>
-        </div>
+        <Routes>
+            <Route path="/" element={<Layout />}>
+
+                {/* public routes */} 
+                <Route path="unauthorized" element={<Unauthorized />} /> 
+                <Route index element={<SongListing/>}></Route>
+                <Route path='SongListing' element={<SongListing />}></Route>
+                <Route exact path='/events' element={<EventPage />}></Route>
+                <Route exact path='/artistpage' element={<ArtistPage artistId={1}/>}></Route>
+                <Route path='ArtistListing' element={<ArtistListing />}></Route>
+                <Route path="login" element={<Login />} />
+                <Route path="register" element={<Register />} />
+
+                {/* protected routes */} 
+                <Route element={<RequireAuth />}>     
+                    <Route path="profile">
+                        <Route path=":id" element={<UserPage/>} />
+                    </Route>
+                </Route> 
+
+            </Route>
+        </Routes>
     );
 }
 

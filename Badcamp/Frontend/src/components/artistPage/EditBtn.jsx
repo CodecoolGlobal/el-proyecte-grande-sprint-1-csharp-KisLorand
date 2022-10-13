@@ -9,22 +9,20 @@ const EditBtn = (btnprops) => {
         if (toggleState===true) {
             UpdateData();
         }
+        console.log(btnprops.artist.name);
     };
-
     const UpdateData = () => {
         const name = document.getElementById("artist-name-edit");
         const artistName = name.value.length === 0 ? name.placeholder : name.value; 
         
         const desc = document.getElementById("artist-description-textarea");
         const artistDescription = desc.value.length === 0 ? desc.placeholder : desc.value; 
-
         const UpdateObj = {
             id: btnprops.artist.id,
             name: artistName,
             description: artistDescription,
             profilePicture: btnprops.pfp
         };
-
         fetch(`${process.env.REACT_APP_BASE_URL}api/ArtistPage/${btnprops.artist.id}`, {
             method: "PUT",
             headers: {
@@ -43,12 +41,10 @@ const EditBtn = (btnprops) => {
             console.log(err);
         });
     };
-
   return (
     <button onClick={()=>toggleButtonState(toggleState)}>
       {toggleState === true ? "Save" : "Edit"}
     </button>
   )
 };
-
 export default EditBtn;

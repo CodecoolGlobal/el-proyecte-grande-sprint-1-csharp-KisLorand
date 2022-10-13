@@ -1,10 +1,16 @@
 import { Link } from 'react-router-dom';
 import './NavBar.css';
 import { useContext } from 'react';
-import { UserContext } from '../../userContext/UserContext';
+import AuthContext from '../../contexts/AuthProvider';
 
 const NavBar = () => {
-    const { userId, setUserId } = useContext(UserContext);
+    const user = JSON.parse(localStorage.getItem('user'));
+    const { setAuth } = useContext(AuthContext);
+
+    const handleLogout = () => {
+        localStorage.removeItem("user");
+        setAuth(null);
+    } 
 
     return (
         <nav className="Nav">
@@ -12,11 +18,15 @@ const NavBar = () => {
             <ul>
                 <li><Link to="/">Home</Link></li>
                 <li><Link to="/ArtistListing">Artists</Link></li>
-                {userId ? <li><Link to={`profile/${userId}`}>Profile</Link></li> : null}
+                {user ? <li><Link to={`profile/${user.userId}`}>Profile</Link></li> : null}
                 <li><Link to="register">Register</Link></li>
                 <li><Link to="events">Events</Link></li>
-                {!userId ? <li><Link to="login">Login</Link></li> 
-                : <li><Link to="/" onClick={() => setUserId(null)}>Logout</Link></li> }
+                {!user ? <li><Link to="login">Login</Link></li> 
+                : 
+                <>
+                <li><Link to="/" onClick={handleLogout}>Logout</Link></li>
+                <span id='logged-in'>{user.user}</span>
+                </>}
             </ul>
         </nav>
     );

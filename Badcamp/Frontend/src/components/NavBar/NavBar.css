@@ -60,3 +60,7 @@ body {
 .Nav li:focus a {
     cursor: pointer;
 }
+
+#logged-in {
+    margin-left: 50em;
+  }
