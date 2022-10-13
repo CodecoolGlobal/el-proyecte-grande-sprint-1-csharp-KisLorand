@@ -10,9 +10,10 @@ import Login from './components/Login/Login';
 import Register from './components/Register/Registration';
 import RequireAuth from './components/RequireAuth';
 import Unauthorized from './components/Unauthorized';
+import EditUser from './components/userPage/EditUser';
+import Updating from './components/Updating';
 
 function App() {
-
     return (
         <Routes>
             <Route path="/" element={<Layout />}>
@@ -31,6 +32,8 @@ function App() {
                 <Route element={<RequireAuth />}>     
                     <Route path="profile">
                         <Route path=":id" element={<UserPage/>} />
+                        <Route path=":id/edit" element={<EditUser />}/>
+                        <Route path=":id/updating" element={<Updating />}/>
                     </Route>
                 </Route> 
 
