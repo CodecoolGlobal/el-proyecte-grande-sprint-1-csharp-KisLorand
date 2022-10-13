@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Badcamp.Application.UseCases.PlaylistCases.CreatePlaylist
 {
-    public class CreatePlaylistHandler : IRequestHandler<CreatePlaylistRequest, Response<Playlist>>
+    public class CreatePlaylistHandler : IRequestHandler<CreatePlaylistRequest, Response<CreatePlaylistRequest>>
     {
 
         private IBadcampContext _context;
@@ -16,7 +16,7 @@ namespace Badcamp.Application.UseCases.PlaylistCases.CreatePlaylist
         {
             _context = context;
         }
-        public Response<Playlist> Handle(CreatePlaylistRequest message)
+        public Response<CreatePlaylistRequest> Handle(CreatePlaylistRequest message)
         {
             var playlist = new Playlist();
             try
@@ -26,12 +26,12 @@ namespace Badcamp.Application.UseCases.PlaylistCases.CreatePlaylist
                 playlist.Name = message.Name;
                 _context.Playlists.Add(playlist);
                 _context.SaveChanges();
-                return Response.Ok(playlist);
+                return Response.Ok(message);
             }
             catch (Exception e)
             {
 
-                return Response.Fail<Playlist>(e.Message);
+                return Response.Fail<CreatePlaylistRequest>(e.Message);
             }
         }
     }
