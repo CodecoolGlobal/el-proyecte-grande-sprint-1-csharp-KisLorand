@@ -8,6 +8,7 @@ import jwt_decode from "jwt-decode";
 import axios from '../../requests/axios';
 const LOGIN_URL = '/login';
 
+
 const Login = () => {
     const { setAuth } = useContext(AuthContext);
 
@@ -21,6 +22,7 @@ const Login = () => {
     const [user, setUser] = useState('');
     const [pwd, setPwd] = useState('');
     const [errMsg, setErrMsg] = useState('');   
+    
     
     useEffect(() => {
         userRef.current.focus();
@@ -42,6 +44,7 @@ const Login = () => {
                 }
             );
 
+            
             const accessToken = response?.data.value;
             const decoded = jwt_decode(accessToken);
             const userId = (decoded['http://schemas.microsoft.com/ws/2008/06/identity/claims/primarysid']);         
@@ -57,7 +60,7 @@ const Login = () => {
             if (!err.response) {
                 setErrMsg('No Server Response');
             } else if (err.response?.status === 400) {
-                setErrMsg('Missing Username or Password');
+                setErrMsg('Wrong Username or Password');
             } else if (err.response?.status === 401) {
                 setErrMsg('Unauthorized');
             } else if (err.response?.status === 404) {

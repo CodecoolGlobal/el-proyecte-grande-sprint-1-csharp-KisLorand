@@ -17,12 +17,12 @@ namespace Badcamp.Application.UseCases.SongCases
         {
             try
             {
-                var songs = _context.Songs.ToArray();
+                IReadOnlyList<Song> songs = _context.Songs.ToList();
                 if (songs == null)
                 {
                     return Response.Fail<IReadOnlyList<Song>>("No songs were found");
                 }
-                return Response.Ok<IReadOnlyList<Song>>(songs);
+                return Response.Ok(songs);
             }
             catch (Exception e)
             {

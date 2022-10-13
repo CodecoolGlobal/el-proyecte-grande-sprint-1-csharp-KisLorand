@@ -1,94 +1,73 @@
-import './Register.css';
+import '../Login/Login.css';
 import RegistrationForm from './RegistrationForm';
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { useNavigate, Redirect } from 'react-router-dom';
-import apiRequest from './apiRequest';
-
+import { useNavigate } from 'react-router-dom';
+import axios from '../../requests/axios';
+const REGISTER_URL = '/RegisterUser';
 
 const Registration = () => {
-
-    const [error, setError] = useState(null);
     const redirect = useNavigate();
-
-    const apiUrl = "http://localhost:3000/users";
-    const [users, setUsers] = useState([]);
-    const [regError, setRegError] = useState(null);
-    const [fetchError, setFetchError] = useState(null);
-    const [username, setUsername] = useState(null);
+    const [newUserName, setNewUserName] = useState('');
+    const [fullName, setFullName] = useState('');
+    const [birthDate, setBirthDate] = useState('');
+    const [pwd1, setPwd1] = useState('');
+    const [pwd2, setPwd2] = useState('');
+    const [errMsg, setErrMsg] = useState('');   
 
     useEffect(() => {
-        const fetchItems = async () => {
-            try {
-                const response = await fetch(apiUrl);
-                if (!response.ok) throw Error('Did not receive expected data!');
-                const listUsers = await response.json();
-                setUsers(listUsers);
-            } catch (err) {
-                setFetchError(err.message);
+        setErrMsg('');
+    }, [newUserName, fullName, birthDate, pwd1, pwd2]);
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        if(pwd1 !== pwd2){
+            setErrMsg('Passwords do not match!');
+        }
+        
+        try {
+            await axios.post(REGISTER_URL,
+                JSON.stringify({ newUser: { username: newUserName, password: pwd1, dateOfBirth: birthDate, fullName: fullName } }),
+                {
+                    headers: { 'Content-Type': 'application/json'}
+                }
+            );
+            setNewUserName('');
+            setFullName('');
+            setBirthDate('');
+            setPwd1('');
+            setPwd2('');
+            redirect('/login');
+        } catch (err) {
+            if (!err.response) {
+                setErrMsg('No Server Response');
+            } else if (err.response?.status === 400) {
+                setErrMsg('User already exists!');
+            } else {
+                setErrMsg('Register Failed');
             }
         }
-
-        fetchItems();
-
-
-    }, []);
-
-
-    const addUser = async (username, password, dateOfBirth, fullName) => {
-        const id = users.length ? users[users.length - 1].id + 1 : 1;
-        const newUser = { id, username, password, dateOfBirth, fullName };
-        const userList = [...users, newUser];
-        setUsers(userList);
-
-        const postOptions = {
-            method: 'POST',
-            headers: {
-                'Content-type': 'application/json'
-            },
-            body: JSON.stringify(newUser)
-        }
-
-        const result = await apiRequest(apiUrl, postOptions);
-        if (result) setFetchError(result);
-
-        redirect('/login');
-    }
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        var { newUsername, newPassword, newDateOfBirth, newFullName, newPassword2 } = document.forms[0];
-
-        var existingUsername = users.find((user) => user.username === newUsername.value);
-
-        if (existingUsername) {
-            setRegError("Username already exists, please try again!");
-            e.target.reset();
-        }
-
-        else if (newPassword.value !== newPassword2.value) {
-            setRegError("Passwords does not match, please try again!");
-            e.target.reset();
-        }
-        
-        else {
-            addUser(newUsername.value, newPassword.value, newDateOfBirth.value, newFullName.value);
-        }
-        
     }
 
     return (
-        <div className="Register">
-            <h1>Registration</h1><br />
+        <div className="InputForm">
             <RegistrationForm
+                newUserName={newUserName}
+                setNewUserName={setNewUserName}
+                fullName={fullName}
+                setFullName={setFullName}
+                birthDate={birthDate}
+                setBirthDate={setBirthDate}
+                pwd1={pwd1}
+                setPwd1={setPwd1}
+                pwd2={pwd2}
+                setPwd2={setPwd2}
+                errMsg={errMsg}
                 handleSubmit={handleSubmit}
-                regError={regError}
-            //{/*errorMessage={error}*/}
             />
-
         </div>
     );
 }
-
 
 export default Registration;

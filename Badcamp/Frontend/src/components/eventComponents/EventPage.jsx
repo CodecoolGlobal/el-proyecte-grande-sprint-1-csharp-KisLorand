@@ -8,6 +8,7 @@ const EventPage = (props) => {
 	const [isUpdate, setIsUpdate] = useState(false);
 	const urlGet = process.env.REACT_APP_BASE_URL + "api/Event/GetEvents";
 	const urlUpdate = process.env.REACT_APP_BASE_URL + "api/Event/UpdateEvent";
+	const user = JSON.parse(localStorage.getItem("user"));
 	useEffect(() => {
 		apiRequest(urlGet, [events, setEvents]);
 	}, []);
@@ -23,15 +24,17 @@ const EventPage = (props) => {
 	};
 
 	const handleUpvote = (item) => {
-		item.upvote += 1;
-		let updatedItem = updateItem(item);
-		const requestOptions = {
-			method: "PUT",
-			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify(updatedItem),
-		};
-		fetch(urlUpdate, requestOptions).then((response) => response.json());
-		setIsUpdate(!isUpdate);
+		if (user) {
+			item.upvote += 1;
+			let updatedItem = updateItem(item);
+			const requestOptions = {
+				method: "PUT",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify(updatedItem),
+			};
+			fetch(urlUpdate, requestOptions).then((response) => response.json());
+			setIsUpdate(!isUpdate);
+		}
 	};
 
 	return events === null ? (

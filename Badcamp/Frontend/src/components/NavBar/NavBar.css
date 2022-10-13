@@ -62,5 +62,6 @@ body {
 }
 
 #logged-in {
-    margin-left: 50em;
+    margin-left: 170%;
+    white-space: nowrap;
   }

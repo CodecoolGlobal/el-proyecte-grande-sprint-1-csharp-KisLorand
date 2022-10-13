@@ -11,7 +11,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Badcamp.Application.Common;
 using Badcamp.Application.UseCases.SongCases;
-
+using Badcamp.Domain.Entities;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -54,8 +54,8 @@ builder.Services.AddTransient<BadcampSeed>();
 builder.Services.AddScoped<IRequestHandler<AddSongRequest, Response>, AddSongHandler>();
 builder.Services.AddScoped<IRequestHandler<DeleteSongRequest, Response>, DeleteSongHandler>();
 builder.Services.AddScoped<IRequestHandler<UpdateSongRequest, Response>, UpdateSongHandler>();
-builder.Services.AddScoped<IRequestHandler<GetSongRequest, Response>, GetSongHandler>();
-builder.Services.AddScoped<IRequestHandler<GetAllSongsRequest, Response>, GetAllSongsHandler>();
+builder.Services.AddScoped<IRequestHandler<GetSongRequest, Response<Song>>, GetSongHandler>();
+builder.Services.AddScoped<IRequestHandler<GetAllSongsRequest, Response<IReadOnlyList<Song>>>, GetAllSongsHandler>();
 builder.Services.AddSingleton<UserStorage>();
 builder.Services.AddSingleton<EventService>();
 builder.Services.AddSingleton<ArtistStorage>();

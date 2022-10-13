@@ -18,8 +18,8 @@ namespace Badcamp.Controllers
         private readonly IRequestHandler<AddSongRequest, Response> _addSongHandler;
         private readonly IRequestHandler<DeleteSongRequest, Response> _deleteSongHandler;
         private readonly IRequestHandler<UpdateSongRequest, Response> _updateSongHandler;
-        private readonly IRequestHandler<GetSongRequest, Response> _getSongHandler;
-        private readonly IRequestHandler<GetAllSongsRequest, Response> _getAllSongsHandler;
+        private readonly IRequestHandler<GetSongRequest, Response<Song>> _getSongHandler;
+        private readonly IRequestHandler<GetAllSongsRequest, Response<IReadOnlyList<Song>>> _getAllSongsHandler;
 
         private ILogger<SongController> _logger;
 
@@ -28,8 +28,8 @@ namespace Badcamp.Controllers
             IRequestHandler<AddSongRequest, Response> addSongHandler,
             IRequestHandler<DeleteSongRequest, Response> deleteSongHandler,
             IRequestHandler<UpdateSongRequest, Response> updateSongHandler,
-            IRequestHandler<GetSongRequest, Response> getSongHandler,
-            IRequestHandler<GetAllSongsRequest, Response> getAllSongsHandler,
+            IRequestHandler<GetSongRequest, Response<Song>> getSongHandler,
+            IRequestHandler<GetAllSongsRequest, Response<IReadOnlyList<Song>>> getAllSongsHandler,
             ILogger<SongController> logger)
         {
             _badcampContext = badcampContext;
@@ -83,7 +83,7 @@ namespace Badcamp.Controllers
                 return BadRequest(response.Error);
             }
             _logger.LogInformation("Songs Received");
-            return Ok(response);
+            return Ok(response.Value);
         }
 
         [HttpDelete]
