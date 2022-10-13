@@ -21,6 +21,7 @@ const ArtistPage = (props) => {
   const [selectSong, setSelectSong] = useState(true);
   const editRef = useRef(false);
   const [editName, setEditName] = useState(false);
+  const c = useState(false);
 
   const urlArtists = `${process.env.REACT_APP_BASE_URL}api/ArtistPage`; 
   const urlSongs = `${process.env.REACT_APP_BASE_URL}api/Event/GetEvents`; 
@@ -46,7 +47,12 @@ const ArtistPage = (props) => {
         <Card className="eventCard border border-4 w-50" style={{ width: "18rem" }}>
         <Card.Header>
           <Card.Title>
-          <EditBtn toggle={ [editName, setEditName] } pfp={artist[0].profilePicture} artist={artist[0]}/>
+          <EditBtn 
+            toggle={ [editName, setEditName] } 
+            pfp={artist[0].profilePicture} 
+            artist={artist[0]} 
+            edit={[editName, setEditName]}
+          />
 
             {
             editName === true ?

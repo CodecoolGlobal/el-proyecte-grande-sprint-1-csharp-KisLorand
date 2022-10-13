@@ -2,6 +2,7 @@ import React from 'react';
 
 const EditBtn = (btnprops) => {
     const [toggleState, setToggleState] = btnprops.toggle;
+    const [editState, setEditState] = btnprops.edit;
 
     const toggleButtonState = (toggleState) => {
         setToggleState(toggleState === true ? false : true);
@@ -36,6 +37,7 @@ const EditBtn = (btnprops) => {
             console.log(response, "response");
             if (response.status !== 200) {
             console.log("not ok" + response.status);
+            setEditState(false);
             }
         })
         .catch((err) => {
