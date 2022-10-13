@@ -11,6 +11,6 @@ namespace Badcamp.Domain.Entities
         public int Id { get; set; }
         public string Name { get; set; }
         public User User { get; set; }
-        public HashSet<Song> Songs { get; set; } = new HashSet<Song>();
+        public HashSet<Song>? Songs { get; set; }
     }
 }
