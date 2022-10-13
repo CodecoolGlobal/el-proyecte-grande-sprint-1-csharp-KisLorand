@@ -7,15 +7,19 @@ const SongListing = (props) => {
     const [searchValue, setSearchValue] = useState("");
     const [songs, setSongs] = useState(null)
     const [artist, setArtists] = useState(null);
-    const url1 = process.env.REACT_APP_BASE_URL + "api/songs";
-    const url2 = process.env.REACT_APP_BASE_URL + "api/artists";
+    const url1 = process.env.REACT_APP_BASE_URL + "api/Song/getall";
+    //const url1 = "https://localhost:7151/api/Song/getall";
     useEffect(() => {
         apiRequest(url1, [songs, setSongs]);
-        apiRequest(url2, [artist, setArtists]);
-    },[props.songId]);
+    }, []);
+
+    const test = () => {
+        console.log(songs)
+    }
 
     return (
-        (songs === null) ? <p> Loading... </p> :
+        { test() }
+        (songs === null) ? <p> Loading Songs... </p> :
         <div>
             <SongContainer
                 songs={songs.filter((song) =>
