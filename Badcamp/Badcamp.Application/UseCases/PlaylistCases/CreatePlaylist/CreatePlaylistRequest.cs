@@ -9,7 +9,7 @@ namespace Badcamp.Application.UseCases.PlaylistCases.CreatePlaylist
 {
     public class CreatePlaylistRequest : IRequest<Response>
     {
-        public int UserId { get; set; }
+        public long UserId { get; set; }
         public string Name { get; set; }
     }
 }
