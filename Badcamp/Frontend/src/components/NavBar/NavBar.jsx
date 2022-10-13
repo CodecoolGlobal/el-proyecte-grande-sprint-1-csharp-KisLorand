@@ -16,7 +16,7 @@ const NavBar = () => {
         <nav className="Nav">
             <img className="logo" src="./badcamp_logo2.png"></img>
             <ul>
-                <li><Link to="/">Home</Link></li>
+                <li><Link to="/SongListing">Home</Link></li>
                 <li><Link to="/ArtistListing">Artists</Link></li>
                 {user ? <li><Link to={`profile/${user.userId}`}>Profile</Link></li> : null}
                 {user ? <li><Link to={`artistpage/1`}>MyArtistPage</Link></li> : null}

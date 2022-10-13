@@ -25,14 +25,14 @@ function App() {
                 <Route path='ArtistListing' element={<ArtistListing />}></Route>
                 <Route path="login" element={<Login />} />
                 <Route path="register" element={<Register />} />
+                <Route path="artistpage">
+                   <Route path=":id" element={<ArtistPage artistId={1}/>} />
+                </Route>
 
                 {/* protected routes */} 
                 <Route element={<RequireAuth />}>     
                     <Route path="profile">
                         <Route path=":id" element={<UserPage/>} />
-                    </Route>
-                    <Route path="artistpage">
-                        <Route path=":id" element={<ArtistPage artistId={1}/>} />
                     </Route>
                 </Route> 
 
