@@ -13,7 +13,7 @@ namespace Badcamp.Controllers
         private IBadcampContext _context;
 
         private ILogger _logger;
-        public PlaylistController(IBadcampContext context, ILogger logger)
+        public PlaylistController(IBadcampContext context, ILogger<PlaylistController> logger)
         {
             _context = context;
             _logger = logger;
