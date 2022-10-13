@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Badcamp.Application.UseCases.PlaylistCases.AddToPlaylist
 {
-    internal class AddToPlaylistHandler : IRequestHandler<AddToPlaylistRequest, Response<Playlist>>
+    public class AddToPlaylistHandler : IRequestHandler<AddToPlaylistRequest, Response<Playlist>>
     {
         public IBadcampContext _context { get; set; }
         public AddToPlaylistHandler(IBadcampContext context)

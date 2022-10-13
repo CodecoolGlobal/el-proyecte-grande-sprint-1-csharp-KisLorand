@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Badcamp.Application.UseCases.PlaylistCases.AddToPlaylist
 {
-    internal class AddToPlaylistRequest : IRequest<Response>
+    public class AddToPlaylistRequest : IRequest<Response>
     {
         public int SongId { get; set; }
         public int PlaylistId { get; set; }

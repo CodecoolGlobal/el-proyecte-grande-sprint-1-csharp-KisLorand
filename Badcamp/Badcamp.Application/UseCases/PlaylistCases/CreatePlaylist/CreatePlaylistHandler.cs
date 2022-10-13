@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Badcamp.Application.UseCases.PlaylistCases.CreatePlaylist
 {
-    internal class CreatePlaylistHandler : IRequestHandler<CreatePlaylistRequest, Response<Playlist>>
+    public class CreatePlaylistHandler : IRequestHandler<CreatePlaylistRequest, Response<Playlist>>
     {
 
         private IBadcampContext _context;
@@ -21,6 +21,8 @@ namespace Badcamp.Application.UseCases.PlaylistCases.CreatePlaylist
             var playlist = new Playlist();
             try
             {
+                var user = _context.Users.Find(message.UserId);
+                playlist.User = user;
                 playlist.Name = message.Name;
                 _context.Playlists.Add(playlist);
                 _context.SaveChanges();

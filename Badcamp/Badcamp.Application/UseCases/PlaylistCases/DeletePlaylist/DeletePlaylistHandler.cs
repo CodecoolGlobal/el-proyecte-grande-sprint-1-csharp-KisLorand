@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Badcamp.Application.UseCases.PlaylistCases.DeletePlaylist
 {
-    internal class DeletePlaylistHandler : IRequestHandler<DeletePLaylistRequest, Response<Playlist>>
+    public class DeletePlaylistHandler : IRequestHandler<DeletePLaylistRequest, Response<Playlist>>
     {
 
         private IBadcampContext _context;

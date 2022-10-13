@@ -7,8 +7,9 @@ using System.Threading.Tasks;
 
 namespace Badcamp.Application.UseCases.PlaylistCases.CreatePlaylist
 {
-    internal class CreatePlaylistRequest : IRequest<Response>
+    public class CreatePlaylistRequest : IRequest<Response>
     {
+        public int UserId { get; set; }
         public string Name { get; set; }
     }
 }

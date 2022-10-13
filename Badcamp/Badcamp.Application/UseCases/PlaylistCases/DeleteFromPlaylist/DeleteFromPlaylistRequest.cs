@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Badcamp.Application.UseCases.PlaylistCases.DeleteFromPlaylist
 {
-    internal class DeleteFromPlaylistRequest : IRequest<Response>
+    public class DeleteFromPlaylistRequest : IRequest<Response>
     {
         public int SongId { get; set; }
         public int PlaylistId { get; set; }
