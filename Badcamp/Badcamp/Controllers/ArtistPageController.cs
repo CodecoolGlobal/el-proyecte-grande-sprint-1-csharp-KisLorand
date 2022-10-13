@@ -98,5 +98,20 @@ namespace Badcamp.Controllers
 			_logger.LogInformation("Artist deleted");
 			return Ok(response.Value);
 		}
+
+		[HttpGet("Edit/{id}")]
+		public ActionResult<Artist> GetOneArtistByUserId([FromRoute] int id)
+		{
+			var request = new ArtistIdRequest { Id = id };
+			var handler = new GetArtistByUserIdHandler(_context);
+			var response = handler.Handle(request);
+			if (response.Failure)
+			{
+				_logger.LogError(response.Error);
+				return BadRequest(response.Error);
+			}
+			_logger.LogInformation("Artist received");
+			return Ok(response.Value);
+		}
 	}
 }

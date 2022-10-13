@@ -3,6 +3,7 @@ import "./artistCard.css";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import Collapse from "react-bootstrap/Collapse";
+import { Link } from "react-router-dom";
 
 const ArtistCard = ({ artist, descLength }) => {
   const cardStyle = {
@@ -32,7 +33,9 @@ const ArtistCard = ({ artist, descLength }) => {
                 ? artist.description
                 : artist.description.substring(0, 20) + "..."}
             </Card.Text>
-            <Button variant="primary">more info</Button>
+            <Button variant="primary">
+              <Link to={`/artistpage/${artist.id}`}>more info</Link>
+            </Button>
           </div>
           </Collapse>
         
