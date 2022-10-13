@@ -12,10 +12,10 @@ namespace Badcamp.Application.UseCases.ArtistPage.Handlers
 {
 	public class UpdateArtistHandler : IRequestHandler<ArtistRequest, Response<Artist>>
 	{
-		private ArtistStorage _storage;
-		public UpdateArtistHandler(ArtistStorage storage)
+		private IBadcampContext _context;
+		public UpdateArtistHandler(IBadcampContext context)
 		{
-			_storage = storage;
+			_context = context;
 		}
 
 		public Response<Artist> Handle(ArtistRequest message)
@@ -23,16 +23,16 @@ namespace Badcamp.Application.UseCases.ArtistPage.Handlers
 			try
 			{
 				var updateData = message.Artist;
-				Artist artist = _storage.GetArtist(1);
-				//Artist artist = _context.Artists.Where(x=>x.Id==updateData.Id);
-				artist.Name = updateData.Name;
-				artist.Description = updateData.Description;
-				artist.Genres = updateData.Genres;
-				artist.ProfilePicture = updateData.ProfilePicture;
+				Artist artist = _context.Artists.Where(x=>x.Id==updateData.Id).FirstOrDefault();
 				if (artist == null)
 				{
 					return Response.Fail<Artist>("Artist not found");
 				}
+				artist.Name = updateData.Name;
+				artist.Description = updateData.Description;
+				artist.Genres = updateData.Genres;
+				artist.ProfilePicture = updateData.ProfilePicture;
+				_context.SaveChanges();
 				return Response.Ok(artist);
 			}
 			catch (Exception ex)
