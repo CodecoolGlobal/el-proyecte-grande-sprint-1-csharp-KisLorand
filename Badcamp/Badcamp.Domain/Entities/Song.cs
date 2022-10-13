@@ -10,7 +10,6 @@
         public string Lyrics { get; set; } = String.Empty;
         public string AudioSource { get; set; } = String.Empty;
         public HashSet<Genre> Genres { get; set; } = new HashSet<Genre>();
-        public HashSet<Playlist>? Playlists { get; set; }
 
         public Song(long id, Artist artist, string title, string albumTitle, string description, string lyrics, string audioSource, HashSet<Genre> genres)
         {
