@@ -1,7 +1,9 @@
 import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
+import { FaUserEdit, FaUserSlash } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
-const CardItem = ({ user }) => {
+const CardItem = ({ user, setState }) => {
     return (
         <div>
             <Card.Body>
@@ -12,7 +14,8 @@ const CardItem = ({ user }) => {
                 <ListGroup.Item variant="light">Date of birth: {user.dateOfBirth}</ListGroup.Item>
             </ListGroup>
             <Card.Body>
-                <Card.Link href="#">Edit info</Card.Link>
+                <Card.Link href="#" onClick={() => setState('edit')}><FaUserEdit/> Edit</Card.Link><br/>
+                <Card.Link href="#"><FaUserSlash/> Delete</Card.Link>
             </Card.Body>
         </div>
     );
