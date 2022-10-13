@@ -10,12 +10,11 @@ const SongListing = (props) => {
     useEffect(() => {
         apiRequest(getAll, [songs, setSongs]);
     }, []);
-
     return (
         (songs === null) ? <p> Loading Songs... </p> :
         <div>
             <SongContainer
-                songs={songs.map((song) =>
+                songs={songs.filter((song) =>
                     song.title.toLowerCase().includes(searchValue.toLocaleLowerCase())
                 )}
                 setSongs={setSongs}
