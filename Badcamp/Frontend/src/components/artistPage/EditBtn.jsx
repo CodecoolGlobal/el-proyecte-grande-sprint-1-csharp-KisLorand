@@ -9,7 +9,6 @@ const EditBtn = (btnprops) => {
         if (toggleState===true) {
             UpdateData();
         }
-        console.log(btnprops.artist.name);
     };
 
     const UpdateData = () => {
