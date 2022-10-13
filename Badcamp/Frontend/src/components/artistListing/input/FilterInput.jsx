@@ -4,7 +4,6 @@ import { Dropdown, DropdownButton } from 'react-bootstrap'
 const FilterInput = ({filterValue,setFilterValue,genres}) => {
     const handleSelect = (e) =>{
         setFilterValue(e)
-        console.log(e)
     }
 
   return (

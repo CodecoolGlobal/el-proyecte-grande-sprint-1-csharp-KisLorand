@@ -38,7 +38,7 @@ namespace Badcamp.Controllers
             return Ok(response.Value);
         }
 
-        [Route("{artistId}/GetEventsByArtist")]
+      /*  [Route("{artistId}/GetEventsByArtist")]
         [HttpGet]
         public ActionResult<List<Event>> GetEventsByArtist(int artistId)
         {
@@ -52,7 +52,7 @@ namespace Badcamp.Controllers
             }
             _logger.LogInformation("Events recieved");
             return Ok(response.Value);
-        }
+        }*/
 
         [Route("GetEvents")]
         [HttpGet]
@@ -70,7 +70,7 @@ namespace Badcamp.Controllers
             return Ok(response.Value);
         }
 
-        [Route("/DeleteEvent/{eventId}")]
+        [Route("DeleteEvent/{eventId}")]
         [HttpDelete]
         public ActionResult<Event> DeleteEvent(int eventId)
         {
@@ -85,11 +85,11 @@ namespace Badcamp.Controllers
             _logger.LogInformation("Event Deleted");
             return NoContent();
         }
-        [Route("/UpdateEvent/{eventId}")]
+        [Route("UpdateEvent")]
         [HttpPut]
-        public ActionResult<Event> UpdateEvent(int eventId, [FromBody] Event eventUpdate)
+        public ActionResult<Event> UpdateEvent([FromBody] Event eventUpdate)
         {
-            var request = new UpdateEventRequest { EventId = eventId, UpdateEvent = eventUpdate };
+            var request = new UpdateEventRequest { UpdateEvent = eventUpdate };
             var handler = new UpdateEventHandler(_badcampContext);
             var response = handler.Handle(request);
             if (response.Failure)

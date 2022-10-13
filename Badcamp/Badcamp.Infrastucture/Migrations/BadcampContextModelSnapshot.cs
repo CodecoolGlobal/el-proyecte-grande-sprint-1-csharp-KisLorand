@@ -75,7 +75,7 @@ namespace Badcamp.Infrastucture.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
 
-                    b.Property<long>("ArtistId")
+                    b.Property<long?>("ArtistId")
                         .HasColumnType("bigint");
 
                     b.Property<string>("Description")
@@ -113,6 +113,28 @@ namespace Badcamp.Infrastucture.Migrations
                     b.ToTable("Genres");
                 });
 
+            modelBuilder.Entity("Badcamp.Domain.Entities.Playlist", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("UserId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Playlists");
+                });
+
             modelBuilder.Entity("Badcamp.Domain.Entities.Song", b =>
                 {
                     b.Property<long>("Id")
@@ -140,6 +162,9 @@ namespace Badcamp.Infrastucture.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("PlaylistId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -147,6 +172,8 @@ namespace Badcamp.Infrastucture.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("ArtistId");
+
+                    b.HasIndex("PlaylistId");
 
                     b.ToTable("Songs");
                 });
@@ -224,11 +251,20 @@ namespace Badcamp.Infrastucture.Migrations
                 {
                     b.HasOne("Badcamp.Domain.Entities.Artist", "Artist")
                         .WithMany("Events")
-                        .HasForeignKey("ArtistId")
+                        .HasForeignKey("ArtistId");
+
+                    b.Navigation("Artist");
+                });
+
+            modelBuilder.Entity("Badcamp.Domain.Entities.Playlist", b =>
+                {
+                    b.HasOne("Badcamp.Domain.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Artist");
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Badcamp.Domain.Entities.Song", b =>
@@ -238,6 +274,10 @@ namespace Badcamp.Infrastucture.Migrations
                         .HasForeignKey("ArtistId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("Badcamp.Domain.Entities.Playlist", null)
+                        .WithMany("Songs")
+                        .HasForeignKey("PlaylistId");
 
                     b.Navigation("Artist");
                 });
@@ -261,6 +301,11 @@ namespace Badcamp.Infrastucture.Migrations
                 {
                     b.Navigation("Events");
 
+                    b.Navigation("Songs");
+                });
+
+            modelBuilder.Entity("Badcamp.Domain.Entities.Playlist", b =>
+                {
                     b.Navigation("Songs");
                 });
 #pragma warning restore 612, 618

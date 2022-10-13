@@ -6,6 +6,12 @@
 .upVote{
     text-align: right;
 }
-.upVote-img{
+.upvote-img{
     height: 2rem;
+}
+a.subtitle{
+    color :rgb(0, 0, 0);
+}
+a.subtitle:visited{
+    color:black
 }

@@ -9,20 +9,23 @@ using System.Threading.Tasks;
 
 namespace Badcamp.Application.UseCases.ArtistPage.Handlers
 {
-	public class AddArtistHandler : IRequestHandler<ArtistRequest, Response<Artist>>
+	public class AddArtistHandler : IRequestHandler<ArtistAndIdRequest, Response<Artist>>
 	{
-		private ArtistStorage _storage;
-		public AddArtistHandler(ArtistStorage storage)
+		private IBadcampContext _context;
+		public AddArtistHandler(IBadcampContext context)
 		{
-			_storage = storage;
+			_context = context;
 		}
 
-		public Response<Artist> Handle(ArtistRequest message)
+		public Response<Artist> Handle(ArtistAndIdRequest message)
 		{
 			Artist artist = message.Artist;
 			try
 			{
-				_storage.AddArtist(message.Artist);
+				User user = _context.Users.Find(message.UserId);
+				artist.User = user;
+				_context.Artists.Add(artist);
+				_context.SaveChanges();
 				if (artist == null)
 				{
 					return Response.Fail<Artist>("Artists list not found");

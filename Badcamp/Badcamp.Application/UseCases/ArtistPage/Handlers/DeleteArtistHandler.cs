@@ -12,10 +12,10 @@ namespace Badcamp.Application.UseCases.ArtistPage.Handlers
 {
 	public class DeleteArtistHandler : IRequestHandler<ArtistIdRequest, Response<Artist>>
 	{
-		private ArtistStorage _storage;
-		public DeleteArtistHandler(ArtistStorage storage)
+		private IBadcampContext _context;
+		public DeleteArtistHandler(IBadcampContext context)
 		{
-			_storage = storage;
+			_context = context;
 		}
 
 		public Response<Artist> Handle(ArtistIdRequest message)
@@ -23,12 +23,13 @@ namespace Badcamp.Application.UseCases.ArtistPage.Handlers
 			Artist artist;
 			try
 			{
-				artist = _storage.GetArtist(message.Id);
+				artist = _context.Artists.Where(x=>x.Id==message.Id).FirstOrDefault();
 				if (artist == null)
 				{
 					return Response.Fail<Artist>("Artist not found");
 				}
-				//_storage.DeleteArtist(message.Id);
+				_context.Artists.Remove(artist);
+				_context.SaveChanges();
 				return Response.Ok(artist);
 			}
 			catch (Exception ex)

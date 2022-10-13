@@ -9,6 +9,9 @@ using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Badcamp.Application.Common;
+using Badcamp.Application.UseCases.SongCases;
+using Badcamp.Domain.Entities;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -40,8 +43,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<IBadcampContext, BadcampContext>(options =>
 {
-    //var connectionstring = builder.Configuration.GetConnectionString("BadcampContext");
-    var connectionstring = "Server = (localdb)\\mssqllocaldb; Database = BadCamp; Integrated Security = True";
+    var connectionstring = builder.Configuration.GetConnectionString("BadcampContext");
     options.UseSqlServer(connectionstring);
 });
 
@@ -49,7 +51,11 @@ builder.Services.AddTransient<BadcampSeed>();
 
 
 // change to scoped when no longer inmemory
-builder.Services.AddSingleton<ISongStorage, SongStorage>();
+builder.Services.AddScoped<IRequestHandler<AddSongRequest, Response>, AddSongHandler>();
+builder.Services.AddScoped<IRequestHandler<DeleteSongRequest, Response>, DeleteSongHandler>();
+builder.Services.AddScoped<IRequestHandler<UpdateSongRequest, Response>, UpdateSongHandler>();
+builder.Services.AddScoped<IRequestHandler<GetSongRequest, Response<Song>>, GetSongHandler>();
+builder.Services.AddScoped<IRequestHandler<GetAllSongsRequest, Response<IReadOnlyList<Song>>>, GetAllSongsHandler>();
 builder.Services.AddSingleton<UserStorage>();
 builder.Services.AddSingleton<EventService>();
 builder.Services.AddSingleton<ArtistStorage>();
@@ -61,7 +67,7 @@ var app = builder.Build();
 using var scope = app.Services.CreateScope();
 var services = scope.ServiceProvider;
 var initialiser = services.GetRequiredService<BadcampSeed>();
-initialiser.Seed();
+//initialiser.Seed();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
