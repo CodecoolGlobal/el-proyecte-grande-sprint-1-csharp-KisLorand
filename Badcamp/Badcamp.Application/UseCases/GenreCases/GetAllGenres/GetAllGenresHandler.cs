@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Badcamp.Application.UseCases.GenreCases.GetAllGenres
 {
-    public class GetAllGenresHandler : IRequestHandler<GetAllGenresRequest, Response<IReadOnlyList<Genre>>>
+    public class GetAllGenresHandler : IRequestHandler<GetAllGenresRequest, Response<IReadOnlyList<string>>>
     {
 
         private IBadcampContext _context;
@@ -16,21 +16,21 @@ namespace Badcamp.Application.UseCases.GenreCases.GetAllGenres
         {
             _context = context;
         }
-        public Response<IReadOnlyList<Genre>> Handle(GetAllGenresRequest message)
+        public Response<IReadOnlyList<string>> Handle(GetAllGenresRequest message)
         {
             try
             {
-                var genres = _context.Genres.ToList();
+                var genres = _context.Genres.Select(x => x.Name).ToList();
                 if (!genres.Any())
                 {
-                    return Response.Fail<IReadOnlyList<Genre>>("Genres not found");
+                    return Response.Fail<IReadOnlyList<string>>("Genres not found");
                 }
-                return Response.Ok(genres as IReadOnlyList<Genre>); 
+                return Response.Ok(genres as IReadOnlyList<string>); 
             }
             catch (Exception e)
             {
 
-                return Response.Fail<IReadOnlyList<Genre>>(e.Message);
+                return Response.Fail<IReadOnlyList<string>>(e.Message);
             }
         }
     }

@@ -21,7 +21,7 @@ namespace Badcamp.Controllers
         }
 
         [HttpGet]
-        public ActionResult<List<Genre>> GetAllGenres()
+        public ActionResult<IReadOnlyList<string>> GetAllGenres()
         {
             var request = new GetAllGenresRequest { };
             var handler = new GetAllGenresHandler(_badcampContext);
