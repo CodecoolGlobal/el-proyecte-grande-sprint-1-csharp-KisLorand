@@ -27,12 +27,12 @@ const ArtistPage = (props) => {
 
   const urlArtists = `${process.env.REACT_APP_BASE_URL}api/ArtistPage/${id}`; 
   const urlArtistEdit = `${process.env.REACT_APP_BASE_URL}api/ArtistPage/Edit/${user.userId}`; 
-  //const urlSongs = `${process.env.REACT_APP_BASE_URL}api/Song/getall`; 
-  const urlSongs = `${process.env.REACT_APP_BASE_URL}api/Event/GetEvents`; 
+  const urlSongs = `${process.env.REACT_APP_BASE_URL}api/Song/getall`; 
   const urlEvents = `${process.env.REACT_APP_BASE_URL}api/Event/GetEvents`; 
 
   useEffect(() => {
     apiRequest(urlArtistEdit, [artist, setArtist]);
+    apiRequest(urlSongs, [listData, setListData]);
   }, [id===null])
 
   useEffect(() => {
@@ -43,6 +43,7 @@ const ArtistPage = (props) => {
   useEffect(() => {
     const url = (selectSong ? urlSongs : urlEvents)
     apiRequest(url, [listData, setListData]);
+    apiRequest(urlSongs, [listData, setListData]);
   }, [selectSong]);
 
   useEffect(()=>{
@@ -59,7 +60,6 @@ const ArtistPage = (props) => {
       <p>"Loading..."</p>
     );
   } else {
-    console.log(user.userId );
     return (
       <div>
         <Card className="eventCard border border-4 w-50" style={{ width: "18rem" }}>
@@ -104,10 +104,10 @@ const ArtistPage = (props) => {
             <ToggleButton toggle={[selectSong, setSelectSong]}/>
             {selectSong ? 
               <SongList 
-                songs={listData.filter((song) => song.artist.id === artist.id)} 
+                songs={listData.filter((song) => song.artistId === artist.id)} 
               /> :
               <EventList
-                events={listData.filter((event) => event.artist.id === artist.id)}
+                events={listData.filter((event) => event.artistId === artist.id)}
                 artistName={artist.name}
               />
             }
