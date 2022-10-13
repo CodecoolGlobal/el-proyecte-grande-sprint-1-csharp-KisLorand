@@ -22,7 +22,6 @@ function App() {
                 <Route index element={<SongListing/>}></Route>
                 <Route path='SongListing' element={<SongListing />}></Route>
                 <Route exact path='/events' element={<EventPage />}></Route>
-                <Route exact path='/artistpage' element={<ArtistPage artistId={1}/>}></Route>
                 <Route path='ArtistListing' element={<ArtistListing />}></Route>
                 <Route path="login" element={<Login />} />
                 <Route path="register" element={<Register />} />
@@ -31,6 +30,9 @@ function App() {
                 <Route element={<RequireAuth />}>     
                     <Route path="profile">
                         <Route path=":id" element={<UserPage/>} />
+                    </Route>
+                    <Route path="artistpage">
+                        <Route path=":id" element={<ArtistPage artistId={1}/>} />
                     </Route>
                 </Route> 
 

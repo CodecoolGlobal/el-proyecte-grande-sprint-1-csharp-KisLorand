@@ -1,0 +1,26 @@
+#hide {
+    position: absolute;
+    opacity: 0;
+    z-index: -100;
+    white-space: pre;
+  }
+
+*,
+*::before,
+*::after { 
+box-sizing: border-box;
+}
+
+.input-sizer {
+display: inline-grid;
+vertical-align: top;
+align-items: center;
+position: relative;
+border: solid 1px;
+}
+    
+
+    
+   
+
+    
