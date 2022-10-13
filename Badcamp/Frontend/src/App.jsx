@@ -12,7 +12,6 @@ import RequireAuth from './components/RequireAuth';
 import Unauthorized from './components/Unauthorized';
 
 function App() {
-
     return (
         <Routes>
             <Route path="/" element={<Layout />}>
@@ -22,6 +21,9 @@ function App() {
                 <Route index element={<SongListing/>}></Route>
                 <Route path='SongListing' element={<SongListing />}></Route>
                 <Route exact path='/events' element={<EventPage />}></Route>
+                <Route exact path='/artistpage'>
+                    <Route path=":id" element={<ArtistPage/>} />
+                </Route>
                 <Route path='ArtistListing' element={<ArtistListing />}></Route>
                 <Route path="login" element={<Login />} />
                 <Route path="register" element={<Register />} />
@@ -31,9 +33,7 @@ function App() {
                     <Route path="profile">
                         <Route path=":id" element={<UserPage/>} />
                     </Route>
-                    <Route path="artistpage">
-                        <Route path=":id" element={<ArtistPage artistId={1}/>} />
-                    </Route>
+                    <Route path="artistpage/edit" element={<ArtistPage/>} />
                 </Route> 
 
             </Route>
