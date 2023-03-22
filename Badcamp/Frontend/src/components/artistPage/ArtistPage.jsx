@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { useState, useEffect, useRef, useContext } from 'react';
 import ArtistName from './ArtistName';
 import ArtistDescription from './ArtistDescription';
@@ -22,10 +22,10 @@ const ArtistPage = (props) => {
   const [editName, setEditName] = useState(false);
   const [editState, setEditState] = useState(false);
 
-  const urlArtists = `${process.env.REACT_APP_BASE_URL}api/ArtistPage`; 
-  //const urlSongs = `${process.env.REACT_APP_BASE_URL}api/Song/getall`; 
-  const urlSongs = `${process.env.REACT_APP_BASE_URL}api/Event/GetEvents`; 
-  const urlEvents = `${process.env.REACT_APP_BASE_URL}api/Event/GetEvents`; 
+  const urlArtists = "https://localhost:7151/api/ArtistPage"; 
+  //const urlSongs = "https://localhost:7151/api/Song/getall"; 
+  const urlSongs = "https://localhost:7151/api/Event/GetEvents"; 
+  const urlEvents = "https://localhost:7151/api/Event/GetEvents"; 
 
   useEffect(() => {
     apiRequest(urlArtists, [artist, setArtist]);

@@ -435,6 +435,7 @@ namespace Badcamp.Infrastucture
                     },
                     new Song
                     {
+                        Artist = context.Artists.Where(x => x.Name == "Johny Cache").FirstOrDefault(),
                         Title = "Donkey Autopsy",
                         AlbumTitle = "Big Boy Band",
                         Description = "A song about suffering and struggling",

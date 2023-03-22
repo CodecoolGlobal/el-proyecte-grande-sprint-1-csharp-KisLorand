@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { useState, useEffect } from 'react';
 import SongContainer from './SongContainer';
 import apiRequest from '../../requests/apiRequest';
@@ -6,7 +6,7 @@ import apiRequest from '../../requests/apiRequest';
 const SongListing = (props) => {
     const [searchValue, setSearchValue] = useState("");
     const [songs, setSongs] = useState(null)
-    const getAll = process.env.REACT_APP_BASE_URL + "api/Song/getall";
+    const getAll = "https://localhost:7151/api/Song/getall";
     useEffect(() => {
         apiRequest(getAll, [songs, setSongs]);
     }, []);

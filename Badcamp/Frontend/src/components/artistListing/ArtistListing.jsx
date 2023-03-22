@@ -1,9 +1,9 @@
-import React from "react";
+﻿import React from "react";
 import { useState, useEffect } from "react";
 import ALContainer from "./ALContainer";
 
 const ArtistListing = () => {
-  const baseUrl = process.env.REACT_APP_BASE_URL
+  const baseUrl = "https://localhost:7151/"
   const artistsUrl = `${baseUrl}api/ArtistGallery`;
   const genresUrl = `${baseUrl}api/Genre`;
   const [searchValue, setSearchValue] = useState("");
